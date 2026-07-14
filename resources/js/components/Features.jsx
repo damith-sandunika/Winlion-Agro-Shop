@@ -1,4 +1,5 @@
 import React from 'react';
+import { Sprout, Truck, ShieldCheck, Award } from 'lucide-react';
 
 const Features = () => {
     return (
@@ -8,33 +9,33 @@ const Features = () => {
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-white rounded-xl border border-gray-100 p-6 flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow">
-                    <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-brand-green text-2xl mb-4">
-                        🌿
+                <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col items-center justify-center text-center hover:shadow-[0_8px_30px_rgba(21,128,61,0.12)] transition-all duration-300 hover:-translate-y-2 group">
+                    <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center text-brand-green mb-4 group-hover:scale-110 group-hover:bg-brand-green group-hover:text-white transition-all duration-300">
+                        <Sprout size={28} strokeWidth={2.5} />
                     </div>
                     <h4 className="font-bold text-gray-800 mb-1">Farm Fresh</h4>
                     <p className="text-sm text-gray-500">Direct from Farmers</p>
                 </div>
                 
-                <div className="bg-white rounded-xl border border-gray-100 p-6 flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow">
-                    <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-brand-green text-2xl mb-4">
-                        🚚
+                <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col items-center justify-center text-center hover:shadow-[0_8px_30px_rgba(21,128,61,0.12)] transition-all duration-300 hover:-translate-y-2 group">
+                    <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center text-brand-green mb-4 group-hover:scale-110 group-hover:bg-brand-green group-hover:text-white transition-all duration-300">
+                        <Truck size={28} strokeWidth={2.5} />
                     </div>
                     <h4 className="font-bold text-gray-800 mb-1">Fast Delivery</h4>
                     <p className="text-sm text-gray-500">On Time Delivery</p>
                 </div>
                 
-                <div className="bg-white rounded-xl border border-gray-100 p-6 flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow">
-                    <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-brand-green text-2xl mb-4">
-                        🛡️
+                <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col items-center justify-center text-center hover:shadow-[0_8px_30px_rgba(21,128,61,0.12)] transition-all duration-300 hover:-translate-y-2 group">
+                    <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center text-brand-green mb-4 group-hover:scale-110 group-hover:bg-brand-green group-hover:text-white transition-all duration-300">
+                        <ShieldCheck size={28} strokeWidth={2.5} />
                     </div>
                     <h4 className="font-bold text-gray-800 mb-1">Secure Payment</h4>
                     <p className="text-sm text-gray-500">100% Safe</p>
                 </div>
                 
-                <div className="bg-white rounded-xl border border-gray-100 p-6 flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow">
-                    <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-brand-green text-2xl mb-4">
-                        ⭐
+                <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col items-center justify-center text-center hover:shadow-[0_8px_30px_rgba(21,128,61,0.12)] transition-all duration-300 hover:-translate-y-2 group">
+                    <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center text-brand-green mb-4 group-hover:scale-110 group-hover:bg-brand-green group-hover:text-white transition-all duration-300">
+                        <Award size={28} strokeWidth={2.5} />
                     </div>
                     <h4 className="font-bold text-gray-800 mb-1">Premium Quality</h4>
                     <p className="text-sm text-gray-500">100% Safe Payment</p>

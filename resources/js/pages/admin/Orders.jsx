@@ -3,18 +3,18 @@ import AdminLayout from '../../layouts/AdminLayout';
 import axios from 'axios';
 import { Printer } from 'lucide-react';
 
-const tabs = ['All', 'Pending', 'Processing', 'Delivered', 'Cancelled'];
+const tabs = ['Received', 'Delivered', 'Completed', 'Cancelled'];
 
 const statusColors = {
-    Pending:    'bg-yellow-100 text-yellow-700',
-    Processing: 'bg-blue-100 text-blue-700',
-    Shipped:    'bg-purple-100 text-purple-700',
-    Delivered:  'bg-green-100 text-green-700',
-    Cancelled:  'bg-red-100 text-red-700',
+    Received:   'bg-blue-100 text-blue-700 border-blue-200',
+    Pending:    'bg-blue-100 text-blue-700 border-blue-200', // fallback for old records
+    Delivered:  'bg-emerald-100 text-emerald-700 border-emerald-200',
+    Completed:  'bg-gray-100 text-gray-700 border-gray-200',
+    Cancelled:  'bg-red-100 text-red-700 border-red-200',
 };
 
 export default function AdminOrders() {
-    const [activeTab, setActiveTab] = useState('All');
+    const [activeTab, setActiveTab] = useState('Received');
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [updating, setUpdating] = useState(null);
@@ -48,7 +48,7 @@ export default function AdminOrders() {
                     body { font-family: sans-serif; padding: 40px; color: #333; }
                     .header { text-align: center; margin-bottom: 40px; border-bottom: 2px solid #eee; padding-bottom: 20px; }
                     .details { margin-bottom: 30px; display: flex; justify-content: space-between; }
-                    table { w-full; width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+                    table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
                     th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
                     th { background: #f9f9f9; }
                     .total { text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 20px; }
@@ -105,77 +105,97 @@ export default function AdminOrders() {
         }, 500);
     };
 
-    const filtered = activeTab === 'All' ? orders : orders.filter(o => o.delivery_status === activeTab);
+    const filtered = orders.filter(o => {
+        if (activeTab === 'Received') return o.delivery_status === 'Pending' || o.delivery_status === 'Received';
+        if (activeTab === 'Delivered') return o.delivery_status === 'Delivered';
+        if (activeTab === 'Completed') return o.delivery_status === 'Completed';
+        if (activeTab === 'Cancelled') return o.delivery_status === 'Cancelled';
+        return true;
+    });
 
     return (
         <AdminLayout>
-            <div className="mb-6">
-                <h1 className="text-2xl font-bold text-gray-800">Orders</h1>
-                <p className="text-gray-500 text-sm">Manage all customer orders</p>
+            {/* Exact Title Section from Education Center Classes/Index.jsx */}
+            <div className="mb-4 sm:mb-6 bg-white rounded-md p-4 sm:p-5 shadow-sm border border-slate-200 flex sm:flex-row sm:items-center sm:justify-between gap-4 relative overflow-hidden">
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center pointer-events-none opacity-60">
+                    <div className="w-24 h-24 bg-blue-50 rotate-45 translate-x-12 rounded-lg"></div>
+                    <div className="w-36 h-36 bg-blue-100 rotate-45 translate-x-6 -ml-8 rounded-xl"></div>
+                    <div className="w-48 h-48 bg-blue-200 rotate-45 -ml-12 rounded-2xl"></div>
+                    <div className="w-32 h-32 bg-blue-300 rotate-45 -ml-16 rounded-lg"></div>
+                </div>
+                <div className="relative z-10">
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">Orders Management</h2>
+                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-medium uppercase tracking-widest mt-1">Manage Orders</p>
+                </div>
             </div>
 
-            {/* Tabs */}
-            <div className="flex gap-2 mb-6 overflow-x-auto pb-1">
+            {/* Flat Tabs without Border Radius */}
+            <div className="border-b border-gray-200 mb-6 flex">
                 {tabs.map(tab => (
-                    <button key={tab} onClick={() => setActiveTab(tab)}
-                        className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
-                            activeTab === tab ? 'bg-green-600 text-white shadow-md shadow-green-300/50' : 'bg-white text-gray-600 border border-gray-200 hover:border-green-400 hover:text-green-600'
-                        }`}>
+                    <button 
+                        key={tab} 
+                        onClick={() => setActiveTab(tab)}
+                        className={`px-6 py-3 text-sm font-medium transition-colors border-b-2 ${
+                            activeTab === tab 
+                            ? 'border-[#1933C6] text-[#1933C6]' 
+                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        }`}
+                    >
                         {tab}
                     </button>
                 ))}
             </div>
 
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                        <thead className="bg-gray-50 border-b border-gray-100">
+            {/* Table matched to Education Center Classes/Index.jsx */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="overflow-x-auto w-full">
+                    <table className="w-full text-sm text-left">
+                        <thead className="bg-gray-50 text-xs text-gray-500 uppercase tracking-wider">
                             <tr>
-                                <th className="text-left px-5 py-3.5 font-semibold text-gray-600">Invoice</th>
-                                <th className="text-left px-5 py-3.5 font-semibold text-gray-600">Customer</th>
-                                <th className="text-left px-5 py-3.5 font-semibold text-gray-600">WhatsApp</th>
-                                <th className="text-left px-5 py-3.5 font-semibold text-gray-600">Total</th>
-                                <th className="text-left px-5 py-3.5 font-semibold text-gray-600">Payment</th>
-                                <th className="text-left px-5 py-3.5 font-semibold text-gray-600">Delivery</th>
-                                <th className="text-left px-5 py-3.5 font-semibold text-gray-600">Date</th>
-                                <th className="text-left px-5 py-3.5 font-semibold text-gray-600">Actions</th>
+                                <th className="px-6 py-3">Invoice & Date</th>
+                                <th className="px-6 py-3">Customer</th>
+                                <th className="px-6 py-3">Total Amount</th>
+                                <th className="px-6 py-3">Payment</th>
+                                <th className="px-6 py-3">Delivery Status</th>
+                                <th className="px-6 py-3 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
                             {loading ? (
-                                [...Array(5)].map((_, i) => (
-                                    <tr key={i}><td colSpan="7" className="px-5 py-3"><div className="h-4 bg-gray-100 rounded animate-pulse" /></td></tr>
-                                ))
+                                <tr><td colSpan="6" className="px-6 py-10 text-center text-gray-400">Loading...</td></tr>
                             ) : filtered.length === 0 ? (
-                                <tr><td colSpan="7" className="text-center py-16 text-gray-400">No orders found for "{activeTab}"</td></tr>
-                            ) : filtered.map(order => (
-                                <tr key={order.id} className={`hover:bg-gray-50 transition-colors ${updating === order.id ? 'opacity-60' : ''}`}>
-                                    <td className="px-5 py-3.5 font-mono text-xs text-gray-600">{order.invoice_number}</td>
-                                    <td className="px-5 py-3.5 font-medium text-gray-800">{order.customer_name}</td>
-                                    <td className="px-5 py-3.5 text-gray-600">{order.whatsapp_number}</td>
-                                    <td className="px-5 py-3.5 font-bold text-green-600">Rs.{Number(order.grand_total).toLocaleString()}</td>
-                                    <td className="px-5 py-3.5">
-                                        <select
-                                            value={order.payment_status || 'Pending'}
-                                            onChange={e => updateStatus(order.id, 'payment_status', e.target.value)}
-                                            className="text-xs border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-green-400 bg-white"
-                                        >
-                                            {['Pending', 'Paid', 'Failed', 'Refunded'].map(s => <option key={s}>{s}</option>)}
-                                        </select>
+                                <tr><td colSpan="6" className="px-6 py-10 text-center text-gray-400">No orders found.</td></tr>
+                            ) : filtered.map((order) => (
+                                <tr key={order.id} className={`hover:bg-gray-50 transition ${updating === order.id ? 'opacity-50' : ''}`}>
+                                    <td className="px-6 py-4">
+                                        <div className="font-mono text-[#1933C6] font-medium">{order.invoice_number}</div>
+                                        <div className="text-gray-500 text-xs mt-1">{new Date(order.created_at).toLocaleDateString()}</div>
                                     </td>
-                                    <td className="px-5 py-3.5">
+                                    <td className="px-6 py-4">
+                                        <div className="font-medium text-gray-900">{order.customer_name}</div>
+                                        <div className="text-gray-600 text-xs mt-1">{order.whatsapp_number}</div>
+                                    </td>
+                                    <td className="px-6 py-4 text-gray-900 font-medium">
+                                        Rs.{Number(order.grand_total).toLocaleString()}
+                                    </td>
+                                    <td className="px-6 py-4 text-gray-600">
+                                        {order.payment_method}
+                                    </td>
+                                    <td className="px-6 py-4">
                                         <select
-                                            value={order.delivery_status || 'Pending'}
+                                            value={order.delivery_status === 'Pending' ? 'Received' : (order.delivery_status || 'Received')}
                                             onChange={e => updateStatus(order.id, 'delivery_status', e.target.value)}
-                                            className={`text-xs border rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-green-400 font-semibold ${statusColors[order.delivery_status] || 'bg-gray-100 text-gray-600'}`}
+                                            className={`text-xs border rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 font-medium ${statusColors[order.delivery_status] || 'bg-gray-100 text-gray-600 border-gray-200'}`}
                                         >
-                                            {['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'].map(s => <option key={s}>{s}</option>)}
+                                            <option value="Received">Received</option>
+                                            <option value="Delivered">Delivered</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="Cancelled">Cancelled</option>
                                         </select>
                                     </td>
-                                    <td className="px-5 py-3.5 text-gray-500 text-xs">{new Date(order.created_at).toLocaleDateString()}</td>
-                                    <td className="px-5 py-3.5">
-                                        <button onClick={() => printInvoice(order)} className="p-1.5 bg-gray-100 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Print Invoice">
-                                            <Printer size={16} />
+                                    <td className="px-6 py-4 text-right">
+                                        <button onClick={() => printInvoice(order)} className="text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-medium inline-flex items-center gap-1" title="Print Invoice">
+                                            <Printer size={14} /> Print
                                         </button>
                                     </td>
                                 </tr>

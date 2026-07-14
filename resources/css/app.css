@@ -1,11 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-green: #298d24;
-  --color-brand-light: #eef8f0;
-  --color-brand-dark: #1b5e20;
+  --color-brand-green: #15803d;     /* Deep rich green */
+  --color-brand-light: #f0fdf4;     /* Soft mint background */
+  --color-brand-dark: #14532d;      /* Very dark green */
+  --color-brand-accent: #84cc16;    /* Vibrant lime accent */
+  --color-brand-warning: #fbbf24;
 }
 
 body {
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #f8fafc;
 }

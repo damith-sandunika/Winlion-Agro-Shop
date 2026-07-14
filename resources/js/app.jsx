@@ -14,6 +14,8 @@ import CategoryIndex from './pages/admin/categories/Index';
 import CategoryForm from './pages/admin/categories/Form';
 import AdminCustomers from './pages/admin/Customers';
 import AdminSettings from './pages/admin/Settings';
+import AdminInventory from './pages/admin/Inventory';
+import CouponIndex from './pages/admin/coupons/Index';
 import SupplierIndex from './pages/admin/suppliers/Index';
 import SupplierForm from './pages/admin/suppliers/Form';
 import AdminReports from './pages/admin/Reports';
@@ -49,6 +51,8 @@ if (container) {
                         <Route path="/admin/categories/create" element={<ProtectedRoute><CategoryForm /></ProtectedRoute>} />
                         <Route path="/admin/categories/:id/edit" element={<ProtectedRoute><CategoryForm /></ProtectedRoute>} />
                         <Route path="/admin/customers" element={<ProtectedRoute><AdminCustomers /></ProtectedRoute>} />
+                        <Route path="/admin/inventory" element={<ProtectedRoute><AdminInventory /></ProtectedRoute>} />
+                        <Route path="/admin/coupons" element={<ProtectedRoute><CouponIndex /></ProtectedRoute>} />
                         <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
                         <Route path="/admin/suppliers" element={<ProtectedRoute><SupplierIndex /></ProtectedRoute>} />
                         <Route path="/admin/suppliers/create" element={<ProtectedRoute><SupplierForm /></ProtectedRoute>} />

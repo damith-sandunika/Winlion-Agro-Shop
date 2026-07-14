@@ -18,11 +18,17 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'nullable|string',
+            'image' => 'nullable',
             'description' => 'nullable|string',
             'status' => 'boolean',
             'sort_order' => 'integer',
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('categories', 'public');
+        } elseif ($request->image === 'null') {
+            $validated['image'] = null;
+        }
 
         $validated['slug'] = Str::slug($validated['name']);
         
@@ -40,11 +46,19 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'nullable|string',
+            'image' => 'nullable',
             'description' => 'nullable|string',
             'status' => 'boolean',
             'sort_order' => 'integer',
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('categories', 'public');
+        } elseif ($request->image === 'null') {
+            $validated['image'] = null;
+        } else {
+            unset($validated['image']); // Don't override if not sent or sent as string path
+        }
 
         if ($request->name !== $category->name) {
             $validated['slug'] = Str::slug($validated['name']);

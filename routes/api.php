@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/categories', CategoryController::class);
     Route::apiResource('/products', ProductController::class);
     Route::apiResource('/orders', OrderController::class)->except(['store']);
+    Route::apiResource('/coupons', \App\Http\Controllers\Api\CouponController::class)->except(['show', 'update']);
     
     // Settings, Suppliers, Stock Logs, Reports
     Route::get('/settings', [\App\Http\Controllers\Api\SettingController::class, 'index']);
@@ -35,3 +36,4 @@ Route::post('/public/orders', [OrderController::class, 'store']);
 Route::get('/public/categories', [CategoryController::class, 'index']);
 Route::get('/public/products', [ProductController::class, 'index']);
 Route::get('/public/products/{product}', [ProductController::class, 'show']);
+Route::post('/public/coupons/validate', [\App\Http\Controllers\Api\CouponController::class, 'validateCoupon']);

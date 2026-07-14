@@ -75,31 +75,43 @@ export default function AdminSettings() {
 
     return (
         <AdminLayout>
-            <div className="mb-6 flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold text-gray-800">Settings</h1>
-                    <p className="text-gray-500 text-sm">Configure your store</p>
+            {/* Page Header */}
+            <div className="mb-4 sm:mb-6 bg-white rounded-md p-4 sm:p-5 shadow-sm border border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 relative overflow-hidden">
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center pointer-events-none opacity-60">
+                    <div className="w-24 h-24 bg-blue-50 rotate-45 translate-x-12 rounded-lg"></div>
+                    <div className="w-36 h-36 bg-blue-100 rotate-45 translate-x-6 -ml-8 rounded-xl"></div>
+                    <div className="w-48 h-48 bg-blue-200 rotate-45 -ml-12 rounded-2xl"></div>
+                    <div className="w-32 h-32 bg-blue-300 rotate-45 -ml-16 rounded-lg"></div>
                 </div>
-                <button onClick={handleSave} disabled={saving} className="px-6 py-2.5 rounded-xl text-white text-sm font-semibold shadow-md shadow-green-300/50 hover:opacity-90 disabled:opacity-60" style={{ background: 'linear-gradient(135deg, #298d24, #1b5e20)' }}>
+                <div className="relative z-10">
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">Settings</h2>
+                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-medium uppercase tracking-widest mt-1">Configure your store</p>
+                </div>
+                <button onClick={handleSave} disabled={saving} className="relative z-10 bg-[#1933C6] hover:bg-[#090087] text-white px-5 py-2.5 rounded-md text-[11px] font-black uppercase tracking-widest shadow-sm transition-all active:scale-95 disabled:opacity-60 flex items-center gap-2 justify-center w-full sm:w-auto">
                     {saving ? 'Saving...' : 'Save Settings'}
                 </button>
             </div>
 
-            {message && <div className={`mb-6 px-4 py-3 rounded-xl text-sm font-semibold shadow-sm ${message.includes('Error') ? 'bg-red-50 text-red-600 border border-red-100' : 'bg-green-50 text-green-600 border border-green-100'}`}>{message}</div>}
+            {message && <div className={`mb-6 px-4 py-3 rounded-md text-sm font-medium shadow-sm ${message.includes('Error') ? 'bg-red-50 text-red-600 border border-red-100' : 'bg-emerald-50 text-emerald-600 border border-emerald-100'}`}>{message}</div>}
 
-            {/* Pill Tabs */}
-            <div className="flex gap-2 mb-6 overflow-x-auto pb-1">
+            {/* Tabs */}
+            <div className="border-b border-gray-200 mb-6 flex overflow-x-auto custom-scrollbar">
                 {['General', 'Delivery & Payment', 'WhatsApp'].map(tab => (
-                    <button key={tab} onClick={() => setActiveTab(tab)}
-                        className={`px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
-                            activeTab === tab ? 'bg-green-600 text-white shadow-md shadow-green-300/50' : 'bg-white text-gray-600 border border-gray-200 hover:border-green-400 hover:text-green-600 shadow-sm'
-                        }`}>
+                    <button 
+                        key={tab} 
+                        onClick={() => setActiveTab(tab)}
+                        className={`px-6 py-3 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${
+                            activeTab === tab 
+                            ? 'border-[#1933C6] text-[#1933C6]' 
+                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        }`}
+                    >
                         {tab}
                     </button>
                 ))}
             </div>
 
-            <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+            <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
                 
                 {activeTab === 'General' && (
                     <div className="space-y-5 animate-in fade-in duration-300">

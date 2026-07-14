@@ -6,7 +6,7 @@ import { useCart } from '../context/CartContext';
 const ProductCard = ({ product }) => {
     const [quantity, setQuantity] = useState(1);
     const [added, setAdded] = useState(false);
-    const { addToCart, toggleWishlist, isWishlisted } = useCart();
+    const { addToCart } = useCart();
 
     const increase = () => setQuantity(q => q + 1);
     const decrease = () => setQuantity(q => (q > 1 ? q - 1 : 1));
@@ -18,67 +18,67 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-lg transition-shadow relative group flex flex-col h-full">
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-4 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 relative group flex flex-col h-full z-10 hover:z-20">
             {/* Discount Badge */}
             {product.discount > 0 && (
-                <div className="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-md z-10">
-                    {product.discount}% OFF
+                <div className="absolute top-3 right-3 bg-red-500 text-white text-[11px] font-bold px-2.5 py-1 rounded-full z-10 shadow-sm shadow-red-200">
+                    -{product.discount}%
                 </div>
             )}
             
-            {/* Wishlist Button */}
-            <button onClick={() => toggleWishlist(product)} className="absolute top-4 right-4 z-10 transition-colors">
-                <Heart size={20} className={isWishlisted(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-300 hover:text-red-400'} />
-            </button>
+            {/* Wishlist Button Removed as requested */}
 
             {/* Image */}
-            <Link to={`/product/${product.id}`} className="block relative aspect-square mb-4 overflow-hidden rounded-lg bg-gray-50 flex-shrink-0">
+            <Link to={`/product/${product.id}`} className="block relative aspect-square mb-4 overflow-hidden rounded-xl bg-white flex-shrink-0 transition-colors">
                 <img 
                     src={product.image} 
                     alt={product.name}
-                    className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply"
+                    className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply"
                 />
             </Link>
 
             {/* Content */}
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-col flex-1 px-1">
                 <Link to={`/product/${product.id}`}>
-                    <h4 className="font-bold text-gray-800 text-sm mb-1 hover:text-brand-green line-clamp-1">{product.name}</h4>
+                    <h4 className="font-semibold text-gray-800 text-base mb-1 group-hover:text-brand-green transition-colors line-clamp-1">{product.name}</h4>
                 </Link>
                 
                 {/* Rating */}
-                <div className="flex items-center gap-1 mb-2">
-                    <div className="flex text-yellow-400">
+                <div className="flex items-center gap-1.5 mb-3">
+                    <div className="flex text-amber-400">
                         {[1,2,3,4,5].map(star => (
-                            <Star key={star} size={12} className="fill-current" />
+                            <Star key={star} size={14} className="fill-current" />
                         ))}
                     </div>
                     <span className="text-[10px] text-gray-400">({product.reviewsCount})</span>
                 </div>
 
                 {/* Price */}
-                <div className="flex items-end gap-2 mb-4 mt-auto">
-                    <span className="font-bold text-lg text-brand-green">Rs.{product.price}</span>
-                    <span className="text-xs text-gray-500 mb-1">/{product.unit}</span>
+                <div className="flex flex-col mb-4 mt-auto">
                     {product.oldPrice && (
-                        <span className="text-sm text-gray-400 line-through mb-0.5 ml-1">Rs.{product.oldPrice}</span>
+                        <span className="text-xs text-gray-400 line-through mb-0.5">Rs.{product.oldPrice}</span>
                     )}
+                    <div className="flex items-end gap-1">
+                        <span className="font-bold text-xl text-brand-green">Rs.{product.price}</span>
+                        <span className="text-xs text-gray-500 mb-1">/{product.unit}</span>
+                    </div>
                 </div>
 
                 {/* Actions */}
                 <div className="flex items-center gap-2 mt-auto">
-                    <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden h-9">
-                        <button onClick={decrease} className="w-8 h-full flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors">-</button>
-                        <input type="text" value={quantity} readOnly className="w-8 h-full text-center text-sm font-medium border-x border-gray-200 bg-white" />
-                        <button onClick={increase} className="w-8 h-full flex items-center justify-center text-brand-green font-bold hover:bg-gray-100 transition-colors">+</button>
+                    <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden h-10 w-24 flex-shrink-0 bg-gray-50">
+                        <button onClick={decrease} className="flex-1 h-full flex items-center justify-center text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-colors">-</button>
+                        <input type="text" value={quantity} readOnly className="w-8 h-full text-center text-sm font-semibold bg-transparent" />
+                        <button onClick={increase} className="flex-1 h-full flex items-center justify-center text-brand-green hover:bg-gray-200 hover:text-brand-dark font-medium transition-colors">+</button>
                     </div>
                     <button
                         onClick={handleAddToCart}
-                        className={`flex-1 text-white font-medium text-sm rounded-lg h-9 transition-all flex items-center justify-center gap-1.5 ${
-                            added ? 'bg-green-500' : 'bg-brand-green hover:bg-brand-dark'
+                        title="Add to Cart"
+                        className={`w-12 flex-shrink-0 text-white font-medium rounded-lg h-10 transition-all duration-300 flex items-center justify-center shadow-sm ${
+                            added ? 'bg-green-500' : 'bg-brand-green hover:bg-brand-dark hover:shadow-md hover:-translate-y-0.5'
                         }`}
                     >
-                        {added ? <><Check size={14} /> Added!</> : 'Add to Cart'}
+                        {added ? <Check size={20} /> : <ShoppingCart size={20} />}
                     </button>
                 </div>
             </div>

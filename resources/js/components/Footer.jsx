@@ -9,12 +9,8 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
                     {/* Brand & About */}
                     <div className="lg:col-span-2">
-                        <Link to="/" className="flex items-center gap-2 mb-6">
-                            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-brand-dark font-bold text-xl">W</div>
-                            <div>
-                                <h2 className="font-bold text-xl leading-none text-white">WIN LION</h2>
-                                <span className="text-[10px] text-green-200 font-semibold tracking-wider uppercase">Agro Products</span>
-                            </div>
+                        <Link to="/" className="inline-block mb-6 bg-white/95 backdrop-blur-sm rounded-2xl px-6 py-3 shadow-lg">
+                            <img src="/website logo.png" alt="WinLion Logo" className="w-32 h-16 md:w-48 md:h-20 object-contain" />
                         </Link>
                         <p className="text-green-100 text-sm mb-6 max-w-sm leading-relaxed">
                             We provide high quality agro products, fresh fruits, vegetables and more directly from farmers to your doorstep.

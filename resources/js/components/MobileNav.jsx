@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Grid, Tag, Heart, User } from 'lucide-react';
+import { Home, Grid, Tag, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const MobileNav = () => {
@@ -9,7 +9,6 @@ const MobileNav = () => {
         { path: '/', icon: Home, label: 'Home' },
         { path: '/categories', icon: Grid, label: 'Categories' },
         { path: '/offers', icon: Tag, label: 'Offers' },
-        { path: '/wishlist', icon: Heart, label: 'Wishlist' },
         { path: '/account', icon: User, label: 'Account' },
     ];
 

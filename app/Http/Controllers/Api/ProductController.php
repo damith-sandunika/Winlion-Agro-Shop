@@ -23,23 +23,34 @@ class ProductController extends Controller
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
             'images' => 'nullable|array',
+            'image' => 'nullable',
             'brand' => 'nullable|string',
+            'supplier_id' => 'nullable|exists:suppliers,id',
+            'expiry_date' => 'nullable|date',
+            'batch_number' => 'nullable|string',
             'tags' => 'nullable|string',
             'weight' => 'nullable|numeric',
             'unit_type' => 'nullable|string',
-            'min_quantity' => 'integer|min:1',
+            'min_quantity' => 'nullable|integer|min:1',
             'max_quantity' => 'nullable|integer',
-            'current_stock' => 'integer',
-            'low_stock_limit' => 'integer',
+            'current_stock' => 'nullable|integer',
+            'low_stock_limit' => 'nullable|integer',
             'buying_price' => 'nullable|numeric',
             'selling_price' => 'required|numeric',
             'discount_price' => 'nullable|numeric',
-            'status' => 'boolean',
-            'stock_availability' => 'boolean',
+            'status' => 'nullable|boolean',
+            'stock_availability' => 'nullable|boolean',
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
         
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $validated['images'] = [$path];
+        }
+        
+        unset($validated['image']);
+
         $product = Product::create($validated);
 
         return response()->json($product, 201);
@@ -59,24 +70,35 @@ class ProductController extends Controller
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
             'images' => 'nullable|array',
+            'image' => 'nullable',
             'brand' => 'nullable|string',
+            'supplier_id' => 'nullable|exists:suppliers,id',
+            'expiry_date' => 'nullable|date',
+            'batch_number' => 'nullable|string',
             'tags' => 'nullable|string',
             'weight' => 'nullable|numeric',
             'unit_type' => 'nullable|string',
-            'min_quantity' => 'integer|min:1',
+            'min_quantity' => 'nullable|integer|min:1',
             'max_quantity' => 'nullable|integer',
-            'current_stock' => 'integer',
-            'low_stock_limit' => 'integer',
+            'current_stock' => 'nullable|integer',
+            'low_stock_limit' => 'nullable|integer',
             'buying_price' => 'nullable|numeric',
             'selling_price' => 'required|numeric',
             'discount_price' => 'nullable|numeric',
-            'status' => 'boolean',
-            'stock_availability' => 'boolean',
+            'status' => 'nullable|boolean',
+            'stock_availability' => 'nullable|boolean',
         ]);
 
         if ($request->name !== $product->name) {
             $validated['slug'] = Str::slug($validated['name']);
         }
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $validated['images'] = [$path];
+        }
+
+        unset($validated['image']);
 
         $product->update($validated);
 

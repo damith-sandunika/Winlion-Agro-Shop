@@ -52,8 +52,22 @@ class OrderController extends Controller
             $order->items()->create($item);
         }
 
-        // Send WhatsApp Message (Order Placed)
+        // Send WhatsApp Message to Customer (Order Placed)
         $this->sendWhatsAppMessage($order, 'wa_order_template');
+
+        // Send WhatsApp Notification to Admin
+        try {
+            $adminNumber = \App\Models\Setting::where('key', 'whatsapp_number')->value('value');
+            if ($adminNumber) {
+                $adminMessage = "🔔 *New Order Received!*\n\n*Invoice:* {$order->invoice_number}\n*Customer:* {$order->customer_name}\n*Total:* Rs. " . number_format($order->grand_total, 2) . "\n\nPlease check the admin dashboard for more details.";
+                \Illuminate\Support\Facades\Http::post('http://127.0.0.1:3001/send', [
+                    'number' => $adminNumber,
+                    'message' => $adminMessage
+                ]);
+            }
+        } catch (\Exception $e) {
+            // Ignore errors
+        }
 
         return response()->json($order->load('items'), 201);
     }
@@ -87,7 +101,17 @@ class OrderController extends Controller
     {
         try {
             $template = \App\Models\Setting::where('key', $templateKey)->value('value');
-            if (!$template) return;
+            if (!$template) {
+                if ($templateKey === 'wa_order_template') {
+                    $template = "Hello {{customer_name}},\n\nYour order ({{invoice}}) has been successfully placed at Win Lion Agro Shop!\nTotal: Rs. {{total}}\nDelivery Address: {{address}}\n\nWe will contact you shortly regarding the delivery.\n\nThank you for shopping with us! 🌱";
+                } elseif ($templateKey === 'wa_confirm_template') {
+                    $template = "Hi {{customer_name}},\n\nGreat news! Your order ({{invoice}}) is now being processed.\n\nWe are preparing your items and will dispatch them soon.\n\nBest Regards,\nWin Lion Agro";
+                } elseif ($templateKey === 'wa_delivery_template') {
+                    $template = "Hi {{customer_name}},\n\nYour order ({{invoice}}) has been successfully delivered! 🎉\n\nThank you for choosing Win Lion Agro. We hope to serve you again soon!\n\nBest Regards,\nWin Lion Agro";
+                } else {
+                    return;
+                }
+            }
 
             $message = str_replace(
                 ['{{customer_name}}', '{{invoice}}', '{{total}}', '{{address}}'],
