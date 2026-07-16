@@ -17,6 +17,10 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+        if (is_string($request->items)) {
+            $request->merge(['items' => json_decode($request->items, true)]);
+        }
+
         $validated = $request->validate([
             'customer_name' => 'required|string',
             'whatsapp_number' => 'required|string',
@@ -27,6 +31,7 @@ class OrderController extends Controller
             'latitude' => 'nullable|string',
             'longitude' => 'nullable|string',
             'payment_method' => 'required|string',
+            'payment_slip' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:5120',
             'delivery_charge' => 'numeric',
             'sub_total' => 'required|numeric',
             'discount_amount' => 'numeric',
@@ -45,7 +50,11 @@ class OrderController extends Controller
         $validated['tracking_number'] = 'TRK-' . strtoupper(Str::random(10));
         $validated['invoice_number'] = 'INV-' . strtoupper(Str::random(8));
 
-        $orderData = collect($validated)->except('items')->toArray();
+        $orderData = collect($validated)->except(['items', 'payment_slip'])->toArray();
+        
+        if ($request->hasFile('payment_slip')) {
+            $orderData['payment_slip'] = $request->file('payment_slip')->store('slips', 'public');
+        }
         $order = Order::create($orderData);
 
         foreach ($validated['items'] as $item) {

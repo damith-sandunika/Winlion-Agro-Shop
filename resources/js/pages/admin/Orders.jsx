@@ -179,7 +179,10 @@ export default function AdminOrders() {
                                         Rs.{Number(order.grand_total).toLocaleString()}
                                     </td>
                                     <td className="px-6 py-4 text-gray-600">
-                                        {order.payment_method}
+                                        <div>{order.payment_method}</div>
+                                        {order.payment_slip && (
+                                            <a href={`/storage/${order.payment_slip}`} target="_blank" className="text-xs text-blue-600 underline mt-1 inline-block" rel="noreferrer">View Receipt</a>
+                                        )}
                                     </td>
                                     <td className="px-6 py-4">
                                         <select

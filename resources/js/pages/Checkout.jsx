@@ -12,6 +12,7 @@ export default function Checkout() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [orderPlaced, setOrderPlaced] = useState(false);
+    const [paymentSlip, setPaymentSlip] = useState(null);
     
     // Coupon State
     const [couponCode, setCouponCode] = useState('');
@@ -47,27 +48,36 @@ export default function Checkout() {
         
         try {
             await axios.get('/sanctum/csrf-cookie');
-            const res = await axios.post('/api/public/orders', {
-                customer_name: form.name,
-                whatsapp_number: form.phone,
-                delivery_address: `${form.address}, ${form.city}`,
-                payment_method: form.payment_method,
-                delivery_charge: delivery,
-                sub_total: cartTotal,
-                discount_amount: couponDiscount,
-                coupon_code: appliedCoupon ? appliedCoupon.code : null,
-                grand_total: grandTotal,
-                items: cartItems.map(i => ({ 
-                    product_id: i.id, 
-                    product_name: i.name,
-                    quantity: i.quantity,
-                    unit_price: i.price,
-                    total_price: i.price * i.quantity
-                }))
+            
+            const formData = new FormData();
+            formData.append('customer_name', form.name);
+            formData.append('whatsapp_number', form.phone);
+            formData.append('delivery_address', `${form.address}, ${form.city}`);
+            formData.append('payment_method', form.payment_method);
+            formData.append('delivery_charge', delivery);
+            formData.append('sub_total', cartTotal);
+            formData.append('discount_amount', couponDiscount);
+            if (appliedCoupon) formData.append('coupon_code', appliedCoupon.code);
+            formData.append('grand_total', grandTotal);
+            formData.append('items', JSON.stringify(cartItems.map(i => ({ 
+                product_id: i.id, 
+                product_name: i.name,
+                quantity: i.quantity,
+                unit_price: i.price,
+                total_price: i.price * i.quantity
+            }))));
+
+            if (form.payment_method === 'Bank Transfer' && paymentSlip) {
+                formData.append('payment_slip', paymentSlip);
+            }
+
+            const res = await axios.post('/api/public/orders', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
             });
             
             // Success handling
             setOrderPlaced(true);
+            window.scrollTo(0, 0);
         } catch (err) {
             setError('Failed to place order. Please try again.');
             setLoading(false);
@@ -160,8 +170,17 @@ export default function Checkout() {
                             {form.payment_method === 'Bank Transfer' && (
                                 <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 mt-4">
                                     <h4 className="font-normal text-blue-800 text-sm mb-2">Our Bank Details</h4>
-                                    <p className="text-sm text-blue-700">Bank: Commercial Bank<br/>Branch: Colombo<br/>Acc Name: Win Lion Agro<br/>Acc No: 1234567890</p>
-                                    <p className="text-xs text-blue-600 mt-2 font-normal">* Please share the payment slip via WhatsApp after placing the order.</p>
+                                    <p className="text-sm text-blue-700 mb-4">Bank: Commercial Bank<br/>Branch: Colombo<br/>Acc Name: Win Lion Agro<br/>Acc No: 1234567890</p>
+                                    
+                                    <label className="block text-sm font-medium text-blue-800 mb-2">Upload Payment Slip / Receipt *</label>
+                                    <input 
+                                        type="file" 
+                                        accept="image/*,.pdf" 
+                                        onChange={e => setPaymentSlip(e.target.files[0])}
+                                        required={form.payment_method === 'Bank Transfer'}
+                                        className="w-full text-sm text-blue-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200"
+                                    />
+                                    <p className="text-xs text-blue-600 mt-3 font-normal">* We will process your order once the payment is verified.</p>
                                 </div>
                             )}
                         </div>
@@ -188,13 +207,13 @@ export default function Checkout() {
                                         value={couponCode} 
                                         onChange={e => setCouponCode(e.target.value)} 
                                         placeholder="Enter code" 
-                                        className="flex-1 px-4 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-green outline-none uppercase" 
+                                        className="flex-1 min-w-0 px-4 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-green outline-none uppercase" 
                                         disabled={appliedCoupon !== null}
                                     />
                                     {appliedCoupon ? (
-                                        <button type="button" onClick={() => { setAppliedCoupon(null); setCouponDiscount(0); setCouponCode(''); }} className="px-4 py-2 bg-red-100 text-red-600 rounded-xl font-normal text-sm">Remove</button>
+                                        <button type="button" onClick={() => { setAppliedCoupon(null); setCouponDiscount(0); setCouponCode(''); }} className="shrink-0 px-4 py-2 bg-red-100 text-red-600 rounded-xl font-normal text-sm">Remove</button>
                                     ) : (
-                                        <button type="button" onClick={handleApplyCoupon} className="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-xl font-normal text-sm">Apply</button>
+                                        <button type="button" onClick={handleApplyCoupon} className="shrink-0 px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-xl font-normal text-sm">Apply</button>
                                     )}
                                 </div>
                                 {couponError && <p className="text-red-500 text-xs mt-2 font-normal">{couponError}</p>}
