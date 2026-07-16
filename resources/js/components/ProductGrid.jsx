@@ -26,11 +26,6 @@ const ProductGrid = ({ title, products, showViewAll = true, icon = null, enableS
                     <h3 className="text-xl md:text-2xl font-medium text-gray-900 tracking-tight">{title}</h3>
                     {icon && <span className="text-brand-green">{icon}</span>}
                 </div>
-                {showViewAll && (
-                    <Link to="/products" className="text-sm font-medium text-brand-green hover:text-brand-dark transition-colors flex items-center gap-1 hidden sm:flex">
-                        View All Products &rarr;
-                    </Link>
-                )}
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4 mb-8">

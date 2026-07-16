@@ -16,8 +16,12 @@ const Header = () => {
     const [allProducts, setAllProducts] = React.useState([]);
     const [searchResults, setSearchResults] = React.useState([]);
     const [isSearchFocused, setIsSearchFocused] = React.useState(false);
+    
+    // Categories State
+    const [categories, setCategories] = React.useState([]);
+    const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = React.useState(false);
 
-    // Fetch products for search
+    // Fetch products and categories
     React.useEffect(() => {
         axios.get('/api/public/products')
             .then(res => {
@@ -33,6 +37,10 @@ const Header = () => {
                 setAllProducts(formatted);
             })
             .catch(err => console.error("Error loading products for search:", err));
+
+        axios.get('/api/public/categories')
+            .then(res => setCategories(res.data))
+            .catch(err => console.error("Error loading categories:", err));
     }, []);
 
     const handleSearchChange = (e) => {
@@ -153,10 +161,39 @@ const Header = () => {
                         </div>
                         <span className="text-xs font-normal mt-1 hidden lg:block">Cart</span>
                     </Link>
-                    <Link to="/categories" className="hidden lg:flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors">
-                        <List size={22} />
-                        <span className="text-xs font-normal mt-1">Categories</span>
-                    </Link>
+                    <div className="relative hidden lg:block">
+                        <button 
+                            onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
+                            onBlur={() => setTimeout(() => setIsCategoryDropdownOpen(false), 200)}
+                            className="flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors"
+                        >
+                            <List size={22} />
+                            <span className="text-xs font-normal mt-1 flex items-center gap-0.5">Categories <ChevronDown size={10} /></span>
+                        </button>
+                        
+                        {isCategoryDropdownOpen && (
+                            <div className="absolute right-0 top-full mt-3 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                                {categories.length > 0 ? (
+                                    categories.map(cat => (
+                                        <Link 
+                                            key={cat.id} 
+                                            to={`/category/${cat.id}`}
+                                            className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-green-50 hover:text-brand-green transition-colors"
+                                        >
+                                            {cat.name}
+                                        </Link>
+                                    ))
+                                ) : (
+                                    <div className="px-4 py-2 text-sm text-gray-500">No categories</div>
+                                )}
+                                <div className="border-t border-gray-100 mt-1 pt-1">
+                                    <Link to="/categories" className="block px-4 py-2 text-sm text-brand-green font-medium hover:bg-green-50 transition-colors">
+                                        View All Categories &rarr;
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -233,17 +270,28 @@ const Header = () => {
                 </div>
                 
                 <div className="flex-1 overflow-y-auto py-6 px-4">
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1">
                         <span className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 px-2">Main Menu</span>
                         <Link onClick={() => setIsMobileMenuOpen(false)} to="/" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Home</Link>
-                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/fruits" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Fresh Fruits</Link>
-                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/vegetables" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Vegetables</Link>
-                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/seeds" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Seeds</Link>
-                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/fertilizer" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Fertilizer</Link>
-                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/plants" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Plants</Link>
-                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/tools" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Tools & Equipments</Link>
-                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/offers" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Offers</Link>
-                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/contact" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Contact</Link>
+                        
+                        <div className="my-2 border-t border-gray-100 pt-3">
+                            <span className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 px-2 block">Categories</span>
+                            <div className="flex flex-col gap-1">
+                                {categories.map(cat => (
+                                    <Link key={cat.id} onClick={() => setIsMobileMenuOpen(false)} to={`/category/${cat.id}`} className="block text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-2.5 rounded-xl transition-colors font-medium">
+                                        {cat.name}
+                                    </Link>
+                                ))}
+                                <Link onClick={() => setIsMobileMenuOpen(false)} to="/categories" className="block text-brand-green hover:bg-green-50 px-4 py-2.5 rounded-xl transition-colors font-medium mt-1">
+                                    View All Categories &rarr;
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div className="my-2 border-t border-gray-100 pt-3 flex flex-col gap-1">
+                            <Link onClick={() => setIsMobileMenuOpen(false)} to="/offers" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Offers</Link>
+                            <Link onClick={() => setIsMobileMenuOpen(false)} to="/contact" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Contact</Link>
+                        </div>
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col gap-4 px-2">
