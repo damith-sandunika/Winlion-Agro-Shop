@@ -52,8 +52,7 @@ export default function AdminSettings() {
 
     const inp = 'w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:bg-white text-sm';
     
-    // Helper to render whatsapp template preview
-    const WAMessageBox = ({ label, settingKey, tags }) => (
+    const WAMessageBox = ({ label, settingKey, tags, placeholder }) => (
         <div className="bg-green-50/50 p-5 rounded-2xl border border-green-100 flex flex-col h-full">
             <div className="flex justify-between items-center mb-3">
                 <label className="text-sm font-normal text-green-900">{label}</label>
@@ -65,7 +64,8 @@ export default function AdminSettings() {
                 rows={6} 
                 value={settings[settingKey] || ''} 
                 onChange={e => handleChange(settingKey, e.target.value)} 
-                className="w-full bg-white px-4 py-3 rounded-tr-2xl rounded-bl-2xl rounded-br-2xl rounded-tl-sm border border-green-200 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent resize-none flex-1 shadow-sm leading-relaxed" 
+                placeholder={placeholder}
+                className="w-full bg-white px-4 py-3 rounded-tr-2xl rounded-bl-2xl rounded-br-2xl rounded-tl-sm border border-green-200 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent resize-none flex-1 shadow-sm leading-relaxed placeholder-gray-400" 
             />
             {tags && <p className="text-[10px] font-normal text-green-700/60 mt-3">{tags}</p>}
         </div>
@@ -222,22 +222,31 @@ export default function AdminSettings() {
                                     label="Order Received" 
                                     settingKey="wa_order_template" 
                                     tags="Tags: {{customer_name}}, {{invoice}}, {{total}}, {{address}}" 
+                                    placeholder="Hello {{customer_name}},&#10;&#10;Your order ({{invoice}}) has been successfully placed!&#10;Total: Rs. {{total}}&#10;&#10;We will contact you shortly. 🌱"
                                 />
                                 <WAMessageBox 
                                     label="Order Confirmed" 
                                     settingKey="wa_confirm_template" 
+                                    tags="Tags: {{customer_name}}, {{invoice}}"
+                                    placeholder="Hi {{customer_name}},&#10;&#10;Great news! Your order ({{invoice}}) has been Confirmed and is now being prepared for dispatch. 📦"
                                 />
                                 <WAMessageBox 
                                     label="Order Delivered" 
                                     settingKey="wa_delivery_template" 
+                                    tags="Tags: {{customer_name}}, {{invoice}}"
+                                    placeholder="Hi {{customer_name}},&#10;&#10;Your order ({{invoice}}) has been dispatched and is currently Out for Delivery. 🚚"
                                 />
                                 <WAMessageBox 
                                     label="Order Completed" 
                                     settingKey="wa_completed_template" 
+                                    tags="Tags: {{customer_name}}, {{invoice}}"
+                                    placeholder="Hi {{customer_name}},&#10;&#10;Your order ({{invoice}}) has been successfully Delivered! 🎉&#10;&#10;Thank you for choosing Win Lion Agro."
                                 />
                                 <WAMessageBox 
                                     label="Order Cancelled" 
                                     settingKey="wa_cancelled_template" 
+                                    tags="Tags: {{customer_name}}, {{invoice}}"
+                                    placeholder="Hi {{customer_name}},&#10;&#10;We regret to inform you that your order ({{invoice}}) has been Cancelled.&#10;&#10;If you have any questions, please contact us."
                                 />
                             </div>
                         </div>
