@@ -29,6 +29,23 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/reports/sales', [\App\Http\Controllers\Api\ReportController::class, 'sales']);
     Route::get('/reports/orders', [\App\Http\Controllers\Api\ReportController::class, 'orders']);
     Route::get('/reports/stock', [\App\Http\Controllers\Api\ReportController::class, 'stock']);
+
+    // WhatsApp Proxy Routes
+    Route::get('/whatsapp/status', function () {
+        try {
+            return \Illuminate\Support\Facades\Http::get('http://127.0.0.1:3005/status')->json();
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'DISCONNECTED'], 500);
+        }
+    });
+
+    Route::post('/whatsapp/logout', function () {
+        try {
+            return \Illuminate\Support\Facades\Http::post('http://127.0.0.1:3005/logout')->json();
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'ERROR'], 500);
+        }
+    });
 });
 
 // Public API Routes (for customer frontend)

@@ -11,16 +11,12 @@ export default function AdminSettings() {
     const [waQr, setWaQr] = useState(null);
     const [activeTab, setActiveTab] = useState('General');
 
-    const getWaUrl = () => {
-        return `${window.location.protocol}//${window.location.hostname}:3005`;
-    };
-
     useEffect(() => {
         const interval = setInterval(() => {
-            axios.get(`${getWaUrl()}/status`)
+            axios.get('/api/whatsapp/status')
                 .then(res => {
-                    setWaStatus(res.data.status);
-                    setWaQr(res.data.qr);
+                    setWaStatus(res.data.status || 'DISCONNECTED');
+                    if (res.data.qr) setWaQr(res.data.qr);
                 }).catch(() => setWaStatus('DISCONNECTED'));
         }, 3000);
         return () => clearInterval(interval);
@@ -209,7 +205,7 @@ export default function AdminSettings() {
                                         <p className="text-xs text-green-700 font-normal">Automatic messages will be sent to customers.</p>
                                     </div>
                                 </div>
-                                <button onClick={() => axios.post(`${getWaUrl()}/logout`)} className="text-xs bg-white border border-green-200 px-4 py-2 rounded-xl text-green-700 hover:bg-green-100 font-normal shadow-sm transition-colors">Disconnect</button>
+                                <button onClick={() => axios.post('/api/whatsapp/logout')} className="text-xs bg-white border border-green-200 px-4 py-2 rounded-xl text-green-700 hover:bg-green-100 font-normal shadow-sm transition-colors">Disconnect</button>
                             </div>
                         )}
 
