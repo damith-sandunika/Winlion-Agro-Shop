@@ -20,16 +20,17 @@ const Header = () => {
         <header className="w-full bg-white shadow-sm sticky top-0 z-50">
 
             {/* Main Header */}
-            <div className="flex justify-between items-center py-1 px-4 lg:px-6 max-w-7xl w-full mx-auto">
-                {/* Logo and Menu Toggle (Mobile) */}
-                <div className="flex items-center gap-4">
-                    <button onClick={() => setIsMobileMenuOpen(true)} className="lg:hidden p-2 text-gray-600 hover:text-brand-green transition-colors">
-                        <Menu size={24} />
-                    </button>
-                    <Link to="/" className="flex items-center">
-                        <img src="/website logo.png" alt="WinLion Logo" className="w-32 h-16 md:w-64 md:h-24 object-contain" />
-                    </Link>
-                </div>
+            <div className="flex justify-between items-center py-1 px-4 lg:px-6 max-w-7xl w-full mx-auto relative">
+                
+                {/* Mobile Menu Toggle */}
+                <button onClick={() => setIsMobileMenuOpen(true)} className="lg:hidden p-2 -ml-2 text-gray-600 hover:text-brand-green transition-colors z-10">
+                    <Menu size={24} />
+                </button>
+
+                {/* Logo */}
+                <Link to="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 flex items-center z-10">
+                    <img src="/website logo.png" alt="WinLion Logo" className="w-32 h-16 md:w-64 md:h-24 object-contain" />
+                </Link>
 
 
 
@@ -47,7 +48,7 @@ const Header = () => {
                 </form>
 
                 {/* Actions */}
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-6 z-10">
                     <Link to="/cart" className="flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors relative">
                         <div className="relative">
                             <ShoppingCart size={22} />

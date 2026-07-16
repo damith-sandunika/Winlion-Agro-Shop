@@ -8,8 +8,6 @@ import ProductGrid from '../components/ProductGrid';
 import Features from '../components/Features';
 import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
-import MobileNav from '../components/MobileNav';
-
 const Home = () => {
     const [todaysPicks, setTodaysPicks] = useState([]);
     const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -87,7 +85,6 @@ const Home = () => {
             </main>
 
             <Footer />
-            <MobileNav />
         </div>
     );
 };

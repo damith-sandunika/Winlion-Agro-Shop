@@ -51,14 +51,14 @@ const SlideContent = ({ slide, isActive }) => {
     }, [isActive]);
 
     return (
-        <div className="max-w-2xl relative pt-4 pb-4 md:pt-0 md:pb-0">
+        <div className="max-w-2xl relative pt-0 pb-0 md:pt-0 md:pb-0">
             {/* Badge appears first instantly if active */}
             <div className={`inline-flex items-center gap-2 px-2.5 py-1 md:px-3 md:py-1.5 rounded-full text-[9px] md:text-[11px] font-medium tracking-wider mb-4 md:mb-5 bg-[#e8eed2] text-[#2c531d] border border-[#a8c78c] transition-opacity duration-500 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <Leaf size={10} className="md:w-3 md:h-3 fill-current" /> {slide.badge}
             </div>
             
             {/* Title with typewriter */}
-            <h2 className="text-[28px] leading-[1.2] md:text-5xl lg:text-6xl font-medium tracking-tight mb-4 md:mb-5 text-[#1a3a14] whitespace-pre-line min-h-[70px] md:min-h-[140px]">
+            <h2 className="text-[28px] leading-[1.2] md:text-5xl lg:text-6xl font-medium tracking-tight mb-4 md:mb-5 text-[#1a3a14] whitespace-pre-line md:min-h-[140px]">
                 <TypewriterText 
                     text={slide.title} 
                     isActive={isActive} 
@@ -69,7 +69,7 @@ const SlideContent = ({ slide, isActive }) => {
             </h2>
 
             {/* Subtitle with typewriter */}
-            <p className="text-[12px] md:text-lg mb-6 md:mb-8 whitespace-pre-line font-medium leading-relaxed text-[#3a5a34] max-w-lg pr-4 md:pr-0 min-h-[40px] md:min-h-[60px]">
+            <p className="text-[12px] md:text-lg mb-6 md:mb-8 whitespace-pre-line font-medium leading-relaxed text-[#3a5a34] max-w-lg pr-4 md:pr-0 md:min-h-[60px]">
                 {titleDone && (
                     <TypewriterText 
                         text={slide.subtitle} 
@@ -177,10 +177,10 @@ const HeroSlider = () => {
     return (
         <div className="relative w-full overflow-hidden border-b border-green-100/50">
             <div 
-                className="flex transition-transform duration-700 ease-out h-[500px] lg:h-[600px]"
+                className="flex transition-transform duration-700 ease-out h-[420px] md:h-[500px] lg:h-[600px]"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
-                {slides.map((slide) => (
+                {slides.map((slide, index) => (
                     <div 
                         key={slide.id} 
                         className={`w-full flex-shrink-0 relative ${slide.bgColor}`}
@@ -197,7 +197,7 @@ const HeroSlider = () => {
                         </div>
 
                         <div className="absolute inset-0 z-10 flex items-center">
-                            <div className="container mx-auto px-5 md:px-12 lg:px-20 max-w-7xl w-full">
+                            <div className="container mx-auto px-10 md:px-12 lg:px-20 max-w-7xl w-full">
                                 <SlideContent slide={slide} isActive={currentSlide === index} />
                             </div>
                         </div>
