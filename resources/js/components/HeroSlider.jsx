@@ -61,7 +61,8 @@ const HeroSlider = () => {
             badge: '100% PURE & NATURAL',
             title: 'Pure Goodness\nFrom Our Farms',
             subtitle: 'Carefully grown and handpicked agro products\n– straight from our farms to your home.',
-            image: '/images/sliders/desktop slider (1).png',
+            imageDesktop: '/images/sliders/desktop slider (1).png',
+            imageMobile: '/images/sliders/mobile slider (1).png',
             button1: 'Shop Now',
             button2: 'Explore Categories',
             featuresLayout: 'inline',
@@ -76,7 +77,8 @@ const HeroSlider = () => {
             badge: '100% PURE & NATURAL',
             title: 'Goodness Grown\nThe Natural Way',
             subtitle: 'From our fields to your family –\nfresh, healthy and trusted every day.',
-            image: '/images/sliders/desktop slider (2).png',
+            imageDesktop: '/images/sliders/desktop slider (2).png',
+            imageMobile: '/images/sliders/mobile slider (2).png',
             button1: 'Shop Now',
             button2: 'Explore Categories',
             featuresLayout: 'inline',
@@ -91,7 +93,8 @@ const HeroSlider = () => {
             badge: '100% PURE & NATURAL',
             title: 'Nature\'s Goodness\nGrown With Care',
             subtitle: 'From our tropical farms to your home –\nfresh, healthy and natural every time.',
-            image: '/images/sliders/desktop slider (3).png',
+            imageDesktop: '/images/sliders/desktop slider (3).png',
+            imageMobile: '/images/sliders/mobile slider (3).png',
             button1: 'Shop Now',
             button2: 'Explore Categories',
             featuresLayout: 'inline',
@@ -123,20 +126,18 @@ const HeroSlider = () => {
 
     return (
         <div className="relative w-full overflow-hidden border-b border-green-100/50">
-            <div 
-                className="flex transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] h-[450px] md:h-[500px] lg:h-[650px]"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-            >
+            <div className="relative h-[450px] md:h-[500px] lg:h-[650px] w-full">
                 {slides.map((slide, index) => (
                     <div 
                         key={slide.id} 
-                        className={`w-full h-full flex-shrink-0 relative overflow-hidden`}
+                        className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out overflow-hidden ${currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
                     >
                         {/* Background Image */}
                         <div className="absolute inset-0 z-0 flex justify-end">
-                            <div className="w-full h-full relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent z-10 w-[70%] md:w-[60%]"></div>
-                                <img src={slide.image} alt="Slider Background" className="w-full h-full object-cover object-center" />
+                            <div className="w-full h-full relative bg-[#f4f7ee]">
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#f4f7ee] via-[#f4f7ee]/95 to-transparent z-10 w-[70%] md:w-[60%]"></div>
+                                <img src={slide.imageDesktop} alt="Slider Background" className="hidden md:block w-full h-full object-cover object-center" />
+                                <img src={slide.imageMobile} alt="Slider Background" className="md:hidden w-full h-full object-cover object-center" />
                             </div>
                         </div>
 
