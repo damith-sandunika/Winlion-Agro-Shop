@@ -96,10 +96,12 @@ class OrderController extends Controller
         $order->update($validated);
 
         if ($request->has('delivery_status')) {
-            if ($validated['delivery_status'] === 'Processing') {
+            if ($validated['delivery_status'] === 'Confirmed') {
                 $this->sendWhatsAppMessage($order, 'wa_confirm_template');
             } elseif ($validated['delivery_status'] === 'Delivered') {
                 $this->sendWhatsAppMessage($order, 'wa_delivery_template');
+            } elseif ($validated['delivery_status'] === 'Completed') {
+                $this->sendWhatsAppMessage($order, 'wa_completed_template');
             }
         }
 
@@ -114,9 +116,11 @@ class OrderController extends Controller
                 if ($templateKey === 'wa_order_template') {
                     $template = "Hello {{customer_name}},\n\nYour order ({{invoice}}) has been successfully placed at Win Lion Agro Shop!\nTotal: Rs. {{total}}\nDelivery Address: {{address}}\n\nWe will contact you shortly regarding the delivery.\n\nThank you for shopping with us! 🌱";
                 } elseif ($templateKey === 'wa_confirm_template') {
-                    $template = "Hi {{customer_name}},\n\nGreat news! Your order ({{invoice}}) is now being processed.\n\nWe are preparing your items and will dispatch them soon.\n\nBest Regards,\nWin Lion Agro";
+                    $template = "Hi {{customer_name}},\n\nGreat news! Your order ({{invoice}}) has been *Confirmed* and is now being prepared for dispatch.\n\nBest Regards,\nWin Lion Agro";
                 } elseif ($templateKey === 'wa_delivery_template') {
-                    $template = "Hi {{customer_name}},\n\nYour order ({{invoice}}) has been successfully delivered! 🎉\n\nThank you for choosing Win Lion Agro. We hope to serve you again soon!\n\nBest Regards,\nWin Lion Agro";
+                    $template = "Hi {{customer_name}},\n\nYour order ({{invoice}}) has been dispatched and is currently *Out for Delivery*. 🚚\n\nBest Regards,\nWin Lion Agro";
+                } elseif ($templateKey === 'wa_completed_template') {
+                    $template = "Hi {{customer_name}},\n\nYour order ({{invoice}}) has been successfully *Delivered* and marked as *Completed*! 🎉\n\nThank you for choosing Win Lion Agro. We hope to serve you again soon!\n\nBest Regards,\nWin Lion Agro";
                 } else {
                     return;
                 }

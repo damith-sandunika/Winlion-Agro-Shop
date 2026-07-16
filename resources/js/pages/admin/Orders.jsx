@@ -3,13 +3,14 @@ import AdminLayout from '../../layouts/AdminLayout';
 import axios from 'axios';
 import { Printer } from 'lucide-react';
 
-const tabs = ['Received', 'Delivered', 'Completed', 'Cancelled'];
+const tabs = ['Received', 'Confirmed', 'Delivered', 'Completed', 'Cancelled'];
 
 const statusColors = {
     Received:   'bg-blue-100 text-blue-700 border-blue-200',
-    Pending:    'bg-blue-100 text-blue-700 border-blue-200', // fallback for old records
-    Delivered:  'bg-emerald-100 text-emerald-700 border-emerald-200',
-    Completed:  'bg-gray-100 text-gray-700 border-gray-200',
+    Pending:    'bg-blue-100 text-blue-700 border-blue-200',
+    Confirmed:  'bg-indigo-100 text-indigo-700 border-indigo-200',
+    Delivered:  'bg-orange-100 text-orange-700 border-orange-200',
+    Completed:  'bg-emerald-100 text-emerald-700 border-emerald-200',
     Cancelled:  'bg-red-100 text-red-700 border-red-200',
 };
 
@@ -107,6 +108,7 @@ export default function AdminOrders() {
 
     const filtered = orders.filter(o => {
         if (activeTab === 'Received') return o.delivery_status === 'Pending' || o.delivery_status === 'Received';
+        if (activeTab === 'Confirmed') return o.delivery_status === 'Confirmed';
         if (activeTab === 'Delivered') return o.delivery_status === 'Delivered';
         if (activeTab === 'Completed') return o.delivery_status === 'Completed';
         if (activeTab === 'Cancelled') return o.delivery_status === 'Cancelled';
@@ -191,6 +193,7 @@ export default function AdminOrders() {
                                             className={`text-xs border rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 font-normal ${statusColors[order.delivery_status] || 'bg-gray-100 text-gray-600 border-gray-200'}`}
                                         >
                                             <option value="Received">Received</option>
+                                            <option value="Confirmed">Confirmed</option>
                                             <option value="Delivered">Delivered</option>
                                             <option value="Completed">Completed</option>
                                             <option value="Cancelled">Cancelled</option>
