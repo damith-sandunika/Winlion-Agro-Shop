@@ -48,41 +48,53 @@ const Testimonials = () => {
     };
 
     return (
-        <section className="py-12 max-w-7xl mx-auto px-4 lg:px-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
-                <div className="flex items-center gap-3">
-                    <h3 className="text-lg font-normal text-gray-900 tracking-tight">What Our Customers Say</h3>
-                    <Sparkles className="text-brand-green w-8 h-8 animate-pulse" />
-                </div>
-                <button 
-                    onClick={() => setIsFormOpen(true)}
-                    className="bg-white border-2 border-brand-green text-brand-green hover:bg-brand-green hover:text-white px-6 py-2.5 rounded-xl font-normal transition-colors duration-300 shadow-sm"
-                >
-                    Write a Review
-                </button>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {localTestimonials.map(testimonial => (
-                    <div key={testimonial.id} className="bg-white rounded-2xl border border-green-100 p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(21,128,61,0.08)] transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-green-50 to-transparent rounded-bl-full opacity-50"></div>
-                        <div className="flex text-amber-400 mb-5 gap-1">
-                            {[...Array(testimonial.rating)].map((_, i) => (
-                                <Star key={i} size={18} className="fill-current drop-shadow-sm" />
-                            ))}
+        <section className="py-16 md:py-24 bg-gray-50/50">
+            <div className="max-w-7xl mx-auto px-4 lg:px-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-4">
+                    <div className="flex flex-col gap-2">
+                        <div className="flex items-center gap-2">
+                            <Sparkles className="text-brand-green w-5 h-5 animate-pulse" />
+                            <span className="text-brand-green text-sm font-semibold tracking-wider uppercase">Testimonials</span>
                         </div>
-                        <p className="text-gray-600 text-base mb-8 line-clamp-4 leading-relaxed relative z-10 italic">
-                            "{testimonial.text}"
-                        </p>
-                        <div className="flex items-center gap-4 mt-auto border-t border-gray-50 pt-4 relative z-10">
-                            <img src={testimonial.avatar} alt={testimonial.author} className="w-12 h-12 rounded-full object-cover ring-2 ring-brand-light" />
-                            <div>
-                                <h4 className="font-normal text-gray-900 text-sm tracking-wide">{testimonial.author}</h4>
-                                <p className="text-xs text-brand-green font-normal mt-0.5">{testimonial.location}</p>
+                        <h3 className="text-2xl md:text-3xl font-medium text-gray-900 tracking-tight">What Our Customers Say</h3>
+                    </div>
+                    <button 
+                        onClick={() => setIsFormOpen(true)}
+                        className="bg-brand-green text-white hover:bg-brand-dark px-6 py-2.5 rounded-xl font-normal transition-colors duration-300 shadow-sm flex items-center gap-2"
+                    >
+                        Write a Review
+                    </button>
+                </div>
+            
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {localTestimonials.map(testimonial => (
+                        <div key={testimonial.id} className="bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-[0_20px_40px_rgba(21,128,61,0.06)] transition-all duration-500 hover:-translate-y-2 relative group border border-gray-100/50">
+                            <div className="absolute top-8 right-8 text-green-100/40 group-hover:text-green-100 transition-colors duration-300">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14.017 21L16.41 14.904C16.5919 14.4716 16.6853 14.0041 16.684 13.528V3H23.957V13.528L21.564 21H14.017ZM0 21L2.393 14.904C2.57494 14.4716 2.66826 14.0041 2.667 13.528V3H9.94V13.528L7.547 21H0Z" />
+                                </svg>
+                            </div>
+                            
+                            <div className="flex text-amber-400 mb-6 gap-1 relative z-10">
+                                {[...Array(testimonial.rating)].map((_, i) => (
+                                    <Star key={i} size={16} className="fill-current drop-shadow-sm" />
+                                ))}
+                            </div>
+                            
+                            <p className="text-gray-600 text-[15px] md:text-base mb-8 line-clamp-4 leading-relaxed relative z-10 font-normal">
+                                "{testimonial.text}"
+                            </p>
+                            
+                            <div className="flex items-center gap-4 mt-auto relative z-10 pt-2">
+                                <img src={testimonial.avatar} alt={testimonial.author} className="w-14 h-14 rounded-full object-cover shadow-sm" />
+                                <div>
+                                    <h4 className="font-semibold text-gray-900 text-[15px]">{testimonial.author}</h4>
+                                    <p className="text-xs text-brand-green font-medium mt-0.5">{testimonial.location}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
 
             {/* Review Form Modal */}
