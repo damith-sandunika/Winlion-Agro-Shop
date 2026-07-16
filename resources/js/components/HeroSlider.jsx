@@ -6,12 +6,12 @@ const SlideContent = ({ slide, isActive }) => {
     return (
         <div className="max-w-2xl relative px-1 md:p-0 mx-2 md:mx-0">
             {/* Badge */}
-            <div className={`inline-flex items-center gap-1 md:gap-2 px-2 py-1 md:px-3 md:py-1.5 rounded-full text-[9px] md:text-[11px] font-bold tracking-wider mb-2 md:mb-5 bg-[#e8f3e5] text-[#1b5e20] transition-all duration-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <div className={`inline-flex items-center gap-1 md:gap-2 px-2 py-1 md:px-3 md:py-1.5 rounded-full text-[9px] md:text-[11px] font-bold tracking-wider mb-3.5 md:mb-5 bg-[#e8f3e5] text-[#1b5e20] transition-all duration-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <Leaf size={10} className="md:w-3 md:h-3 fill-current" /> {slide.badge}
             </div>
             
             {/* Title */}
-            <h2 className={`text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-2 md:mb-5 whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <h2 className={`text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3.5 md:mb-5 whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                 {slide.title.split('\n').map((line, i) => (
                     <span key={i} className={i === 0 ? "text-gray-900 block" : "text-[#1b5e20] block"}>
                         {line}
@@ -20,7 +20,7 @@ const SlideContent = ({ slide, isActive }) => {
             </h2>
 
             {/* Subtitle */}
-            <p className={`text-[11px] md:text-lg mb-4 md:mb-8 whitespace-pre-line font-medium leading-snug text-gray-800 md:text-[#2c4c26] max-w-[200px] md:max-w-lg transition-all duration-700 delay-400 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <p className={`text-[11px] md:text-lg mb-6 md:mb-8 whitespace-pre-line font-medium leading-snug text-gray-800 md:text-[#2c4c26] max-w-[200px] md:max-w-lg transition-all duration-700 delay-400 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                 {slide.subtitle}
             </p>
             
@@ -112,7 +112,7 @@ const HeroSlider = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-        }, 6000);
+        }, 3000);
         return () => clearInterval(timer);
     }, [slides.length]);
 
@@ -145,7 +145,7 @@ const HeroSlider = () => {
                         </div>
 
                         <div className="absolute inset-0 z-10 flex items-center justify-start">
-                            <div className="container mx-auto px-4 md:px-6 lg:px-10 max-w-7xl w-full pt-10 md:pt-0">
+                            <div className="container mx-auto px-4 md:px-6 lg:px-10 max-w-7xl w-full pb-10 md:pb-0">
                                 <SlideContent slide={slide} isActive={currentSlide === index} />
                             </div>
                         </div>

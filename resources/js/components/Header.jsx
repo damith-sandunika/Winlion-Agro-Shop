@@ -161,7 +161,7 @@ const Header = () => {
             </div>
 
             {/* Mobile Search Bar Row (Moved outside flex container) */}
-            <div className="md:hidden px-4 pb-3 border-b border-gray-100 bg-white">
+            <div className="md:hidden px-4 pb-3 pt-2 border-b border-gray-100 bg-white">
                 <form onSubmit={handleSearchSubmit} className="flex relative z-50">
                     <input
                         type="text"

@@ -3,12 +3,25 @@ import { Link } from 'react-router-dom';
 
 const ParallaxBanner = () => {
     return (
-        <section 
-            className="relative py-24 md:py-32 bg-fixed bg-center bg-cover flex items-center justify-center"
-            style={{ backgroundImage: "url('/images/sliders/desktop slider (3).png')" }}
-        >
-            {/* Flat black overlay instead of gradient */}
-            <div className="absolute inset-0 bg-black/50"></div>
+        <>
+            <style>
+                {`
+                .parallax-bg {
+                    background-image: url('/images/sliders/mobile slider (3).png');
+                    background-attachment: fixed;
+                    background-position: center;
+                    background-size: cover;
+                }
+                @media (min-width: 768px) {
+                    .parallax-bg {
+                        background-image: url('/images/sliders/desktop slider (3).png');
+                    }
+                }
+                `}
+            </style>
+            <section className="relative py-24 md:py-32 flex items-center justify-center overflow-hidden parallax-bg">
+                {/* Flat black overlay instead of gradient */}
+                <div className="absolute inset-0 bg-black/50 z-0 pointer-events-none"></div>
             
             <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
                 <h3 className="text-3xl md:text-5xl font-medium text-white tracking-tight mb-4 drop-shadow-lg">
@@ -25,6 +38,7 @@ const ParallaxBanner = () => {
                 </Link>
             </div>
         </section>
+        </>
     );
 };
 
