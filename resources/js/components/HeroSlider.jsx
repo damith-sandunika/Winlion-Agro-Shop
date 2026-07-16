@@ -43,13 +43,8 @@ const HeroSlider = () => {
             image: '/images/sliders/desktop slider (3).png',
             button1: 'Shop Now',
             button2: 'Explore Categories',
-            featuresLayout: 'floating-bar',
-            features: [
-                { icon: Leaf, title: '100% Natural', subtitle: 'Chemical Free' },
-                { icon: Sprout, title: 'Farm Fresh', subtitle: 'Daily Harvest' },
-                { icon: Package, title: 'Sustainable', subtitle: 'Farming' },
-                { icon: Truck, title: 'Fast Delivery', subtitle: 'To Your Doorstep' }
-            ]
+            featuresLayout: 'none',
+            features: []
         }
     ];
 
@@ -74,11 +69,13 @@ const HeroSlider = () => {
                         key={slide.id} 
                         className={`w-full flex-shrink-0 relative ${slide.bgColor}`}
                     >
-                        {/* Background Image - Clean without heavy gradients */}
+                        {/* Background Image - With strong white gradient for text readability */}
                         <div className="absolute inset-0 z-0 flex justify-end">
                             <div className="w-full h-full relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/20 to-transparent z-10 hidden md:block"></div>
-                                <div className="absolute inset-0 bg-black/20 z-10 md:hidden"></div>
+                                {/* Desktop white gradient on left */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/70 to-transparent z-10 hidden md:block w-3/4"></div>
+                                {/* Mobile white overlay gradient */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/20 z-10 md:hidden"></div>
                                 <img src={slide.image} alt="Slider Background" className="w-full h-full object-cover" />
                             </div>
                         </div>
@@ -86,36 +83,36 @@ const HeroSlider = () => {
                         <div className="absolute inset-0 z-10 flex items-center">
                             <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl w-full">
                                 <div className="max-w-2xl relative">
-                                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-medium tracking-wider mb-5 bg-[#e8eed2] text-[#2c531d] border border-[#a8c78c] animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] md:text-[11px] font-medium tracking-wider mb-4 md:mb-5 bg-[#e8eed2] text-[#2c531d] border border-[#a8c78c] animate-in fade-in slide-in-from-bottom-4 duration-500">
                                         <Leaf size={12} className="fill-current" /> {slide.badge}
                                     </div>
-                                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.1] mb-5 text-[#1a3a14] whitespace-pre-line animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+                                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.1] mb-4 md:mb-5 text-[#1a3a14] whitespace-pre-line animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
                                         {slide.title}
                                     </h2>
-                                    <p className="text-sm md:text-lg mb-8 whitespace-pre-line font-medium leading-relaxed text-[#3a5a34] max-w-lg animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200">
+                                    <p className="text-xs md:text-lg mb-6 md:mb-8 whitespace-pre-line font-medium leading-relaxed text-[#3a5a34] max-w-lg animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200 pr-4 md:pr-0">
                                         {slide.subtitle}
                                     </p>
                                     
-                                    <div className="flex flex-wrap gap-4 mb-8">
-                                        <Link to="/shop" className="bg-[#1b5e20] hover:bg-[#14532d] text-white px-6 py-3 rounded-md font-medium transition-all duration-300 flex items-center gap-2 text-sm shadow-md">
+                                    <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 mb-6 md:mb-8">
+                                        <Link to="/shop" className="bg-[#1b5e20] hover:bg-[#14532d] text-white px-6 py-2.5 md:py-3 rounded-md font-medium transition-all duration-300 flex items-center justify-center gap-2 text-xs md:text-sm shadow-md w-full sm:w-auto">
                                             {slide.button1} <ArrowRight size={16} />
                                         </Link>
-                                        <Link to="/categories" className="bg-transparent border border-[#1b5e20] text-[#1b5e20] hover:bg-[#1b5e20] hover:text-white px-6 py-3 rounded-md font-medium transition-all duration-300 text-sm">
+                                        <Link to="/categories" className="bg-transparent border border-[#1b5e20] text-[#1b5e20] hover:bg-[#1b5e20] hover:text-white px-6 py-2.5 md:py-3 rounded-md font-medium transition-all duration-300 text-xs md:text-sm text-center w-full sm:w-auto">
                                             {slide.button2}
                                         </Link>
                                     </div>
 
                                     {/* Features specific to slider 1 & 2 layout */}
                                     {slide.featuresLayout === 'inline' && (
-                                        <div className="flex flex-wrap gap-6 mt-6 md:mt-12 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
+                                        <div className="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6 mt-4 md:mt-12 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
                                             {slide.features.map((feature, idx) => (
-                                                <div key={idx} className="flex items-center gap-2">
+                                                <div key={idx} className="flex items-center gap-2 md:gap-3">
                                                     <div className="text-[#1b5e20]">
-                                                        <feature.icon size={24} strokeWidth={1.5} />
+                                                        <feature.icon size={20} className="md:w-6 md:h-6" strokeWidth={1.5} />
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-medium text-[13px] text-gray-900 leading-none">{feature.title}</h4>
-                                                        <p className="text-[11px] text-gray-600 font-normal mt-1">{feature.subtitle}</p>
+                                                        <h4 className="font-medium text-[12px] md:text-[13px] text-gray-900 leading-none">{feature.title}</h4>
+                                                        <p className="text-[10px] md:text-[11px] text-gray-600 font-normal mt-1">{feature.subtitle}</p>
                                                     </div>
                                                 </div>
                                             ))}
