@@ -60,7 +60,7 @@ class OrderController extends Controller
             $adminNumber = \App\Models\Setting::where('key', 'whatsapp_number')->value('value');
             if ($adminNumber) {
                 $adminMessage = "🔔 *New Order Received!*\n\n*Invoice:* {$order->invoice_number}\n*Customer:* {$order->customer_name}\n*Total:* Rs. " . number_format($order->grand_total, 2) . "\n\nPlease check the admin dashboard for more details.";
-                \Illuminate\Support\Facades\Http::post('http://127.0.0.1:3001/send', [
+                \Illuminate\Support\Facades\Http::post('http://127.0.0.1:3005/send', [
                     'number' => $adminNumber,
                     'message' => $adminMessage
                 ]);
@@ -119,7 +119,7 @@ class OrderController extends Controller
                 $template
             );
 
-            \Illuminate\Support\Facades\Http::post('http://127.0.0.1:3001/send', [
+            \Illuminate\Support\Facades\Http::post('http://127.0.0.1:3005/send', [
                 'number' => $order->whatsapp_number,
                 'message' => $message
             ]);

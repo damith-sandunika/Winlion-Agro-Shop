@@ -13,7 +13,7 @@ export default function AdminSettings() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            axios.get('http://localhost:3001/status')
+            axios.get('http://localhost:3005/status')
                 .then(res => {
                     setWaStatus(res.data.status);
                     setWaQr(res.data.qr);
@@ -205,7 +205,7 @@ export default function AdminSettings() {
                                         <p className="text-xs text-green-700 font-medium">Automatic messages will be sent to customers.</p>
                                     </div>
                                 </div>
-                                <button onClick={() => axios.post('http://localhost:3001/logout')} className="text-xs bg-white border border-green-200 px-4 py-2 rounded-xl text-green-700 hover:bg-green-100 font-bold shadow-sm transition-colors">Disconnect</button>
+                                <button onClick={() => axios.post('http://localhost:3005/logout')} className="text-xs bg-white border border-green-200 px-4 py-2 rounded-xl text-green-700 hover:bg-green-100 font-bold shadow-sm transition-colors">Disconnect</button>
                             </div>
                         )}
 
