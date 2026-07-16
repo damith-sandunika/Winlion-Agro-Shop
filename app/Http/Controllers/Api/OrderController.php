@@ -102,6 +102,8 @@ class OrderController extends Controller
                 $this->sendWhatsAppMessage($order, 'wa_delivery_template');
             } elseif ($validated['delivery_status'] === 'Completed') {
                 $this->sendWhatsAppMessage($order, 'wa_completed_template');
+            } elseif ($validated['delivery_status'] === 'Cancelled') {
+                $this->sendWhatsAppMessage($order, 'wa_cancelled_template');
             }
         }
 
@@ -121,6 +123,8 @@ class OrderController extends Controller
                     $template = "Hi {{customer_name}},\n\nYour order ({{invoice}}) has been dispatched and is currently *Out for Delivery*. 🚚\n\nBest Regards,\nWin Lion Agro";
                 } elseif ($templateKey === 'wa_completed_template') {
                     $template = "Hi {{customer_name}},\n\nYour order ({{invoice}}) has been successfully *Delivered* and marked as *Completed*! 🎉\n\nThank you for choosing Win Lion Agro. We hope to serve you again soon!\n\nBest Regards,\nWin Lion Agro";
+                } elseif ($templateKey === 'wa_cancelled_template') {
+                    $template = "Hi {{customer_name}},\n\nWe regret to inform you that your order ({{invoice}}) has been *Cancelled*.\nIf you have any questions, please contact our support.\n\nBest Regards,\nWin Lion Agro";
                 } else {
                     return;
                 }

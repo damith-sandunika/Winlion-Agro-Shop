@@ -217,9 +217,9 @@ export default function AdminSettings() {
 
                         <div className="pt-4 border-t border-gray-100">
                             <h4 className="font-normal text-gray-800 mb-4">Message Templates</h4>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <WAMessageBox 
-                                    label="Order Placed" 
+                                    label="Order Received" 
                                     settingKey="wa_order_template" 
                                     tags="Tags: {{customer_name}}, {{invoice}}, {{total}}, {{address}}" 
                                 />
@@ -230,6 +230,14 @@ export default function AdminSettings() {
                                 <WAMessageBox 
                                     label="Order Delivered" 
                                     settingKey="wa_delivery_template" 
+                                />
+                                <WAMessageBox 
+                                    label="Order Completed" 
+                                    settingKey="wa_completed_template" 
+                                />
+                                <WAMessageBox 
+                                    label="Order Cancelled" 
+                                    settingKey="wa_cancelled_template" 
                                 />
                             </div>
                         </div>
