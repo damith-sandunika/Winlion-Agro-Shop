@@ -2,7 +2,7 @@ const CACHE_NAME = 'winlion-cache-v1';
 const urlsToCache = [
   '/',
   '/manifest.json',
-  '/app logo.jpeg',
+  '/app logo.png',
   '/website logo.png'
 ];
 

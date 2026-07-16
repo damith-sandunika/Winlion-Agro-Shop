@@ -8,15 +8,15 @@
     "theme_color": "#1b5e20",
     "icons": [
         {
-            "src": "/app logo.jpeg",
+            "src": "/app logo.png",
             "sizes": "192x192",
-            "type": "image/jpeg",
+            "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/app logo.jpeg",
+            "src": "/app logo.png",
             "sizes": "512x512",
-            "type": "image/jpeg",
+            "type": "image/png",
             "purpose": "any maskable"
         }
     ]

@@ -6,7 +6,7 @@
 
         <title>Win Lion Agro</title>
         <link rel="icon" type="image/png" href="/website logo.png">
-        <link rel="apple-touch-icon" href="/app logo.jpeg">
+        <link rel="apple-touch-icon" href="/app logo.png">
 
         <!-- PWA Meta Tags -->
         <link rel="manifest" href="/manifest.json">
