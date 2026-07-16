@@ -11,7 +11,7 @@ const SlideContent = ({ slide, isActive }) => {
             </div>
             
             {/* Title */}
-            <h2 className={`text-2xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-1.5 md:mb-5 whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <h2 className={`text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-2 md:mb-5 whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                 {slide.title.split('\n').map((line, i) => (
                     <span key={i} className={i === 0 ? "text-gray-900 block" : "text-[#1b5e20] block"}>
                         {line}
@@ -135,7 +135,7 @@ const HeroSlider = () => {
                         {/* Background Image */}
                         <div className="absolute inset-0 z-0 flex justify-end">
                             <div className="w-full h-full relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent z-10 w-[85%] md:w-3/4"></div>
+                                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent z-10 w-[70%] md:w-3/4"></div>
                                 <img src={slide.image} alt="Slider Background" className="w-full h-full object-cover object-center" />
                             </div>
                         </div>
