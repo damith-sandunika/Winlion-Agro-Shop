@@ -18,15 +18,7 @@ export default function AdminDashboard() {
             .finally(() => setLoading(false));
     }, []);
 
-    // Mock data for chart until API provides it
-    const chartData = [
-        { name: 'Feb 2026', gross: 4000, net: 2400 },
-        { name: 'Mar 2026', gross: 3000, net: 1398 },
-        { name: 'Apr 2026', gross: 2000, net: 9800 },
-        { name: 'May 2026', gross: 2780, net: 3908 },
-        { name: 'Jun 2026', gross: 1890, net: 4800 },
-        { name: 'Jul 2026', gross: 2390, net: 3800 },
-    ];
+    const chartData = stats?.chartData || [];
 
     if (loading) return <AdminLayout><div className="flex h-full items-center justify-center text-gray-500 font-normal">Loading dashboard...</div></AdminLayout>;
 
@@ -54,9 +46,9 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* Stats Cards Row */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
                     {/* Card 1 */}
-                    <div className="bg-white rounded-xl p-5 shadow-sm border-b-2 border-b-emerald-500 border border-slate-200 flex flex-col justify-between">
+                    <div className="bg-white rounded-xl p-4 md:p-5 shadow-sm border-b-2 border-b-emerald-500 border border-slate-200 flex flex-col justify-between">
                         <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
                             <DollarSign size={20} />
                         </div>
@@ -67,7 +59,7 @@ export default function AdminDashboard() {
                     </div>
 
                     {/* Card 2 */}
-                    <div className="bg-white rounded-xl p-5 shadow-sm border-b-2 border-b-blue-500 border border-slate-200 flex flex-col justify-between">
+                    <div className="bg-white rounded-xl p-4 md:p-5 shadow-sm border-b-2 border-b-blue-500 border border-slate-200 flex flex-col justify-between">
                         <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
                             <ShoppingCart size={20} />
                         </div>
@@ -78,7 +70,7 @@ export default function AdminDashboard() {
                     </div>
 
                     {/* Card 3 */}
-                    <div className="bg-white rounded-xl p-5 shadow-sm border-b-2 border-b-indigo-500 border border-slate-200 flex flex-col justify-between">
+                    <div className="bg-white rounded-xl p-4 md:p-5 shadow-sm border-b-2 border-b-indigo-500 border border-slate-200 flex flex-col justify-between">
                         <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4">
                             <Users size={20} />
                         </div>
@@ -89,7 +81,7 @@ export default function AdminDashboard() {
                     </div>
 
                     {/* Card 4 */}
-                    <div className="bg-white rounded-xl p-5 shadow-sm border-b-2 border-b-emerald-600 border border-slate-200 flex flex-col justify-between">
+                    <div className="bg-white rounded-xl p-4 md:p-5 shadow-sm border-b-2 border-b-emerald-600 border border-slate-200 flex flex-col justify-between">
                         <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
                             <TrendingUp size={20} />
                         </div>

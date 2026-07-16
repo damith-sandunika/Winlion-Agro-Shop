@@ -30,15 +30,41 @@ class DashboardController extends Controller
         // For simplicity, just get recent orders here.
         $latestOrders = Order::with('items')->latest()->take(5)->get();
 
+        // Generate chart data for the last 6 months
+        $chartData = collect(range(5, 0))->map(function($i) {
+            $date = Carbon::now()->startOfMonth()->subMonths($i);
+            $gross = Order::whereMonth('created_at', $date->month)
+                ->whereYear('created_at', $date->year)
+                ->where('payment_status', 'Paid')
+                ->sum('grand_total');
+                
+            $net = $gross * 0.7; // Estimated net profit
+
+            return [
+                'name' => $date->format('M Y'),
+                'gross' => $gross,
+                'net' => $net
+            ];
+        })->values();
+
+        // Calculate total revenue (all time paid orders)
+        $totalRevenue = Order::where('payment_status', 'Paid')->sum('grand_total');
+        
+        // Total customers (unique user_id from orders or users table, let's use unique users who ordered for now, or just users table)
+        $totalCustomers = \App\Models\User::where('role', '!=', 'admin')->count();
+
         return response()->json([
             'todaysSales' => $todaysSales,
             'monthlySales' => $monthlySales,
+            'totalRevenue' => $totalRevenue,
             'totalOrders' => $totalOrders,
+            'totalCustomers' => $totalCustomers,
             'pendingOrders' => $pendingOrders,
             'deliveredOrders' => $deliveredOrders,
             'totalProducts' => $totalProducts,
-            'lowStockAlerts' => $lowStockAlerts,
+            'lowStock' => $lowStockAlerts,
             'latestOrders' => $latestOrders,
+            'chartData' => $chartData
         ]);
     }
 }
