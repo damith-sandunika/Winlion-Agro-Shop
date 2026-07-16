@@ -15,7 +15,19 @@ let clientStatus = 'INITIALIZING'; // INITIALIZING, QR_READY, AUTHENTICATED, REA
 
 const client = new Client({
     authStrategy: new LocalAuth(),
-    puppeteer: { headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] }
+    puppeteer: { 
+        headless: true, 
+        args: [
+            '--no-sandbox', 
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-accelerated-2d-canvas',
+            '--no-first-run',
+            '--no-zygote',
+            '--single-process',
+            '--disable-gpu'
+        ] 
+    }
 });
 
 client.on('qr', async (qr) => {
@@ -30,6 +42,11 @@ client.on('authenticated', () => {
     qrCodeData = null;
 });
 
+client.on('auth_failure', msg => {
+    console.error('AUTHENTICATION FAILURE', msg);
+    clientStatus = 'ERROR';
+});
+
 client.on('ready', () => {
     console.log('CLIENT IS READY');
     clientStatus = 'READY';
@@ -41,10 +58,16 @@ client.on('disconnected', (reason) => {
     qrCodeData = null;
     
     // Re-initialize
-    client.initialize();
+    client.initialize().catch(err => {
+        console.error('Re-initialization error:', err);
+        clientStatus = 'ERROR';
+    });
 });
 
-client.initialize();
+client.initialize().catch(err => {
+    console.error('Initialization error:', err);
+    clientStatus = 'ERROR';
+});
 
 // Routes
 app.get('/status', (req, res) => {
