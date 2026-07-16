@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, ShoppingCart, User, Menu, ChevronDown, List, Phone, Mail, Facebook, Instagram, Twitter, X } from 'lucide-react';
+import { Search, ShoppingCart, Menu, ChevronDown, List, X, Phone, Mail } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
