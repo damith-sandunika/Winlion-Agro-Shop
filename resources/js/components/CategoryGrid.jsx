@@ -36,7 +36,7 @@ const CategoryGrid = () => {
             <div className="grid grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-x-2 gap-y-6 md:gap-6 mb-10">
                 {categories.map((category) => (
                     <Link key={category.id} to={`/category/${category.id}`} className="group flex flex-col items-center">
-                        <div className={`w-[70px] h-[70px] md:w-[100px] md:h-[100px] rounded-full ${category.bgColor || 'bg-gray-50'} flex items-center justify-center p-3 md:p-5 mb-3 group-hover:bg-green-50 group-hover:shadow-[0_8px_20px_rgba(21,128,61,0.12)] transition-all duration-300 overflow-hidden mx-auto`}>
+                        <div className={`w-[70px] h-[70px] md:w-[100px] md:h-[100px] rounded-full ${category.bgColor || 'bg-gray-50'} flex items-center justify-center p-3 md:p-5 mb-3 shadow-[0_4px_15px_rgba(0,0,0,0.06)] border-2 border-white group-hover:bg-green-50 group-hover:shadow-[0_8px_25px_rgba(21,128,61,0.18)] transition-all duration-300 overflow-hidden mx-auto`}>
                             <img 
                                 src={category.image} 
                                 alt={category.name} 
