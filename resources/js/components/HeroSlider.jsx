@@ -6,13 +6,17 @@ const SlideContent = ({ slide, isActive }) => {
     return (
         <div className="max-w-2xl relative p-5 md:p-0 mx-4 md:mx-0">
             {/* Badge */}
-            <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] md:text-[11px] font-medium tracking-wider mb-4 md:mb-5 bg-[#e8eed2] text-[#2c531d] border border-[#a8c78c] transition-all duration-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <div className={`inline-flex items-center gap-1.5 md:gap-2 px-3 py-1.5 rounded-full text-[10px] md:text-[11px] font-bold tracking-wider mb-4 md:mb-5 bg-[#e8f3e5] text-[#1b5e20] transition-all duration-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <Leaf size={12} className="md:w-3 md:h-3 fill-current" /> {slide.badge}
             </div>
             
             {/* Title */}
-            <h2 className={`text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 md:mb-5 text-[#1b5e20] whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-                {slide.title}
+            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 md:mb-5 whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+                {slide.title.split('\n').map((line, i) => (
+                    <span key={i} className={i === 0 ? "text-gray-900 block" : "text-[#1b5e20] block"}>
+                        {line}
+                    </span>
+                ))}
             </h2>
 
             {/* Subtitle */}
@@ -21,26 +25,26 @@ const SlideContent = ({ slide, isActive }) => {
             </p>
             
             {/* Buttons */}
-            <div className={`flex flex-row flex-wrap gap-3 md:gap-4 mb-4 md:mb-8 transition-all duration-700 delay-500 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-                <Link to="/shop" className="bg-[#1b5e20] hover:bg-[#14532d] text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-1.5 text-[11px] md:text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                    {slide.button1} <ArrowRight size={14} className="md:w-4 md:h-4" />
+            <div className={`flex flex-col sm:flex-row gap-3 md:gap-4 mb-5 md:mb-8 transition-all duration-700 delay-500 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+                <Link to="/shop" className="bg-[#1b5e20] hover:bg-[#14532d] text-white px-5 py-3 md:px-6 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-base shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                    {slide.button1} <ArrowRight size={16} className="md:w-5 md:h-5" />
                 </Link>
-                <Link to="/categories" className="bg-white/80 md:bg-transparent border border-[#1b5e20] text-[#1b5e20] hover:bg-[#1b5e20] hover:text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-medium transition-all duration-300 text-[11px] md:text-sm text-center shadow-sm hover:shadow-lg hover:-translate-y-0.5">
+                <Link to="/categories" className="bg-white/80 md:bg-transparent border border-[#1b5e20] text-[#1b5e20] hover:bg-[#1b5e20] hover:text-white px-5 py-3 md:px-6 rounded-xl font-medium transition-all duration-300 text-sm md:text-base text-center shadow-sm hover:shadow-lg hover:-translate-y-0.5">
                     {slide.button2}
                 </Link>
             </div>
 
             {/* Features */}
             {slide.featuresLayout === 'inline' && (
-                <div className={`flex flex-col md:flex-row flex-wrap gap-4 md:gap-6 mt-6 md:mt-12 transition-all duration-700 delay-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+                <div className={`flex flex-col md:flex-row flex-wrap gap-3 md:gap-6 mt-4 md:mt-12 transition-all duration-700 delay-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                     {slide.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-3">
                             <div className="text-[#1b5e20]">
-                                <feature.icon size={24} className="md:w-6 md:h-6" strokeWidth={1.5} />
+                                <feature.icon size={20} className="md:w-6 md:h-6" strokeWidth={1.5} />
                             </div>
                             <div>
-                                <h4 className="font-bold text-sm md:text-[13px] text-gray-900 leading-none">{feature.title}</h4>
-                                <p className="text-[13px] md:text-[11px] text-gray-600 font-medium mt-1">{feature.subtitle}</p>
+                                <h4 className="font-bold text-[12px] md:text-[13px] text-gray-900 leading-none">{feature.title}</h4>
+                                <p className="text-[11px] md:text-[11px] text-gray-500 font-medium mt-0.5">{feature.subtitle}</p>
                             </div>
                         </div>
                     ))}
@@ -85,13 +89,17 @@ const HeroSlider = () => {
         {
             id: 3,
             badge: '100% PURE & NATURAL',
-            title: 'Nature\'s Goodness,\nGrown With Care',
+            title: 'Nature\'s Goodness\nGrown With Care',
             subtitle: 'From our tropical farms to your home –\nfresh, healthy and natural every time.',
             image: '/images/sliders/desktop slider (3).png',
             button1: 'Shop Now',
             button2: 'Explore Categories',
-            featuresLayout: 'none',
-            features: []
+            featuresLayout: 'inline',
+            features: [
+                { icon: Leaf, title: '100% Natural', subtitle: 'Chemical Free' },
+                { icon: Sprout, title: 'Direct from Farm', subtitle: 'Daily Harvest' },
+                { icon: Truck, title: 'Fresh Delivery', subtitle: 'To Your Doorstep' }
+            ]
         }
     ];
 
@@ -122,13 +130,13 @@ const HeroSlider = () => {
                 {slides.map((slide, index) => (
                     <div 
                         key={slide.id} 
-                        className={`w-full flex-shrink-0 relative`}
+                        className={`w-full h-full flex-shrink-0 relative overflow-hidden`}
                     >
                         {/* Background Image */}
                         <div className="absolute inset-0 z-0 flex justify-end">
                             <div className="w-full h-full relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-10 w-4/5 md:w-3/4"></div>
-                                <img src={slide.image} alt="Slider Background" className="w-full h-full object-cover object-[75%_center] md:object-center transform scale-105" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent z-10 w-[85%] md:w-3/4"></div>
+                                <img src={slide.image} alt="Slider Background" className="w-full h-full object-cover object-center" />
                             </div>
                         </div>
 
@@ -141,17 +149,17 @@ const HeroSlider = () => {
                 ))}
             </div>
 
-            {/* Slider Controls */}
+            {/* Slider Controls (Hidden on Mobile) */}
             <button 
                 onClick={prevSlide}
-                className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-8 h-8 md:w-14 md:h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-[0_4px_15px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(21,128,61,0.2)] hover:-translate-x-1 transition-all z-30"
+                className="hidden md:flex absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 bg-white/90 backdrop-blur-sm rounded-full items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-[0_8px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(21,128,61,0.2)] hover:-translate-x-1 transition-all z-30"
             >
                 <ChevronLeft className="w-5 h-5 md:w-7 md:h-7" />
             </button>
             
             <button 
                 onClick={nextSlide}
-                className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-8 h-8 md:w-14 md:h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-[0_4px_15px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(21,128,61,0.2)] hover:translate-x-1 transition-all z-30"
+                className="hidden md:flex absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 bg-white/90 backdrop-blur-sm rounded-full items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-[0_8px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(21,128,61,0.2)] hover:translate-x-1 transition-all z-30"
             >
                 <ChevronRight className="w-5 h-5 md:w-7 md:h-7" />
             </button>

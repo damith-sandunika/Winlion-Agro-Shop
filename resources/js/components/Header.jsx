@@ -76,7 +76,71 @@ const Header = () => {
                     <img src="/website logo.png" alt="WinLion Logo" className="w-32 h-16 md:w-64 md:h-24 object-contain" />
                 </Link>
 
-
+                {/* Desktop Search Bar */}
+                <form onSubmit={handleSearchSubmit} className="hidden lg:flex flex-1 max-w-2xl mx-8 relative z-50">
+                    <input
+                        type="text"
+                        name="q"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        onFocus={() => setIsSearchFocused(true)}
+                        onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
+                        placeholder="Search fresh fruits, vegetables, seeds, fertilizers..."
+                        className="w-full pl-4 pr-12 py-2.5 bg-gray-100 border-none rounded-lg focus:ring-2 focus:ring-brand-green focus:bg-white transition-all outline-none relative z-20"
+                        autoComplete="off"
+                    />
+                    <button type="submit" className="absolute right-0 top-0 h-full px-4 bg-brand-green text-white rounded-r-lg hover:bg-brand-dark transition-colors z-20">
+                        <Search size={20} />
+                    </button>
+                    
+                    {/* Live Search Dropdown Desktop */}
+                    {isSearchFocused && searchQuery.length > 0 && (
+                        <div className="absolute top-full left-0 w-full mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 py-2 z-30 max-h-[400px] overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200">
+                            {searchResults.length > 0 ? (
+                                <div className="flex flex-col">
+                                    <div className="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50/50">Products</div>
+                                    {searchResults.map(product => (
+                                        <div 
+                                            key={product.id} 
+                                            className="flex items-center gap-4 px-4 py-3 hover:bg-green-50 transition-colors border-b border-gray-50 last:border-0 group"
+                                        >
+                                            <div className="flex-1 flex items-center gap-4 cursor-pointer" onMouseDown={(e) => { e.preventDefault(); handleProductClick(product); }}>
+                                                <img src={product.image} alt={product.name} className="w-12 h-12 rounded-lg object-cover bg-gray-50" />
+                                                <div>
+                                                    <h4 className="text-sm font-medium text-gray-900">{product.name}</h4>
+                                                    <div className="flex items-center gap-2 mt-0.5">
+                                                        <span className="text-sm font-bold text-brand-green">Rs {Number(product.price).toFixed(2)}</span>
+                                                        {product.oldPrice && <span className="text-xs text-gray-400 line-through">Rs {Number(product.oldPrice).toFixed(2)}</span>}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button 
+                                                onMouseDown={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    addToCart(product, 1);
+                                                    setIsSearchFocused(false);
+                                                    setSearchQuery('');
+                                                }}
+                                                className="p-2.5 bg-green-100 hover:bg-brand-green text-brand-green hover:text-white rounded-full transition-colors shrink-0 shadow-sm"
+                                                title="Add to Cart"
+                                            >
+                                                <ShoppingCart size={16} />
+                                            </button>
+                                        </div>
+                                    ))}
+                                    <div className="p-3 border-t border-gray-100 text-center">
+                                        <button onClick={handleSearchSubmit} className="text-sm text-brand-green font-medium hover:underline">View all results for "{searchQuery}"</button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="p-8 text-center text-gray-500 text-sm">
+                                    No products found matching "{searchQuery}"
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </form>
 
             {/* Mobile Search Bar Row */}
             <div className="md:hidden px-4 pb-3 border-b border-gray-100">
