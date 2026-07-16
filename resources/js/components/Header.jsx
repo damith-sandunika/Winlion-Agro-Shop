@@ -112,7 +112,7 @@ const Header = () => {
                                             key={product.id} 
                                             className="flex items-center gap-4 px-4 py-3 hover:bg-green-50 transition-colors border-b border-gray-50 last:border-0 group"
                                         >
-                                            <div className="flex-1 flex items-center gap-4 cursor-pointer" onClick={() => handleProductClick(product)}>
+                                            <div className="flex-1 flex items-center gap-4 cursor-pointer" onMouseDown={(e) => { e.preventDefault(); handleProductClick(product); }}>
                                                 <img src={product.image} alt={product.name} className="w-12 h-12 rounded-lg object-cover bg-gray-50" />
                                                 <div>
                                                     <h4 className="text-sm font-medium text-gray-900">{product.name}</h4>
@@ -123,13 +123,14 @@ const Header = () => {
                                                 </div>
                                             </div>
                                             <button 
-                                                onClick={(e) => {
+                                                onMouseDown={(e) => {
+                                                    e.preventDefault(); // prevent blur
                                                     e.stopPropagation();
                                                     addToCart(product, 1);
                                                     setIsSearchFocused(false);
                                                     setSearchQuery('');
                                                 }}
-                                                className="p-2.5 bg-green-100 hover:bg-brand-green text-brand-green hover:text-white rounded-full transition-colors shrink-0 opacity-100 md:opacity-0 md:group-hover:opacity-100"
+                                                className="p-2.5 bg-green-100 hover:bg-brand-green text-brand-green hover:text-white rounded-full transition-colors shrink-0 shadow-sm"
                                                 title="Add to Cart"
                                             >
                                                 <ShoppingCart size={16} />
