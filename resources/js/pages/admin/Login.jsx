@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -7,15 +7,47 @@ export default function AdminLogin() {
     const [form, setForm] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    
+    // PWA Logic
+    const [installPromptEvent, setInstallPromptEvent] = useState(null);
     const [showInstallPrompt, setShowInstallPrompt] = useState(false);
+    const [isIos, setIsIos] = useState(false);
 
-    // Simulate PWA prompt after 1.5 seconds on the login page
-    React.useEffect(() => {
-        const timer = setTimeout(() => {
+    useEffect(() => {
+        const ua = window.navigator.userAgent;
+        const ios = /iphone|ipad|ipod/i.test(ua);
+        const standalone = window.navigator.standalone === true;
+        const dismissed = localStorage.getItem('pwa_dismissed');
+
+        if (ios && !standalone && !dismissed) {
+            setIsIos(true);
             setShowInstallPrompt(true);
-        }, 1500);
-        return () => clearTimeout(timer);
+            return;
+        }
+
+        const handler = (e) => {
+            e.preventDefault();
+            setInstallPromptEvent(e);
+            if (!dismissed) setShowInstallPrompt(true);
+        };
+        window.addEventListener('beforeinstallprompt', handler);
+        return () => window.removeEventListener('beforeinstallprompt', handler);
     }, []);
+
+    const handleInstall = () => {
+        if (isIos) return;
+        if (!installPromptEvent) return;
+        installPromptEvent.prompt();
+        installPromptEvent.userChoice.then(() => {
+            setInstallPromptEvent(null);
+            setShowInstallPrompt(false);
+        });
+    };
+
+    const dismissPrompt = () => {
+        localStorage.setItem('pwa_dismissed', '1');
+        setShowInstallPrompt(false);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,7 +55,7 @@ export default function AdminLogin() {
         setError('');
         try {
             await axios.get('/sanctum/csrf-cookie');
-            const res = await axios.post('/api/login', form);
+            await axios.post('/api/login', form);
             navigate('/admin');
         } catch (err) {
             setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
@@ -33,125 +65,132 @@ export default function AdminLogin() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-green-50">
-            {/* Background Blobs */}
-            <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-30" style={{background:'radial-gradient(circle, #bbf7d0, transparent 60%)'}} />
-            <div className="absolute -bottom-32 -right-32 w-[400px] h-[400px] rounded-full opacity-30" style={{background:'radial-gradient(circle, #d9f99d, transparent 60%)'}} />
-
-            {/* Card */}
-            <div className="relative z-10 w-full max-w-md mx-4">
-                <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-green-900/10 overflow-hidden border border-white/60">
-                    {/* Header */}
-                    <div className="px-8 pt-8 pb-6 text-center" style={{ background: 'linear-gradient(135deg, #298d24, #1b5e20)' }}>
-                        {/* Low-Poly bg */}
-                        <div className="absolute inset-0 pointer-events-none opacity-20">
-                            <div className="absolute -top-6 -left-6 w-32 h-32 bg-white" style={{ clipPath: 'polygon(0 0, 100% 0, 60% 100%, 0 60%)' }}></div>
-                            <div className="absolute top-4 right-0 w-24 h-24 bg-white" style={{ clipPath: 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)' }}></div>
-                        </div>
-                        <div className="relative z-10">
-                            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white mb-4 shadow-xl p-3">
-                                <img src="/website logo.png" alt="WinLion Logo" className="w-full h-full object-contain" />
-                            </div>
-                            <h1 className="text-xl font-normal text-white">WinLion Agro</h1>
-                            <p className="text-green-200 text-xs font-normal uppercase tracking-widest mt-1">Admin Panel</p>
-                        </div>
-                    </div>
-
-                    {/* Form */}
-                    <div className="px-8 py-8">
-                        <h2 className="text-xl font-normal text-gray-800 mb-1">Welcome back 👋</h2>
-                        <p className="text-gray-500 text-sm mb-6">Sign in to your admin account</p>
-
-                        {error && (
-                            <div className="mb-4 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-normal flex items-center gap-2">
-                                <span>⚠️</span> {error}
-                            </div>
-                        )}
-
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-normal text-gray-700 mb-1.5">Email Address</label>
-                                <input
-                                    type="email"
-                                    value={form.email}
-                                    onChange={e => setForm({...form, email: e.target.value})}
-                                    required
-                                    placeholder="admin@winlion.com"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent focus:bg-white transition-all text-sm"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-normal text-gray-700 mb-1.5">Password</label>
-                                <input
-                                    type="password"
-                                    value={form.password}
-                                    onChange={e => setForm({...form, password: e.target.value})}
-                                    required
-                                    placeholder="••••••••"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent focus:bg-white transition-all text-sm"
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="w-full py-3 rounded-xl text-white font-normal text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-green-300/50 disabled:opacity-60"
-                                style={{ background: loading ? '#6b7280' : 'linear-gradient(135deg, #298d24, #1b5e20)' }}
-                            >
-                                {loading ? (
-                                    <>
-                                        <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                                        Signing in...
-                                    </>
-                                ) : 'Sign In'}
-                            </button>
-                        </form>
-
-                        <p className="text-center text-xs text-gray-400 mt-6">
-                            Default: <span className="font-normal text-gray-600">admin@winlion.com</span> / <span className="font-normal text-gray-600">password</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            {/* PWA Install Prompt Popup */}
+        <div className="min-h-screen bg-white flex flex-col md:flex-row font-sans">
+            {/* PWA Install Banner */}
             {showInstallPrompt && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300">
-                    <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-500 slide-in-from-bottom-8">
-                        <div className="p-8 text-center relative">
-                            <button 
-                                onClick={() => setShowInstallPrompt(false)}
-                                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-full p-2 transition-colors"
-                            >
-                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" /></svg>
-                            </button>
-                            
-                            <div className="w-24 h-24 mx-auto bg-white rounded-[2rem] shadow-lg border border-gray-100 p-2 mb-6">
-                                <img src="/app logo.jpeg" alt="App Logo" className="w-full h-full object-cover rounded-2xl" />
+                <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-sm animate-in slide-in-from-bottom-10 fade-in duration-500">
+                    <div className="bg-white rounded-2xl shadow-[0_20px_50px_rgba(21,128,61,0.2)] border border-green-100 overflow-hidden">
+                        <div className="bg-brand-dark px-4 py-2 flex items-center justify-between">
+                            <span className="text-[10px] font-medium text-green-200 uppercase tracking-widest">
+                                {isIos ? 'Install App on iPhone' : 'Install App'}
+                            </span>
+                            <button onClick={dismissPrompt} className="text-green-300 hover:text-white text-lg leading-none font-medium">✕</button>
+                        </div>
+                        <div className="p-4 flex items-center gap-3">
+                            <img src="/app logo.jpeg" alt="Logo" className="w-12 h-12 rounded-xl object-cover shadow" />
+                            <div className="flex-1 min-w-0">
+                                <p className="font-medium text-gray-900 text-sm truncate">WinLion Agro</p>
+                                {isIos ? (
+                                    <p className="text-xs text-gray-500 mt-0.5 leading-tight">
+                                        Tap <span className="text-brand-green font-medium">Share</span> then <span>"Add to Home Screen"</span>
+                                    </p>
+                                ) : (
+                                    <p className="text-xs text-gray-500">Install for quick access</p>
+                                )}
                             </div>
-                            
-                            <h2 className="text-2xl font-normal text-gray-800 tracking-tight mb-2">Install App</h2>
-                            <p className="text-sm text-gray-500 font-normal mb-8 px-4">Add WinLion Agro to your home screen for faster access and a better experience.</p>
-                            
-                            <button 
-                                onClick={() => {
-                                    alert('Install flow initiated!'); 
-                                    setShowInstallPrompt(false);
-                                }}
-                                className="w-full py-4 rounded-xl text-white font-normal text-sm tracking-wide shadow-lg shadow-green-500/30 hover:scale-[1.02] active:scale-95 transition-all"
-                                style={{ background: 'linear-gradient(135deg, #298d24, #1b5e20)' }}
-                            >
-                                INSTALL NOW
-                            </button>
-                            <button 
-                                onClick={() => setShowInstallPrompt(false)}
-                                className="w-full mt-3 py-3 text-sm font-normal text-gray-400 hover:text-gray-700 transition-colors"
-                            >
-                                Not Right Now
-                            </button>
+                            {!isIos && (
+                                <button onClick={handleInstall} className="px-4 py-2 bg-brand-green hover:bg-brand-dark text-white text-xs font-medium rounded-lg transition-colors shadow-sm">
+                                    Install
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
             )}
+
+            {/* Left Side - Branding */}
+            <div className="hidden md:flex md:w-[45%] lg:w-1/2 relative overflow-hidden flex-col justify-between p-12 lg:p-16 text-white" style={{ background: 'linear-gradient(135deg, #15803d, #14532d)' }}>
+                {/* Background Patterns */}
+                <div className="absolute inset-0 pointer-events-none opacity-20" style={{ mixBlendMode: 'overlay' }}>
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-500 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/3"></div>
+                    <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-lime-400 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3"></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border-[40px] border-white/5 rounded-full"></div>
+                </div>
+
+                <div className="relative z-10 flex items-center gap-4">
+                    <img src="/website logo.png" alt="Logo" className="w-16 h-16 rounded-2xl bg-white p-2 object-contain shadow-xl ring-2 ring-white/20" />
+                    <div>
+                        <h1 className="text-3xl font-medium tracking-tight leading-none">WinLion Agro</h1>
+                        <p className="text-xs font-medium text-green-300 uppercase tracking-widest mt-1">Management System</p>
+                    </div>
+                </div>
+
+                <div className="relative z-10 max-w-lg mt-12">
+                    <h2 className="text-4xl lg:text-5xl font-medium mb-6 leading-tight drop-shadow-sm">Manage your fresh produce seamlessly.</h2>
+                    <p className="text-green-100/90 text-lg leading-relaxed font-light">Access orders, update inventory, and manage your customers in one secure and beautifully designed platform.</p>
+                </div>
+
+                <div className="relative z-10 mt-12">
+                    <p className="text-[10px] font-medium text-green-300 uppercase tracking-widest">Powered by <span className="text-white">DSRZone</span></p>
+                </div>
+            </div>
+
+            {/* Right Side - Login Form */}
+            <div className="flex-1 flex flex-col justify-center px-6 py-12 lg:px-20 relative bg-slate-50 md:bg-white overflow-hidden">
+                {/* Mobile Decorative Blobs */}
+                <div className="absolute inset-0 pointer-events-none md:hidden overflow-hidden">
+                    <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-green-100/50 blur-3xl opacity-70"></div>
+                    <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-lime-100/50 blur-3xl opacity-70"></div>
+                </div>
+
+                {/* Mobile Logo */}
+                <div className="md:hidden relative z-10 flex flex-col items-center mb-10 text-center">
+                    <img src="/website logo.png" alt="Logo" className="w-24 h-24 rounded-2xl bg-white p-3 object-contain shadow-xl ring-4 ring-white mb-5" />
+                    <h2 className="text-2xl font-medium text-slate-800 tracking-tight leading-none">WinLion Agro</h2>
+                    <p className="text-[10px] font-medium text-brand-green uppercase tracking-[0.15em] mt-2">Admin Login</p>
+                </div>
+
+                <div className="mx-auto w-full max-w-sm relative z-10">
+                    <div className="hidden md:block mb-8">
+                        <h2 className="text-3xl font-medium text-slate-800 tracking-tight">Welcome back</h2>
+                        <p className="text-sm text-slate-500 mt-2 font-light">Please enter your details to sign in.</p>
+                    </div>
+
+                    {error && (
+                        <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium text-center shadow-sm">
+                            {error}
+                        </div>
+                    )}
+
+                    <div className="bg-white md:bg-transparent py-8 px-6 md:p-0 shadow-[0_8px_30px_rgb(0,0,0,0.04)] md:shadow-none sm:rounded-3xl border border-gray-100 md:border-none">
+                        <form className="space-y-5" onSubmit={handleSubmit}>
+                            <div>
+                                <label className="block text-sm font-medium text-slate-700 mb-1.5">Email Address</label>
+                                <input
+                                    type="email"
+                                    required
+                                    value={form.email}
+                                    onChange={e => setForm({...form, email: e.target.value})}
+                                    className="appearance-none block w-full px-4 py-3.5 border border-slate-200 rounded-xl bg-slate-50/50 focus:bg-white text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all shadow-sm"
+                                    placeholder="admin@winlion.com"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
+                                <input
+                                    type="password"
+                                    required
+                                    value={form.password}
+                                    onChange={e => setForm({...form, password: e.target.value})}
+                                    className="appearance-none block w-full px-4 py-3.5 border border-slate-200 rounded-xl bg-slate-50/50 focus:bg-white text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all shadow-sm"
+                                    placeholder="••••••••"
+                                />
+                            </div>
+
+                            <div className="pt-2">
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="w-full flex justify-center items-center gap-2 py-3.5 px-4 rounded-xl shadow-lg text-sm font-medium text-white bg-brand-green hover:bg-brand-dark hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 active:scale-[0.98]"
+                                >
+                                    {loading ? 'Signing in...' : 'Sign In to Dashboard'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
