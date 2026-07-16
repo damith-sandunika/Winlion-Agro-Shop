@@ -34,9 +34,9 @@ const SlideContent = ({ slide, isActive }) => {
                 </Link>
             </div>
 
-            {/* Features */}
+            {/* Features (Desktop Only) */}
             {slide.featuresLayout === 'inline' && (
-                <div className={`flex flex-col md:flex-row flex-wrap gap-1.5 md:gap-6 mt-2 md:mt-12 transition-all duration-700 delay-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+                <div className={`hidden md:flex flex-row flex-wrap gap-6 mt-12 transition-all duration-700 delay-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                     {slide.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2">
                             <div className="text-[#1b5e20]">
@@ -135,7 +135,10 @@ const HeroSlider = () => {
                         {/* Background Image */}
                         <div className="absolute inset-0 z-0 flex justify-end">
                             <div className="w-full h-full relative bg-[#f4f7ee]">
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#f4f7ee] via-[#f4f7ee]/95 to-transparent z-10 w-[70%] md:w-[60%]"></div>
+                                {/* Desktop Gradient */}
+                                <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#f4f7ee] via-[#f4f7ee]/95 to-transparent z-10 w-[60%]"></div>
+                                {/* Mobile Gradient Blob */}
+                                <div className="md:hidden absolute top-[15%] bottom-[15%] -left-[30%] w-[85%] bg-[#f4f7ee] rounded-full blur-[40px] z-10"></div>
                                 <img src={slide.imageDesktop} alt="Slider Background" className="hidden md:block w-full h-full object-cover object-center" />
                                 <img src={slide.imageMobile} alt="Slider Background" className="md:hidden w-full h-full object-cover object-center" />
                             </div>
@@ -175,6 +178,27 @@ const HeroSlider = () => {
                         aria-label={`Go to slide ${index + 1}`}
                     />
                 ))}
+            </div>
+            
+            {/* Mobile Features Card */}
+            <div className="md:hidden relative z-30 px-4 -mt-8 mb-6">
+                <div className="bg-white rounded-[1.25rem] shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-3.5 flex justify-between items-center text-center relative divide-x divide-gray-100">
+                    <div className="flex flex-col items-center flex-1 px-1">
+                        <Leaf size={20} className="text-[#1b5e20] mb-1.5" strokeWidth={1.5} />
+                        <h4 className="font-bold text-[9px] text-gray-900 leading-none">100% Natural</h4>
+                        <p className="text-[8px] text-gray-500 font-medium mt-1">Chemical Free</p>
+                    </div>
+                    <div className="flex flex-col items-center flex-1 px-1">
+                        <Sprout size={20} className="text-[#1b5e20] mb-1.5" strokeWidth={1.5} />
+                        <h4 className="font-bold text-[9px] text-gray-900 leading-none">Farm Fresh</h4>
+                        <p className="text-[8px] text-gray-500 font-medium mt-1">Daily Harvest</p>
+                    </div>
+                    <div className="flex flex-col items-center flex-1 px-1">
+                        <Truck size={20} className="text-[#1b5e20] mb-1.5" strokeWidth={1.5} />
+                        <h4 className="font-bold text-[9px] text-gray-900 leading-none">Fast Delivery</h4>
+                        <p className="text-[8px] text-gray-500 font-medium mt-1">To Your Doorstep</p>
+                    </div>
+                </div>
             </div>
         </div>
     );

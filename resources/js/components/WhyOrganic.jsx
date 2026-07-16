@@ -14,7 +14,7 @@ const WhyOrganic = () => {
                     
                     <div className="relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(21,128,61,0.15)] group">
                         <img 
-                            src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" 
+                            src="/images/sliders/new.png" 
                             alt="Fresh Organic Vegetables" 
                             className="w-full h-[400px] md:h-[550px] object-cover group-hover:scale-105 transition-transform duration-700"
                         />
