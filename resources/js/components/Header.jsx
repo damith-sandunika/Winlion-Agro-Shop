@@ -142,8 +142,26 @@ const Header = () => {
                     )}
                 </form>
 
-            {/* Mobile Search Bar Row */}
-            <div className="md:hidden px-4 pb-3 border-b border-gray-100">
+
+
+                {/* Actions */}
+                <div className="flex items-center gap-6 z-10">
+                    <Link to="/cart" className="flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors relative">
+                        <div className="relative">
+                            <ShoppingCart size={22} />
+                            {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-brand-green text-white text-[10px] font-normal px-1.5 py-0.5 rounded-full">{cartCount}</span>}
+                        </div>
+                        <span className="text-xs font-normal mt-1 hidden lg:block">Cart</span>
+                    </Link>
+                    <Link to="/categories" className="hidden lg:flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors">
+                        <List size={22} />
+                        <span className="text-xs font-normal mt-1">Categories</span>
+                    </Link>
+                </div>
+            </div>
+
+            {/* Mobile Search Bar Row (Moved outside flex container) */}
+            <div className="md:hidden px-4 pb-3 border-b border-gray-100 bg-white">
                 <form onSubmit={handleSearchSubmit} className="flex relative z-50">
                     <input
                         type="text"
@@ -187,22 +205,6 @@ const Header = () => {
                         </div>
                     )}
                 </form>
-            </div>
-
-                {/* Actions */}
-                <div className="flex items-center gap-6 z-10">
-                    <Link to="/cart" className="flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors relative">
-                        <div className="relative">
-                            <ShoppingCart size={22} />
-                            {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-brand-green text-white text-[10px] font-normal px-1.5 py-0.5 rounded-full">{cartCount}</span>}
-                        </div>
-                        <span className="text-xs font-normal mt-1 hidden lg:block">Cart</span>
-                    </Link>
-                    <Link to="/categories" className="hidden lg:flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors">
-                        <List size={22} />
-                        <span className="text-xs font-normal mt-1">Categories</span>
-                    </Link>
-                </div>
             </div>
 
 

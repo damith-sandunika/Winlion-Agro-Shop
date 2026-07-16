@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 
 const SlideContent = ({ slide, isActive }) => {
     return (
-        <div className="max-w-2xl relative p-5 md:p-0 mx-4 md:mx-0">
+        <div className="max-w-2xl relative px-1 md:p-0 mx-2 md:mx-0">
             {/* Badge */}
-            <div className={`inline-flex items-center gap-1.5 md:gap-2 px-3 py-1.5 rounded-full text-[10px] md:text-[11px] font-bold tracking-wider mb-4 md:mb-5 bg-[#e8f3e5] text-[#1b5e20] transition-all duration-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <Leaf size={12} className="md:w-3 md:h-3 fill-current" /> {slide.badge}
+            <div className={`inline-flex items-center gap-1 md:gap-2 px-2 py-1 md:px-3 md:py-1.5 rounded-full text-[9px] md:text-[11px] font-bold tracking-wider mb-2 md:mb-5 bg-[#e8f3e5] text-[#1b5e20] transition-all duration-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <Leaf size={10} className="md:w-3 md:h-3 fill-current" /> {slide.badge}
             </div>
             
             {/* Title */}
-            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 md:mb-5 whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <h2 className={`text-2xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-1.5 md:mb-5 whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                 {slide.title.split('\n').map((line, i) => (
                     <span key={i} className={i === 0 ? "text-gray-900 block" : "text-[#1b5e20] block"}>
                         {line}
@@ -20,31 +20,31 @@ const SlideContent = ({ slide, isActive }) => {
             </h2>
 
             {/* Subtitle */}
-            <p className={`text-sm md:text-lg mb-6 md:mb-8 whitespace-pre-line font-medium leading-relaxed text-gray-800 md:text-[#2c4c26] max-w-lg transition-all duration-700 delay-400 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <p className={`text-[11px] md:text-lg mb-4 md:mb-8 whitespace-pre-line font-medium leading-snug text-gray-800 md:text-[#2c4c26] max-w-[200px] md:max-w-lg transition-all duration-700 delay-400 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                 {slide.subtitle}
             </p>
             
             {/* Buttons */}
-            <div className={`flex flex-col sm:flex-row gap-3 md:gap-4 mb-5 md:mb-8 transition-all duration-700 delay-500 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-                <Link to="/shop" className="bg-[#1b5e20] hover:bg-[#14532d] text-white px-5 py-3 md:px-6 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-base shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                    {slide.button1} <ArrowRight size={16} className="md:w-5 md:h-5" />
+            <div className={`flex flex-col sm:flex-row gap-2 md:gap-4 mb-3 md:mb-8 transition-all duration-700 delay-500 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+                <Link to="/shop" className="bg-[#1b5e20] hover:bg-[#14532d] text-white px-3 py-1.5 md:px-6 md:py-3 rounded-md md:rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-1 text-[10px] md:text-base w-max shadow-sm hover:shadow-lg hover:-translate-y-0.5">
+                    {slide.button1} <ArrowRight size={12} className="md:w-5 md:h-5" />
                 </Link>
-                <Link to="/categories" className="bg-white/80 md:bg-transparent border border-[#1b5e20] text-[#1b5e20] hover:bg-[#1b5e20] hover:text-white px-5 py-3 md:px-6 rounded-xl font-medium transition-all duration-300 text-sm md:text-base text-center shadow-sm hover:shadow-lg hover:-translate-y-0.5">
+                <Link to="/categories" className="bg-white/80 md:bg-transparent border border-[#1b5e20] text-[#1b5e20] hover:bg-[#1b5e20] hover:text-white px-3 py-1.5 md:px-6 md:py-3 rounded-md md:rounded-xl font-medium transition-all duration-300 text-[10px] md:text-base text-center w-max shadow-sm hover:shadow-lg hover:-translate-y-0.5">
                     {slide.button2}
                 </Link>
             </div>
 
             {/* Features */}
             {slide.featuresLayout === 'inline' && (
-                <div className={`flex flex-col md:flex-row flex-wrap gap-3 md:gap-6 mt-4 md:mt-12 transition-all duration-700 delay-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+                <div className={`flex flex-col md:flex-row flex-wrap gap-1.5 md:gap-6 mt-2 md:mt-12 transition-all duration-700 delay-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                     {slide.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-3">
+                        <div key={idx} className="flex items-center gap-2">
                             <div className="text-[#1b5e20]">
-                                <feature.icon size={20} className="md:w-6 md:h-6" strokeWidth={1.5} />
+                                <feature.icon size={14} className="md:w-6 md:h-6" strokeWidth={1.5} />
                             </div>
                             <div>
-                                <h4 className="font-bold text-[12px] md:text-[13px] text-gray-900 leading-none">{feature.title}</h4>
-                                <p className="text-[11px] md:text-[11px] text-gray-500 font-medium mt-0.5">{feature.subtitle}</p>
+                                <h4 className="font-bold text-[9px] md:text-[13px] text-gray-900 leading-none">{feature.title}</h4>
+                                <p className="text-[8px] md:text-[11px] text-gray-500 font-medium mt-0.5">{feature.subtitle}</p>
                             </div>
                         </div>
                     ))}
