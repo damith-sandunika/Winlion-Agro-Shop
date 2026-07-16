@@ -50,6 +50,14 @@ const HeroSlider = () => {
 
     const [currentSlide, setCurrentSlide] = useState(0);
 
+    // Auto rotate
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+        }, 5000);
+        return () => clearInterval(timer);
+    }, [slides.length]);
+
     const nextSlide = () => {
         setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     };
@@ -81,38 +89,38 @@ const HeroSlider = () => {
                         </div>
 
                         <div className="absolute inset-0 z-10 flex items-center">
-                            <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl w-full">
-                                <div className="max-w-2xl relative">
-                                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] md:text-[11px] font-medium tracking-wider mb-4 md:mb-5 bg-[#e8eed2] text-[#2c531d] border border-[#a8c78c] animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                        <Leaf size={12} className="fill-current" /> {slide.badge}
+                            <div className="container mx-auto px-5 md:px-12 lg:px-20 max-w-7xl w-full">
+                                <div key={`content-${currentSlide}`} className="max-w-2xl relative">
+                                    <div className="inline-flex items-center gap-2 px-2.5 py-1 md:px-3 md:py-1.5 rounded-full text-[9px] md:text-[11px] font-medium tracking-wider mb-3 md:mb-5 bg-[#e8eed2] text-[#2c531d] border border-[#a8c78c] animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                        <Leaf size={10} className="md:w-3 md:h-3 fill-current" /> {slide.badge}
                                     </div>
-                                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.1] mb-4 md:mb-5 text-[#1a3a14] whitespace-pre-line animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+                                    <h2 className="text-[26px] leading-[1.1] md:text-5xl lg:text-6xl font-medium tracking-tight mb-3 md:mb-5 text-[#1a3a14] whitespace-pre-line animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
                                         {slide.title}
                                     </h2>
-                                    <p className="text-xs md:text-lg mb-6 md:mb-8 whitespace-pre-line font-medium leading-relaxed text-[#3a5a34] max-w-lg animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200 pr-4 md:pr-0">
+                                    <p className="text-[11px] md:text-lg mb-5 md:mb-8 whitespace-pre-line font-medium leading-relaxed text-[#3a5a34] max-w-lg animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300 pr-4 md:pr-0">
                                         {slide.subtitle}
                                     </p>
                                     
-                                    <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 mb-6 md:mb-8">
-                                        <Link to="/shop" className="bg-[#1b5e20] hover:bg-[#14532d] text-white px-6 py-2.5 md:py-3 rounded-md font-medium transition-all duration-300 flex items-center justify-center gap-2 text-xs md:text-sm shadow-md w-full sm:w-auto">
-                                            {slide.button1} <ArrowRight size={16} />
+                                    <div className="flex flex-row flex-wrap gap-2 md:gap-4 mb-5 md:mb-8 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-500">
+                                        <Link to="/shop" className="bg-[#1b5e20] hover:bg-[#14532d] text-white px-4 py-2 md:px-6 md:py-3 rounded-md font-medium transition-all duration-300 flex items-center justify-center gap-1.5 text-[10px] md:text-sm shadow-md flex-1 sm:flex-none">
+                                            {slide.button1} <ArrowRight size={14} className="md:w-4 md:h-4" />
                                         </Link>
-                                        <Link to="/categories" className="bg-transparent border border-[#1b5e20] text-[#1b5e20] hover:bg-[#1b5e20] hover:text-white px-6 py-2.5 md:py-3 rounded-md font-medium transition-all duration-300 text-xs md:text-sm text-center w-full sm:w-auto">
+                                        <Link to="/categories" className="bg-transparent border border-[#1b5e20] text-[#1b5e20] hover:bg-[#1b5e20] hover:text-white px-4 py-2 md:px-6 md:py-3 rounded-md font-medium transition-all duration-300 text-[10px] md:text-sm text-center flex-1 sm:flex-none">
                                             {slide.button2}
                                         </Link>
                                     </div>
 
                                     {/* Features specific to slider 1 & 2 layout */}
                                     {slide.featuresLayout === 'inline' && (
-                                        <div className="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6 mt-4 md:mt-12 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
+                                        <div className="flex flex-row flex-wrap gap-3 md:gap-6 mt-2 md:mt-12 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-[600ms]">
                                             {slide.features.map((feature, idx) => (
                                                 <div key={idx} className="flex items-center gap-2 md:gap-3">
                                                     <div className="text-[#1b5e20]">
-                                                        <feature.icon size={20} className="md:w-6 md:h-6" strokeWidth={1.5} />
+                                                        <feature.icon size={16} className="md:w-6 md:h-6" strokeWidth={1.5} />
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-medium text-[12px] md:text-[13px] text-gray-900 leading-none">{feature.title}</h4>
-                                                        <p className="text-[10px] md:text-[11px] text-gray-600 font-normal mt-1">{feature.subtitle}</p>
+                                                        <h4 className="font-medium text-[10px] md:text-[13px] text-gray-900 leading-none">{feature.title}</h4>
+                                                        <p className="text-[9px] md:text-[11px] text-gray-600 font-normal mt-1">{feature.subtitle}</p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -147,16 +155,16 @@ const HeroSlider = () => {
             {/* Slider Controls */}
             <button 
                 onClick={prevSlide}
-                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-md hover:shadow-lg transition-all z-30"
+                className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-md hover:shadow-lg transition-all z-30"
             >
-                <ChevronLeft size={24} />
+                <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
             </button>
             
             <button 
                 onClick={nextSlide}
-                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-md hover:shadow-lg transition-all z-30"
+                className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-md hover:shadow-lg transition-all z-30"
             >
-                <ChevronRight size={24} />
+                <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
             </button>
 
             {/* Indicators */}

@@ -18,27 +18,6 @@ const Header = () => {
     };
     return (
         <header className="w-full bg-white shadow-sm sticky top-0 z-50">
-            {/* Top Bar - Desktop */}
-            <div className="hidden lg:flex justify-between items-center py-2 px-4 lg:px-6 max-w-7xl mx-auto border-b text-[13px] text-gray-600 bg-brand-light w-full">
-                <div className="flex gap-6">
-                    <a href="tel:+94771234567" className="flex items-center gap-1.5 hover:text-brand-green transition-colors">
-                        <Phone size={14} />
-                        <span>+94 77 123 4567</span>
-                    </a>
-                    <a href="mailto:info@winlion.com" className="flex items-center gap-1.5 hover:text-brand-green transition-colors">
-                        <Mail size={14} />
-                        <span>info@winlion.com</span>
-                    </a>
-                </div>
-                <div className="flex gap-4 items-center">
-                    <span className="font-medium">Follow Us:</span>
-                    <div className="flex gap-3">
-                        <a href="#" className="text-gray-500 hover:text-blue-600 transition-colors"><Facebook size={16} /></a>
-                        <a href="#" className="text-gray-500 hover:text-pink-600 transition-colors"><Instagram size={16} /></a>
-                        <a href="#" className="text-gray-500 hover:text-blue-400 transition-colors"><Twitter size={16} /></a>
-                    </div>
-                </div>
-            </div>
 
             {/* Main Header */}
             <div className="flex justify-between items-center py-1 px-4 lg:px-6 max-w-7xl w-full mx-auto">
@@ -76,36 +55,14 @@ const Header = () => {
                         </div>
                         <span className="text-xs font-normal mt-1 hidden lg:block">Cart</span>
                     </Link>
-                    <Link to="/login" className="hidden lg:flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors">
-                        <User size={22} />
-                        <span className="text-xs font-normal mt-1">Login</span>
+                    <Link to="/categories" className="hidden lg:flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors">
+                        <List size={22} />
+                        <span className="text-xs font-normal mt-1">Categories</span>
                     </Link>
                 </div>
             </div>
 
-            {/* Bottom Nav Links (Desktop) */}
-            <div className="hidden lg:block border-t border-gray-100 bg-white">
-                <nav className="flex items-center justify-between py-1 w-full max-w-7xl mx-auto px-4 lg:px-6 text-sm font-normal text-gray-700">
-                    <div className="flex items-center">
-                        <button className="flex items-center gap-2 bg-brand-green text-white px-5 py-2.5 rounded-lg font-normal hover:bg-brand-dark transition-colors shadow-sm">
-                            <List size={18} />
-                            All Categories
-                            <ChevronDown size={16} />
-                        </button>
-                    </div>
-                    <div className="flex justify-center gap-8 flex-1">
-                        <Link to="/" className="text-brand-green">Home</Link>
-                        <Link to="/category/fruits" className="hover:text-brand-green transition-colors">Fresh Fruits</Link>
-                        <Link to="/category/vegetables" className="hover:text-brand-green transition-colors">Vegetables</Link>
-                        <Link to="/category/seeds" className="hover:text-brand-green transition-colors">Seeds</Link>
-                        <Link to="/category/fertilizer" className="hover:text-brand-green transition-colors">Fertilizer</Link>
-                        <Link to="/category/plants" className="hover:text-brand-green transition-colors">Plants</Link>
-                        <Link to="/category/tools" className="hover:text-brand-green transition-colors">Tools & Equipments</Link>
-                        <Link to="/offers" className="hover:text-brand-green transition-colors">Offers</Link>
-                        <Link to="/contact" className="hover:text-brand-green transition-colors">Contact</Link>
-                    </div>
-                </nav>
-            </div>
+
 
             {/* Mobile Menu Drawer */}
             <div className={`fixed inset-0 bg-black/50 z-[60] transition-opacity duration-300 lg:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}></div>
