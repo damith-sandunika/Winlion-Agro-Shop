@@ -6,11 +6,11 @@ import HeroSlider from '../components/HeroSlider';
 import CategoryGrid from '../components/CategoryGrid';
 import ProductGrid from '../components/ProductGrid';
 import Features from '../components/Features';
-import DealOfTheDay from '../components/DealOfTheDay';
 import ParallaxBanner from '../components/ParallaxBanner';
 import Testimonials from '../components/Testimonials';
-import TrustBadges from '../components/TrustBadges';
+import WhyOrganic from '../components/WhyOrganic';
 import Footer from '../components/Footer';
+
 const Home = () => {
     const [todaysPicks, setTodaysPicks] = useState([]);
     const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -82,15 +82,13 @@ const Home = () => {
                     icon={<Leaf className="text-brand-green w-6 h-6 animate-pulse" />}
                 />
 
-                <DealOfTheDay />
+                <WhyOrganic />
 
                 <Features />
                 
                 <ParallaxBanner />
                 
                 <Testimonials />
-                
-                <TrustBadges />
             </main>
 
             <Footer />
