@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useCart } from '../context/CartContext';
@@ -8,42 +8,53 @@ import { Trash2, Plus, Minus } from 'lucide-react';
 export default function Cart() {
     const { cartItems, updateQty, removeFromCart, cartTotal } = useCart();
     
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     // Fallback values since setting may not be loaded directly here yet, but we will mock it for now.
     const delivery = cartTotal > 2000 ? 0 : 350;
 
     return (
         <div className="min-h-screen flex flex-col bg-gray-50">
             <Header />
-            <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-                <h1 className="text-2xl font-normal text-gray-800 mb-6">Shopping Cart</h1>
+            <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6 md:py-8 overflow-hidden">
+                <h1 className="text-xl md:text-2xl font-medium text-gray-800 mb-4 md:mb-6">Shopping Cart</h1>
                 
                 {cartItems.length === 0 ? (
-                    <div className="bg-white rounded-2xl p-16 text-center border border-gray-100 shadow-sm">
-                        <div className="text-lg mb-4">🛒</div>
-                        <h2 className="text-xl font-normal text-gray-800 mb-2">Your cart is empty</h2>
-                        <p className="text-gray-500 mb-6">Looks like you haven't added any fresh items yet.</p>
-                        <Link to="/" className="inline-block px-8 py-3 rounded-xl text-white font-normal bg-brand-green hover:bg-brand-dark transition-colors">
+                    <div className="bg-white rounded-2xl p-10 md:p-16 text-center border border-gray-100 shadow-sm mx-auto max-w-lg">
+                        <div className="text-3xl md:text-4xl mb-4">🛒</div>
+                        <h2 className="text-lg md:text-xl font-medium text-gray-800 mb-2">Your cart is empty</h2>
+                        <p className="text-sm md:text-base text-gray-500 mb-6">Looks like you haven't added any fresh items yet.</p>
+                        <Link to="/" className="inline-block px-6 py-2.5 md:px-8 md:py-3 rounded-xl text-white font-medium bg-brand-green hover:bg-brand-dark transition-colors text-sm md:text-base">
                             Continue Shopping
                         </Link>
                     </div>
                 ) : (
-                    <div className="flex flex-col lg:flex-row gap-8">
-                        <div className="flex-1 space-y-4">
+                    <div className="flex flex-col lg:flex-row gap-6 md:gap-8 w-full">
+                        <div className="flex-1 space-y-3 md:space-y-4 w-full">
                             {cartItems.map(item => (
-                                <div key={item.id} className="bg-white rounded-2xl border border-gray-100 p-4 flex items-center gap-4 shadow-sm relative">
-                                    <img src={item.image} alt={item.name} className="w-20 h-20 object-contain mix-blend-multiply bg-gray-50 rounded-xl" />
-                                    <div className="flex-1">
-                                        <h3 className="font-normal text-gray-800">{item.name}</h3>
-                                        <p className="text-sm text-gray-500">Rs.{item.price} / {item.unit}</p>
+                                <div key={item.id} className="bg-white rounded-2xl border border-gray-100 p-3 md:p-4 flex flex-col md:flex-row md:items-center gap-3 md:gap-4 shadow-sm relative overflow-hidden">
+                                    <div className="flex items-center gap-3 w-full md:w-auto flex-1">
+                                        <img src={item.image} alt={item.name} className="w-16 h-16 md:w-20 md:h-20 object-contain mix-blend-multiply bg-gray-50 rounded-xl flex-shrink-0" />
+                                        <div className="flex-1 min-w-0">
+                                            <h3 className="font-medium text-gray-800 text-sm md:text-base leading-tight truncate">{item.name}</h3>
+                                            <p className="text-xs md:text-sm text-gray-500 mt-0.5">Rs.{item.price} / {item.unit}</p>
+                                        </div>
+                                        <button onClick={() => removeFromCart(item.id)} className="text-red-400 hover:text-red-600 p-1.5 md:hidden bg-red-50 rounded-lg flex-shrink-0">
+                                            <Trash2 size={16} />
+                                        </button>
                                     </div>
-                                    <div className="flex items-center gap-4">
-                                        <div className="flex items-center border border-gray-200 rounded-lg h-9 w-24 overflow-hidden">
-                                            <button onClick={() => updateQty(item.id, item.quantity - 1)} className="flex-1 flex items-center justify-center hover:bg-gray-100"><Minus size={14} /></button>
-                                            <span className="flex-1 flex items-center justify-center text-sm font-normal border-x border-gray-200">{item.quantity}</span>
+                                    <div className="flex items-center justify-between md:justify-end gap-3 w-full md:w-auto border-t border-gray-50 md:border-0 pt-3 md:pt-0">
+                                        <div className="flex items-center border border-gray-200 rounded-lg h-8 md:h-9 w-24 overflow-hidden flex-shrink-0">
+                                            <button onClick={() => updateQty(item.id, item.quantity - 1)} className="flex-1 flex items-center justify-center hover:bg-gray-100 text-gray-600"><Minus size={14} /></button>
+                                            <span className="flex-1 flex items-center justify-center text-xs md:text-sm font-medium border-x border-gray-200">{item.quantity}</span>
                                             <button onClick={() => updateQty(item.id, item.quantity + 1)} className="flex-1 flex items-center justify-center hover:bg-gray-100 text-brand-green"><Plus size={14} /></button>
                                         </div>
-                                        <p className="font-normal text-brand-green w-24 text-right">Rs.{item.price * item.quantity}</p>
-                                        <button onClick={() => removeFromCart(item.id)} className="text-red-400 hover:text-red-600 p-2"><Trash2 size={18} /></button>
+                                        <p className="font-semibold text-brand-green flex-1 text-right md:w-24 text-sm md:text-base">Rs.{item.price * item.quantity}</p>
+                                        <button onClick={() => removeFromCart(item.id)} className="text-red-400 hover:text-red-600 p-2 hidden md:block shrink-0">
+                                            <Trash2 size={18} />
+                                        </button>
                                     </div>
                                 </div>
                             ))}
