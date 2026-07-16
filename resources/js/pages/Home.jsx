@@ -98,9 +98,7 @@ const Home = () => {
                     <Features />
                 </ScrollReveal>
                 
-                <ScrollReveal direction="none" delay={0}>
-                    <ParallaxBanner />
-                </ScrollReveal>
+                <ParallaxBanner />
                 
                 <ScrollReveal direction="up" delay={100}>
                     <Testimonials />
