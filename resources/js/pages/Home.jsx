@@ -64,7 +64,7 @@ const Home = () => {
                     <section className="max-w-7xl mx-auto px-4 lg:px-6 py-12">
                         <div 
                             className="rounded-[2rem] p-10 md:p-14 flex flex-col justify-center overflow-hidden relative shadow-lg min-h-[400px] border border-green-200/50 bg-cover bg-center"
-                            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1200&q=80')" }}
+                            style={{ backgroundImage: "url('/images/sliders/desktop slider (2).png')" }}
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-[#1a3a14]/90 via-[#1a3a14]/60 to-transparent"></div>
                             <div className="z-10 relative max-w-xl text-white">

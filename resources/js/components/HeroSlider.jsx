@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 
 const SlideContent = ({ slide, isActive }) => {
     return (
-        <div className="max-w-2xl relative p-5 md:p-0 border-2 border-white rounded-xl md:border-none mx-4 md:mx-0">
+        <div className="max-w-2xl relative p-5 md:p-0 mx-4 md:mx-0">
             {/* Badge */}
             <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] md:text-[11px] font-medium tracking-wider mb-4 md:mb-5 bg-[#e8eed2] text-[#2c531d] border border-[#a8c78c] transition-all duration-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <Leaf size={12} className="md:w-3 md:h-3 fill-current" /> {slide.badge}
             </div>
             
             {/* Title */}
-            <h2 className={`text-[26px] leading-[1.2] md:text-5xl lg:text-6xl font-medium tracking-tight mb-3 md:mb-5 text-[#1a3a14] whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <h2 className={`text-[26px] leading-[1.2] md:text-5xl lg:text-6xl font-medium tracking-tight mb-3 md:mb-5 text-[#1a3a14] whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} [text-shadow:_-1px_-1px_0_#fff,_1px_-1px_0_#fff,_-1px_1px_0_#fff,_1px_1px_0_#fff] md:[text-shadow:_none]`}>
                 {slide.title}
             </h2>
 
             {/* Subtitle */}
-            <p className={`text-[12px] md:text-lg mb-6 md:mb-8 whitespace-pre-line font-medium leading-relaxed text-[#2c4c26] max-w-lg transition-all duration-700 delay-400 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <p className={`text-[12px] md:text-lg mb-6 md:mb-8 whitespace-pre-line font-medium leading-relaxed text-[#1a3a14] md:text-[#2c4c26] max-w-lg transition-all duration-700 delay-400 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} [text-shadow:_-1px_-1px_0_rgba(255,255,255,0.8),_1px_-1px_0_rgba(255,255,255,0.8),_-1px_1px_0_rgba(255,255,255,0.8),_1px_1px_0_rgba(255,255,255,0.8)] md:[text-shadow:_none]`}>
                 {slide.subtitle}
             </p>
             
@@ -158,12 +158,12 @@ const HeroSlider = () => {
             </button>
 
             {/* Indicators */}
-            <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+            <div className="absolute bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 flex gap-2 md:gap-3 z-20">
                 {slides.map((_, index) => (
                     <button
                         key={index}
                         onClick={() => setCurrentSlide(index)}
-                        className={`rounded-full transition-all duration-500 ${currentSlide === index ? 'bg-[#1b5e20] w-10 h-2.5 shadow-md' : 'bg-gray-400/60 hover:bg-[#1b5e20]/50 w-2.5 h-2.5 backdrop-blur-sm'}`}
+                        className={`rounded-full transition-all duration-500 ${currentSlide === index ? 'bg-[#1b5e20] w-6 h-1.5 md:w-10 md:h-2.5 shadow-md' : 'bg-gray-400/60 hover:bg-[#1b5e20]/50 w-1.5 h-1.5 md:w-2.5 md:h-2.5 backdrop-blur-sm'}`}
                         aria-label={`Go to slide ${index + 1}`}
                     />
                 ))}
