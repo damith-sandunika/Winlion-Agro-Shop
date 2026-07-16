@@ -7,30 +7,49 @@ const HeroSlider = () => {
     const slides = [
         {
             id: 1,
-            badge: '100% FRESH & NATURAL',
-            title: 'Fresh From Farm\nTo Your Doorstep',
-            subtitle: 'Premium quality agro products, fresh fruits, vegetables and more\n- delivered fresh to your home.',
-            image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80',
-            bgColor: 'bg-gradient-to-br from-brand-light via-white to-brand-light',
-            theme: 'light'
+            badge: '100% PURE & NATURAL',
+            title: 'Pure Goodness\nFrom Our Farms',
+            subtitle: 'Carefully grown and handpicked agro products\n– straight from our farms to your home.',
+            image: '/images/sliders/desktop slider (1).png',
+            button1: 'Shop Now',
+            button2: 'Explore Categories',
+            featuresLayout: 'inline',
+            features: [
+                { icon: Leaf, title: '100% Natural', subtitle: '100% Natural' },
+                { icon: Sprout, title: 'Direct from Farm', subtitle: 'Daily Harvest' },
+                { icon: Truck, title: 'Fresh Delivery', subtitle: 'To Your Doorstep' }
+            ]
         },
         {
             id: 2,
-            badge: 'EAT FRESH, STAY HEALTHY',
-            title: 'Nature\'s Goodness\nDelivered Fresh',
-            subtitle: 'Wide range of fresh fruits, vegetables, seeds, and more.\nQuality you can trust, service you can count on.',
-            image: 'https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&w=1200&q=80',
-            bgColor: 'bg-gradient-to-br from-[#f0fdf4] via-[#ecfdf5] to-[#f0fdf4]',
-            theme: 'light'
+            badge: '100% PURE & NATURAL',
+            title: 'Goodness Grown\nThe Natural Way',
+            subtitle: 'From our fields to your family –\nfresh, healthy and trusted every day.',
+            image: '/images/sliders/desktop slider (2).png',
+            button1: 'Shop Now',
+            button2: 'Explore Categories',
+            featuresLayout: 'inline',
+            features: [
+                { icon: Leaf, title: '100% Natural', subtitle: 'Chemical Free' },
+                { icon: Sprout, title: 'Farm Fresh', subtitle: 'Daily Harvest' },
+                { icon: Truck, title: 'Fast Delivery', subtitle: 'To Your Doorstep' }
+            ]
         },
         {
             id: 3,
-            badge: 'PREMIUM QUALITY',
-            title: 'Healthy Food\nHealthy Life',
-            subtitle: 'Your one-stop shop for all agro needs.\nFresh. Natural. Reliable.',
-            image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80',
-            bgColor: 'bg-gradient-to-br from-brand-dark via-[#064e3b] to-brand-dark',
-            theme: 'dark'
+            badge: '100% PURE & NATURAL',
+            title: 'Nature\'s Goodness,\nGrown With Care',
+            subtitle: 'From our tropical farms to your home –\nfresh, healthy and natural every time.',
+            image: '/images/sliders/desktop slider (3).png',
+            button1: 'Shop Now',
+            button2: 'Explore Categories',
+            featuresLayout: 'floating-bar',
+            features: [
+                { icon: Leaf, title: '100% Natural', subtitle: 'Chemical Free' },
+                { icon: Sprout, title: 'Farm Fresh', subtitle: 'Daily Harvest' },
+                { icon: Package, title: 'Sustainable', subtitle: 'Farming' },
+                { icon: Truck, title: 'Fast Delivery', subtitle: 'To Your Doorstep' }
+            ]
         }
     ];
 
@@ -55,70 +74,75 @@ const HeroSlider = () => {
                         key={slide.id} 
                         className={`w-full flex-shrink-0 relative ${slide.bgColor}`}
                     >
-                        {/* Background Image Setup (using absolute positioning to blend well) */}
+                        {/* Background Image - Clean without heavy gradients */}
                         <div className="absolute inset-0 z-0 flex justify-end">
-                             <div className="w-full md:w-3/5 h-full relative">
-                                <div className={`absolute inset-0 bg-gradient-to-r ${slide.theme === 'dark' ? 'from-brand-dark via-brand-dark/80' : 'from-brand-light via-brand-light/80'} to-transparent z-10 md:hidden`}></div>
-                                <div className={`absolute inset-0 bg-gradient-to-r ${slide.theme === 'dark' ? 'from-brand-dark via-brand-dark/80' : slide.id === 2 ? 'from-[#f0fdf4] via-[#f0fdf4]/80' : 'from-brand-light via-brand-light/80'} to-transparent z-10 hidden md:block`}></div>
-                                <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent z-10 mix-blend-overlay"></div>
-                                <img src={slide.image} alt="Farm Fresh" className="w-full h-full object-cover" />
-                             </div>
+                            <div className="w-full h-full relative">
+                                <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/20 to-transparent z-10 hidden md:block"></div>
+                                <div className="absolute inset-0 bg-black/20 z-10 md:hidden"></div>
+                                <img src={slide.image} alt="Slider Background" className="w-full h-full object-cover" />
+                            </div>
                         </div>
 
                         <div className="absolute inset-0 z-10 flex items-center">
                             <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl w-full">
-                                <div className="max-w-xl">
-                                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-normal tracking-wider mb-6 uppercase ${slide.theme === 'dark' ? 'bg-white/10 text-green-300' : 'bg-brand-green/10 text-brand-green'} backdrop-blur-sm border border-white/20 animate-in fade-in slide-in-from-bottom-4 duration-500`}>
-                                        <Leaf size={14} /> {slide.badge}
+                                <div className="max-w-2xl relative">
+                                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-medium tracking-wider mb-5 bg-[#e8eed2] text-[#2c531d] border border-[#a8c78c] animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                        <Leaf size={12} className="fill-current" /> {slide.badge}
                                     </div>
-                                    <h2 className={`text-xl md:text-2xl lg:text-xl font-normal tracking-tight leading-[1.1] mb-6 ${slide.theme === 'dark' ? 'text-white' : 'text-gray-900'} whitespace-pre-line animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100`}>
+                                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.1] mb-5 text-[#1a3a14] whitespace-pre-line animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
                                         {slide.title}
                                     </h2>
-                                    <p className={`text-lg lg:text-xl mb-8 whitespace-pre-line font-light leading-relaxed ${slide.theme === 'dark' ? 'text-gray-200' : 'text-gray-600'} animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200`}>
+                                    <p className="text-sm md:text-lg mb-8 whitespace-pre-line font-medium leading-relaxed text-[#3a5a34] max-w-lg animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200">
                                         {slide.subtitle}
                                     </p>
                                     
-                                    <div className="flex flex-wrap gap-4">
-                                        <Link to="/shop" className="bg-brand-green hover:bg-brand-dark text-white px-8 py-4 rounded-xl font-normal transition-all duration-300 flex items-center gap-2 shadow-[0_8px_20px_rgba(21,128,61,0.3)] hover:shadow-[0_8px_25px_rgba(21,128,61,0.4)] hover:-translate-y-1">
-                                            Shop Now <ArrowRight size={20} />
+                                    <div className="flex flex-wrap gap-4 mb-8">
+                                        <Link to="/shop" className="bg-[#1b5e20] hover:bg-[#14532d] text-white px-6 py-3 rounded-md font-medium transition-all duration-300 flex items-center gap-2 text-sm shadow-md">
+                                            {slide.button1} <ArrowRight size={16} />
+                                        </Link>
+                                        <Link to="/categories" className="bg-transparent border border-[#1b5e20] text-[#1b5e20] hover:bg-[#1b5e20] hover:text-white px-6 py-3 rounded-md font-medium transition-all duration-300 text-sm">
+                                            {slide.button2}
                                         </Link>
                                     </div>
 
                                     {/* Features specific to slider 1 & 2 layout */}
-                                    {slide.theme !== 'dark' && (
-                                        <div className="flex flex-wrap gap-6 mt-12 pt-8 border-t border-gray-200/50">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-brand-green border border-green-50 group-hover:scale-110 transition-transform">
-                                                    <Sprout size={20} />
+                                    {slide.featuresLayout === 'inline' && (
+                                        <div className="flex flex-wrap gap-6 mt-6 md:mt-12 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
+                                            {slide.features.map((feature, idx) => (
+                                                <div key={idx} className="flex items-center gap-2">
+                                                    <div className="text-[#1b5e20]">
+                                                        <feature.icon size={24} strokeWidth={1.5} />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-medium text-[13px] text-gray-900 leading-none">{feature.title}</h4>
+                                                        <p className="text-[11px] text-gray-600 font-normal mt-1">{feature.subtitle}</p>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <h4 className="font-normal text-sm text-gray-900 leading-tight">Farm Fresh</h4>
-                                                    <p className="text-xs text-gray-500 font-normal mt-0.5">Direct from Farmers</p>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center gap-3 group">
-                                                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-brand-green border border-green-50 group-hover:scale-110 transition-transform">
-                                                    <Package size={20} />
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-normal text-sm text-gray-900 leading-tight">Safe Packaging</h4>
-                                                    <p className="text-xs text-gray-500 font-normal mt-0.5">Hygienic & Secure</p>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center gap-3 hidden sm:flex group">
-                                                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-brand-green border border-green-50 group-hover:scale-110 transition-transform">
-                                                    <Truck size={20} />
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-normal text-sm text-gray-900 leading-tight">Fast Delivery</h4>
-                                                    <p className="text-xs text-gray-500 font-normal mt-0.5">On Time Delivery</p>
-                                                </div>
-                                            </div>
+                                            ))}
                                         </div>
                                     )}
                                 </div>
                             </div>
                         </div>
+
+                        {/* Slide 3 Floating Bar layout */}
+                        {slide.featuresLayout === 'floating-bar' && (
+                            <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center w-full animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300 px-4">
+                                <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl flex items-center justify-between py-4 px-8 max-w-5xl w-full mx-auto divide-x divide-gray-100 overflow-x-auto">
+                                    {slide.features.map((feature, idx) => (
+                                        <div key={idx} className="flex items-center gap-3 px-6 first:pl-0 last:pr-0 min-w-max">
+                                            <div className="text-[#1b5e20]">
+                                                <feature.icon size={28} strokeWidth={1.5} />
+                                            </div>
+                                            <div>
+                                                <h4 className="font-medium text-sm text-gray-900 leading-none">{feature.title}</h4>
+                                                <p className="text-xs text-gray-500 font-normal mt-1">{feature.subtitle}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
@@ -126,14 +150,14 @@ const HeroSlider = () => {
             {/* Slider Controls */}
             <button 
                 onClick={prevSlide}
-                className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:bg-white hover:text-brand-green hover:shadow-lg transition-all z-20 shadow-sm border border-white/20 opacity-0 group-hover:opacity-100 focus:opacity-100"
+                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-md hover:shadow-lg transition-all z-30"
             >
                 <ChevronLeft size={24} />
             </button>
             
             <button 
                 onClick={nextSlide}
-                className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:bg-white hover:text-brand-green hover:shadow-lg transition-all z-20 shadow-sm border border-white/20 opacity-0 group-hover:opacity-100 focus:opacity-100"
+                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-md hover:shadow-lg transition-all z-30"
             >
                 <ChevronRight size={24} />
             </button>
