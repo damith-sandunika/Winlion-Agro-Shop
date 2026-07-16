@@ -77,7 +77,7 @@ export default function AdminLogin() {
                             <button onClick={dismissPrompt} className="text-green-300 hover:text-white text-lg leading-none font-medium">✕</button>
                         </div>
                         <div className="p-4 flex items-center gap-3">
-                            <img src="/app logo.jpeg" alt="Logo" className="w-12 h-12 rounded-xl object-cover shadow" />
+                            <img src="/app logo.png" alt="Logo" className="w-12 h-12 rounded-xl object-cover shadow" />
                             <div className="flex-1 min-w-0">
                                 <p className="font-medium text-gray-900 text-sm truncate">WinLion Agro</p>
                                 {isIos ? (
