@@ -38,7 +38,7 @@ const ProductCard = ({ product }) => {
                 <img 
                     src={product.image} 
                     alt={product.name}
-                    className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply"
+                    className="w-full h-full object-contain p-2.5 md:p-4 group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply"
                 />
             </div>
 
@@ -48,15 +48,8 @@ const ProductCard = ({ product }) => {
                     <h4 className="font-normal text-gray-800 text-base mb-1 group-hover:text-brand-green transition-colors line-clamp-1">{product.name}</h4>
                 </div>
                 
-                {/* Rating */}
-                <div className="flex items-center gap-1.5 mb-3">
-                    <div className="flex text-amber-400">
-                        {[1,2,3,4,5].map(star => (
-                            <Star key={star} size={14} className="fill-current" />
-                        ))}
-                    </div>
-                    <span className="text-[10px] text-gray-400">({product.reviewsCount})</span>
-                </div>
+                {/* Decorative Line instead of rating */}
+                <div className="w-8 md:w-12 h-0.5 bg-gradient-to-r from-brand-green to-transparent rounded-full mb-3 mt-1 opacity-70"></div>
 
                 {/* Price */}
                 <div className="flex flex-col mb-4 mt-auto">
@@ -70,20 +63,20 @@ const ProductCard = ({ product }) => {
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-2 mt-auto">
-                    <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden h-10 w-24 flex-shrink-0 bg-gray-50">
-                        <button onClick={decrease} className="flex-1 h-full flex items-center justify-center text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-colors">-</button>
-                        <input type="text" value={quantity} readOnly className="w-8 h-full text-center text-sm font-normal bg-transparent" />
-                        <button onClick={increase} className="flex-1 h-full flex items-center justify-center text-brand-green hover:bg-gray-200 hover:text-brand-dark font-normal transition-colors">+</button>
+                <div className="flex items-center justify-between gap-1 md:gap-2 mt-auto w-full">
+                    <div className="flex items-center border border-gray-200 rounded-md md:rounded-lg overflow-hidden h-8 md:h-10 w-20 md:w-24 flex-shrink bg-gray-50">
+                        <button onClick={decrease} className="w-6 md:w-8 h-full flex items-center justify-center text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-colors text-xs md:text-base">-</button>
+                        <input type="text" value={quantity} readOnly className="flex-1 h-full text-center text-xs md:text-sm font-normal bg-transparent p-0 w-full focus:outline-none" />
+                        <button onClick={increase} className="w-6 md:w-8 h-full flex items-center justify-center text-brand-green hover:bg-gray-200 hover:text-brand-dark font-normal transition-colors text-xs md:text-base">+</button>
                     </div>
                     <button
                         onClick={handleAddToCart}
                         title="Add to Cart"
-                        className={`w-12 flex-shrink-0 text-white font-normal rounded-lg h-10 transition-all duration-300 flex items-center justify-center shadow-sm ${
+                        className={`flex-1 max-w-[48px] min-w-[32px] md:w-12 text-white font-normal rounded-md md:rounded-lg h-8 md:h-10 transition-all duration-300 flex items-center justify-center shadow-sm ${
                             added ? 'bg-green-500' : 'bg-brand-green hover:bg-brand-dark hover:shadow-md hover:-translate-y-0.5'
                         }`}
                     >
-                        {added ? <Check size={20} /> : <ShoppingCart size={20} />}
+                        {added ? <Check size={16} className="md:w-5 md:h-5" /> : <ShoppingCart size={16} className="md:w-5 md:h-5" />}
                     </button>
                 </div>
             </div>
