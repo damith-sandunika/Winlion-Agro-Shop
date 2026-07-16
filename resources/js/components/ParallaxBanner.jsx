@@ -6,22 +6,22 @@ const ParallaxBanner = () => {
         <>
             <style>
                 {`
-                .parallax-bg {
+                .parallax-bg-img {
                     background-image: url('/images/sliders/mobile slider (3).png');
-                    background-attachment: fixed;
-                    background-position: center;
-                    background-size: cover;
                 }
                 @media (min-width: 768px) {
-                    .parallax-bg {
+                    .parallax-bg-img {
                         background-image: url('/images/sliders/desktop slider (3).png');
                     }
                 }
                 `}
             </style>
-            <section className="relative py-24 md:py-32 flex items-center justify-center overflow-hidden parallax-bg">
-                {/* Flat black overlay instead of gradient */}
-                <div className="absolute inset-0 bg-black/50 z-0 pointer-events-none"></div>
+            <section className="relative py-24 md:py-32 flex items-center justify-center w-full" style={{ clipPath: 'inset(0)' }}>
+                {/* Fixed Background Image (cropped by parent clipPath) */}
+                <div className="fixed top-0 left-0 w-full h-full bg-center bg-cover parallax-bg-img" style={{ zIndex: -1 }}></div>
+                
+                {/* Flat black overlay */}
+                <div className="absolute inset-0 bg-black/50 pointer-events-none"></div>
             
             <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
                 <h3 className="text-3xl md:text-5xl font-medium text-white tracking-tight mb-4 drop-shadow-lg">
