@@ -91,7 +91,7 @@ const HeroSlider = () => {
         {
             id: 3,
             badge: '100% PURE & NATURAL',
-            title: 'Pure\nOrganic Harvest',
+            title: 'Pure Organic\nHarvest',
             subtitle: 'From our tropical farms to your home –\nfresh, healthy and natural every time.',
             imageDesktop: '/images/sliders/desktop slider (3).png',
             imageMobile: '/images/sliders/mobile slider (3).png',
