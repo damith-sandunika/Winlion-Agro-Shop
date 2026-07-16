@@ -38,11 +38,11 @@ export const QuickViewProvider = ({ children }) => {
             {/* Global Premium Quick View Modal */}
             {selectedProduct && (
                 <div 
-                    className="fixed inset-0 bg-black/60 backdrop-blur-md z-[200] flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-300"
+                    className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[200] flex items-center justify-center p-4 animate-in fade-in duration-300"
                     onClick={closeQuickView}
                 >
                     <div 
-                        className="bg-white w-full max-w-3xl rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-in zoom-in-95 fade-in duration-300 flex flex-col md:flex-row relative border border-white/20"
+                        className="bg-white w-full max-w-xl rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] animate-in zoom-in-95 fade-in duration-300 flex flex-col md:flex-row relative border border-gray-100"
                         onClick={e => e.stopPropagation()}
                     >
                         {/* Close Button */}
@@ -53,10 +53,9 @@ export const QuickViewProvider = ({ children }) => {
                             <X size={20} />
                         </button>
 
-                        {/* Image Section */}
-                        <div className="w-full md:w-1/2 relative bg-gray-50 h-[250px] md:h-auto overflow-hidden group">
+                        <div className="w-full md:w-5/12 relative bg-gray-50/50 h-[200px] md:h-auto overflow-hidden group flex items-center justify-center p-4">
                             {selectedProduct.oldPrice && (
-                                <div className="absolute top-4 left-4 z-10 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md transform -rotate-6">
+                                <div className="absolute top-3 left-3 z-10 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-sm">
                                     Special Offer
                                 </div>
                             )}
@@ -64,41 +63,37 @@ export const QuickViewProvider = ({ children }) => {
                             <img 
                                 src={selectedProduct.image} 
                                 alt={selectedProduct.name} 
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 ease-out mix-blend-multiply"
                             />
                         </div>
                         
                         {/* Content Section */}
-                        <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center bg-white relative">
-                            {/* Decorative blur */}
-                            <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-brand-green/10 rounded-full blur-3xl pointer-events-none"></div>
-                            
-                            <div className="flex items-center gap-1 mb-2">
-                                {[...Array(5)].map((_, i) => (
-                                    <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
-                                ))}
-                                <span className="text-xs text-gray-400 ml-2">(120 Reviews)</span>
-                            </div>
+                        <div className="w-full md:w-7/12 p-5 md:p-7 flex flex-col justify-center bg-white relative">
+                            {/* Decorative element */}
+                            <div className="absolute top-0 right-0 w-20 h-20 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:10px_10px] opacity-40"></div>
 
-                            <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-3 leading-tight tracking-tight">
+                            <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-2 leading-tight relative z-10">
                                 {selectedProduct.name}
                             </h2>
                             
-                            <p className="text-gray-500 text-sm md:text-base mb-6 leading-relaxed line-clamp-3">
+                            {/* Decorative dashed line */}
+                            <div className="w-12 border-b-2 border-dashed border-brand-green mb-3"></div>
+                            
+                            <p className="text-gray-500 text-[13px] md:text-sm mb-5 leading-relaxed line-clamp-2 md:line-clamp-3 relative z-10">
                                 {selectedProduct.description || "Fresh, high-quality agro product straight from the farm to your doorstep."}
                             </p>
                             
-                            <div className="flex flex-col mb-8 p-4 bg-green-50/50 rounded-2xl border border-green-100">
+                            <div className="flex flex-col mb-5 p-3.5 bg-gray-50 rounded-xl border border-gray-100">
                                 <p className="text-xs text-gray-500 font-medium uppercase tracking-wider mb-1">Price per {selectedProduct.unit || 'kg'}</p>
-                                <div className="flex items-end gap-4">
-                                    <span className="text-4xl font-bold text-brand-green">
-                                        <span className="text-lg mr-1">Rs</span>
+                                <div className="flex items-end gap-3">
+                                    <span className="text-2xl md:text-3xl font-bold text-brand-green">
+                                        <span className="text-sm md:text-base mr-1">Rs</span>
                                         {Number(selectedProduct.price).toFixed(2)}
                                     </span>
                                     {selectedProduct.oldPrice && (
-                                        <div className="flex flex-col pb-1">
-                                            <span className="text-xs text-red-400 font-medium mb-0.5">Save Rs {(Number(selectedProduct.oldPrice) - Number(selectedProduct.price)).toFixed(2)}</span>
-                                            <span className="text-lg text-gray-400 line-through">Rs {Number(selectedProduct.oldPrice).toFixed(2)}</span>
+                                        <div className="flex flex-col pb-0.5">
+                                            <span className="text-[10px] text-red-500 font-medium mb-0.5">Save Rs {(Number(selectedProduct.oldPrice) - Number(selectedProduct.price)).toFixed(2)}</span>
+                                            <span className="text-sm text-gray-400 line-through">Rs {Number(selectedProduct.oldPrice).toFixed(2)}</span>
                                         </div>
                                     )}
                                 </div>
@@ -107,10 +102,10 @@ export const QuickViewProvider = ({ children }) => {
                             <button 
                                 onClick={handleAddToCart}
                                 disabled={added}
-                                className={`w-full py-4 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_4px_15px_rgba(21,128,61,0.2)] ${
+                                className={`w-full py-3.5 rounded-xl text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 group shadow-sm ${
                                     added 
                                     ? 'bg-green-500 text-white shadow-none transform scale-95' 
-                                    : 'bg-brand-green hover:bg-brand-dark text-white hover:shadow-[0_8px_25px_rgba(21,128,61,0.3)] hover:-translate-y-1'
+                                    : 'bg-brand-green hover:bg-brand-dark text-white hover:shadow-md hover:-translate-y-0.5'
                                 }`}
                             >
                                 {added ? (
