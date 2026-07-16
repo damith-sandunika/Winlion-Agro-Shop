@@ -1,11 +1,12 @@
 import React from 'react';
-import { Search, ShoppingCart, User, Menu, ChevronDown, List } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, ChevronDown, List, Phone, Mail, Facebook, Instagram, Twitter, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
 const Header = () => {
     const { cartCount } = useCart();
     const navigate = useNavigate();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -18,20 +19,23 @@ const Header = () => {
     return (
         <header className="w-full bg-white shadow-sm sticky top-0 z-50">
             {/* Top Bar - Desktop */}
-            <div className="hidden lg:flex justify-between items-center py-1 px-4 lg:px-6 max-w-7xl mx-auto border-b text-sm text-gray-600 bg-brand-light w-full">
-                <div className="flex gap-4">
-                    <span>Fresh From Farm</span>
-                    <span>100% Natural</span>
-                    <span>Premium Quality</span>
+            <div className="hidden lg:flex justify-between items-center py-2 px-4 lg:px-6 max-w-7xl mx-auto border-b text-[13px] text-gray-600 bg-brand-light w-full">
+                <div className="flex gap-6">
+                    <a href="tel:+94771234567" className="flex items-center gap-1.5 hover:text-brand-green transition-colors">
+                        <Phone size={14} />
+                        <span>+94 77 123 4567</span>
+                    </a>
+                    <a href="mailto:info@winlion.com" className="flex items-center gap-1.5 hover:text-brand-green transition-colors">
+                        <Mail size={14} />
+                        <span>info@winlion.com</span>
+                    </a>
                 </div>
                 <div className="flex gap-4 items-center">
-                    <span>Deliver to: Colombo, Sri Lanka</span>
-                    <span>Help & Support</span>
-                    <div className="flex gap-2">
-                        {/* Social Icons Placeholders */}
-                        <span className="w-4 h-4 bg-gray-300 rounded-full inline-block"></span>
-                        <span className="w-4 h-4 bg-gray-300 rounded-full inline-block"></span>
-                        <span className="w-4 h-4 bg-gray-300 rounded-full inline-block"></span>
+                    <span className="font-medium">Follow Us:</span>
+                    <div className="flex gap-3">
+                        <a href="#" className="text-gray-500 hover:text-blue-600 transition-colors"><Facebook size={16} /></a>
+                        <a href="#" className="text-gray-500 hover:text-pink-600 transition-colors"><Instagram size={16} /></a>
+                        <a href="#" className="text-gray-500 hover:text-blue-400 transition-colors"><Twitter size={16} /></a>
                     </div>
                 </div>
             </div>
@@ -40,7 +44,7 @@ const Header = () => {
             <div className="flex justify-between items-center py-1 px-4 lg:px-6 max-w-7xl w-full mx-auto">
                 {/* Logo and Menu Toggle (Mobile) */}
                 <div className="flex items-center gap-4">
-                    <button className="lg:hidden p-2 text-gray-600">
+                    <button onClick={() => setIsMobileMenuOpen(true)} className="lg:hidden p-2 text-gray-600 hover:text-brand-green transition-colors">
                         <Menu size={24} />
                     </button>
                     <Link to="/" className="flex items-center">
@@ -101,6 +105,43 @@ const Header = () => {
                         <Link to="/contact" className="hover:text-brand-green transition-colors">Contact</Link>
                     </div>
                 </nav>
+            </div>
+
+            {/* Mobile Menu Drawer */}
+            <div className={`fixed inset-0 bg-black/50 z-[60] transition-opacity duration-300 lg:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+            <div className={`fixed top-0 left-0 h-full w-[280px] bg-white z-[70] transform transition-transform duration-300 ease-in-out lg:hidden flex flex-col shadow-2xl ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <div className="p-4 flex justify-between items-center border-b border-gray-100 bg-brand-light/30">
+                    <img src="/website logo.png" alt="WinLion Logo" className="h-10 object-contain" />
+                    <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-gray-500 hover:text-red-500 bg-white rounded-full shadow-sm transition-colors">
+                        <X size={20} />
+                    </button>
+                </div>
+                
+                <div className="flex-1 overflow-y-auto py-6 px-4">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 px-2">Main Menu</span>
+                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Home</Link>
+                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/fruits" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Fresh Fruits</Link>
+                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/vegetables" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Vegetables</Link>
+                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/seeds" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Seeds</Link>
+                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/fertilizer" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Fertilizer</Link>
+                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/plants" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Plants</Link>
+                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/tools" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Tools & Equipments</Link>
+                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/offers" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Offers</Link>
+                        <Link onClick={() => setIsMobileMenuOpen(false)} to="/contact" className="text-gray-700 hover:text-brand-green hover:bg-green-50 px-4 py-3 rounded-xl transition-colors font-medium">Contact</Link>
+                    </div>
+
+                    <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col gap-4 px-2">
+                        <a href="tel:+94771234567" className="flex items-center gap-3 text-gray-600 hover:text-brand-green">
+                            <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-brand-green"><Phone size={16} /></div>
+                            <span className="font-medium">+94 77 123 4567</span>
+                        </a>
+                        <a href="mailto:info@winlion.com" className="flex items-center gap-3 text-gray-600 hover:text-brand-green">
+                            <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600"><Mail size={16} /></div>
+                            <span className="font-medium">info@winlion.com</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </header>
     );
