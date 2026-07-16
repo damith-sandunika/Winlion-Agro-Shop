@@ -3,9 +3,11 @@ import { Search, ShoppingCart, Menu, ChevronDown, List, X, Phone, Mail } from 'l
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import { useQuickView } from '../context/QuickViewContext';
 
 const Header = () => {
     const { cartCount, addToCart } = useCart();
+    const { openQuickView } = useQuickView();
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
     
@@ -14,7 +16,6 @@ const Header = () => {
     const [allProducts, setAllProducts] = React.useState([]);
     const [searchResults, setSearchResults] = React.useState([]);
     const [isSearchFocused, setIsSearchFocused] = React.useState(false);
-    const [selectedProduct, setSelectedProduct] = React.useState(null);
 
     // Fetch products for search
     React.useEffect(() => {
@@ -55,16 +56,9 @@ const Header = () => {
     };
 
     const handleProductClick = (product) => {
-        setSelectedProduct(product);
         setIsSearchFocused(false);
         setSearchQuery('');
-    };
-
-    const handleAddToCart = () => {
-        if (selectedProduct) {
-            addToCart(selectedProduct, 1);
-            setSelectedProduct(null); // Close modal after adding
-        }
+        openQuickView(product);
     };
     return (
         <header className="w-full bg-white shadow-sm sticky top-0 z-50">
@@ -204,56 +198,6 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Product Quick View Modal */}
-            {selectedProduct && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4" onClick={() => setSelectedProduct(null)}>
-                    <div 
-                        className="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 fade-in duration-300"
-                        onClick={e => e.stopPropagation()}
-                    >
-                        <div className="relative">
-                            <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-64 object-cover" />
-                            <button 
-                                onClick={() => setSelectedProduct(null)} 
-                                className="absolute top-4 right-4 p-2 bg-white/80 hover:bg-white text-gray-800 rounded-full shadow-sm transition-colors"
-                            >
-                                <X size={20} />
-                            </button>
-                            {selectedProduct.oldPrice && (
-                                <div className="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-                                    Sale
-                                </div>
-                            )}
-                        </div>
-                        
-                        <div className="p-6 md:p-8">
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-2">{selectedProduct.name}</h2>
-                            <p className="text-gray-500 text-sm mb-6 leading-relaxed">
-                                {selectedProduct.description}
-                            </p>
-                            
-                            <div className="flex items-center justify-between mb-8 pb-6 border-b border-gray-100">
-                                <div>
-                                    <p className="text-sm text-gray-500 mb-1">Price per {selectedProduct.unit}</p>
-                                    <div className="flex items-end gap-3">
-                                        <span className="text-3xl font-bold text-brand-green">Rs {Number(selectedProduct.price).toFixed(2)}</span>
-                                        {selectedProduct.oldPrice && <span className="text-lg text-gray-400 line-through mb-1">Rs {Number(selectedProduct.oldPrice).toFixed(2)}</span>}
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <button 
-                                onClick={handleAddToCart}
-                                className="w-full bg-brand-green hover:bg-brand-dark text-white py-4 rounded-xl font-medium transition-all duration-300 shadow-[0_4px_15px_rgba(21,128,61,0.2)] hover:shadow-[0_8px_25px_rgba(21,128,61,0.3)] hover:-translate-y-1 flex items-center justify-center gap-2 group"
-                            >
-                                <ShoppingCart size={20} className="group-hover:-rotate-12 transition-transform" />
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </header>
     );
 };

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const SlideContent = ({ slide, isActive }) => {
     return (
-        <div className="max-w-2xl relative p-5 md:p-0 border border-white/60 rounded-2xl bg-white/40 backdrop-blur-md md:border-none md:bg-transparent md:backdrop-blur-none mx-4 md:mx-0 shadow-[0_8px_30px_rgba(255,255,255,0.4)] md:shadow-none">
+        <div className="max-w-2xl relative p-5 md:p-0 border-2 border-white rounded-xl md:border-none mx-4 md:mx-0">
             {/* Badge */}
             <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] md:text-[11px] font-medium tracking-wider mb-4 md:mb-5 bg-[#e8eed2] text-[#2c531d] border border-[#a8c78c] transition-all duration-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <Leaf size={12} className="md:w-3 md:h-3 fill-current" /> {slide.badge}

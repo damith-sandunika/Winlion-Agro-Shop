@@ -21,8 +21,10 @@ import SupplierForm from './pages/admin/suppliers/Form';
 import AdminReports from './pages/admin/Reports';
 import ProtectedRoute from './components/ProtectedRoute';
 import { CartProvider } from './context/CartContext';
+import { QuickViewProvider } from './context/QuickViewContext';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import Category from './pages/Category';
 
 const container = document.getElementById('app');
 if (container) {
@@ -30,12 +32,14 @@ if (container) {
     root.render(
         <React.StrictMode>
             <CartProvider>
-                <BrowserRouter>
+                <QuickViewProvider>
+                    <BrowserRouter>
                     <Routes>
                         {/* Public Routes */}
                         <Route path="/" element={<Home />} />
                         <Route path="/cart" element={<Cart />} />
                         <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/category/:id" element={<Category />} />
 
                         {/* Admin Auth */}
                         <Route path="/login" element={<Navigate to="/admin/login" replace />} />
@@ -62,9 +66,9 @@ if (container) {
                         {/* 404 */}
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
-                </BrowserRouter>
+                    </BrowserRouter>
+                </QuickViewProvider>
             </CartProvider>
         </React.StrictMode>
     );
 }
-

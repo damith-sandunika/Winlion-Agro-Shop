@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Heart, Star, ShoppingCart, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useQuickView } from '../context/QuickViewContext';
 
 const ProductCard = ({ product }) => {
     const [quantity, setQuantity] = useState(1);
     const [added, setAdded] = useState(false);
     const { addToCart } = useCart();
+    const { openQuickView } = useQuickView();
 
     const increase = () => setQuantity(q => q + 1);
     const decrease = () => setQuantity(q => (q > 1 ? q - 1 : 1));
@@ -29,19 +31,22 @@ const ProductCard = ({ product }) => {
             {/* Wishlist Button Removed as requested */}
 
             {/* Image */}
-            <Link to={`/product/${product.id}`} className="block relative aspect-square mb-4 overflow-hidden rounded-xl bg-white flex-shrink-0 transition-colors">
+            <div 
+                onClick={() => openQuickView(product)} 
+                className="block relative aspect-square mb-4 overflow-hidden rounded-xl bg-white flex-shrink-0 transition-colors cursor-pointer"
+            >
                 <img 
                     src={product.image} 
                     alt={product.name}
                     className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply"
                 />
-            </Link>
+            </div>
 
             {/* Content */}
             <div className="flex flex-col flex-1 px-1">
-                <Link to={`/product/${product.id}`}>
+                <div onClick={() => openQuickView(product)} className="cursor-pointer">
                     <h4 className="font-normal text-gray-800 text-base mb-1 group-hover:text-brand-green transition-colors line-clamp-1">{product.name}</h4>
-                </Link>
+                </div>
                 
                 {/* Rating */}
                 <div className="flex items-center gap-1.5 mb-3">
