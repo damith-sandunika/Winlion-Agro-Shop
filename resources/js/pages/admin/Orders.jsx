@@ -124,8 +124,8 @@ export default function AdminOrders() {
                     <div className="w-32 h-32 bg-blue-300 rotate-45 -ml-16 rounded-lg"></div>
                 </div>
                 <div className="relative z-10">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">Orders Management</h2>
-                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-medium uppercase tracking-widest mt-1">Manage Orders</p>
+                    <h2 className="text-xl sm:text-2xl font-normal text-slate-800 tracking-tight">Orders Management</h2>
+                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-normal uppercase tracking-widest mt-1">Manage Orders</p>
                 </div>
             </div>
 
@@ -135,7 +135,7 @@ export default function AdminOrders() {
                     <button 
                         key={tab} 
                         onClick={() => setActiveTab(tab)}
-                        className={`px-6 py-3 text-sm font-medium transition-colors border-b-2 ${
+                        className={`px-6 py-3 text-sm font-normal transition-colors border-b-2 ${
                             activeTab === tab 
                             ? 'border-[#1933C6] text-[#1933C6]' 
                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -168,14 +168,14 @@ export default function AdminOrders() {
                             ) : filtered.map((order) => (
                                 <tr key={order.id} className={`hover:bg-gray-50 transition ${updating === order.id ? 'opacity-50' : ''}`}>
                                     <td className="px-6 py-4">
-                                        <div className="font-mono text-[#1933C6] font-medium">{order.invoice_number}</div>
+                                        <div className="font-mono text-[#1933C6] font-normal">{order.invoice_number}</div>
                                         <div className="text-gray-500 text-xs mt-1">{new Date(order.created_at).toLocaleDateString()}</div>
                                     </td>
                                     <td className="px-6 py-4">
-                                        <div className="font-medium text-gray-900">{order.customer_name}</div>
+                                        <div className="font-normal text-gray-900">{order.customer_name}</div>
                                         <div className="text-gray-600 text-xs mt-1">{order.whatsapp_number}</div>
                                     </td>
-                                    <td className="px-6 py-4 text-gray-900 font-medium">
+                                    <td className="px-6 py-4 text-gray-900 font-normal">
                                         Rs.{Number(order.grand_total).toLocaleString()}
                                     </td>
                                     <td className="px-6 py-4 text-gray-600">
@@ -185,7 +185,7 @@ export default function AdminOrders() {
                                         <select
                                             value={order.delivery_status === 'Pending' ? 'Received' : (order.delivery_status || 'Received')}
                                             onChange={e => updateStatus(order.id, 'delivery_status', e.target.value)}
-                                            className={`text-xs border rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 font-medium ${statusColors[order.delivery_status] || 'bg-gray-100 text-gray-600 border-gray-200'}`}
+                                            className={`text-xs border rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 font-normal ${statusColors[order.delivery_status] || 'bg-gray-100 text-gray-600 border-gray-200'}`}
                                         >
                                             <option value="Received">Received</option>
                                             <option value="Delivered">Delivered</option>
@@ -194,7 +194,7 @@ export default function AdminOrders() {
                                         </select>
                                     </td>
                                     <td className="px-6 py-4 text-right">
-                                        <button onClick={() => printInvoice(order)} className="text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-medium inline-flex items-center gap-1" title="Print Invoice">
+                                        <button onClick={() => printInvoice(order)} className="text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-normal inline-flex items-center gap-1" title="Print Invoice">
                                             <Printer size={14} /> Print
                                         </button>
                                     </td>

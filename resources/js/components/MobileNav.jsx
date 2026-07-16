@@ -23,7 +23,7 @@ const MobileNav = () => {
                         className={`flex flex-col items-center gap-1 ${isActive ? 'text-brand-green' : 'text-gray-500 hover:text-brand-green'}`}
                     >
                         <item.icon size={20} className={isActive ? 'fill-current' : ''} />
-                        <span className="text-[10px] font-medium">{item.label}</span>
+                        <span className="text-[10px] font-normal">{item.label}</span>
                     </Link>
                 );
             })}

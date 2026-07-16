@@ -17,8 +17,8 @@ export default function AdminCustomers() {
                     <div className="w-32 h-32 bg-blue-300 rotate-45 -ml-16 rounded-lg"></div>
                 </div>
                 <div className="relative z-10">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">Customers</h2>
-                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-medium uppercase tracking-widest mt-1">View and manage customer accounts</p>
+                    <h2 className="text-xl sm:text-2xl font-normal text-slate-800 tracking-tight">Customers</h2>
+                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-normal uppercase tracking-widest mt-1">View and manage customer accounts</p>
                 </div>
             </div>
 
@@ -28,7 +28,7 @@ export default function AdminCustomers() {
                     <button 
                         key={tab} 
                         onClick={() => setActiveTab(tab)}
-                        className={`px-6 py-3 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${
+                        className={`px-6 py-3 text-sm font-normal transition-colors border-b-2 whitespace-nowrap ${
                             activeTab === tab 
                             ? 'border-[#1933C6] text-[#1933C6]' 
                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'

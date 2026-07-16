@@ -68,22 +68,22 @@ const Header = () => {
                     <Link to="/cart" className="flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors relative">
                         <div className="relative">
                             <ShoppingCart size={22} />
-                            {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-brand-green text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">{cartCount}</span>}
+                            {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-brand-green text-white text-[10px] font-normal px-1.5 py-0.5 rounded-full">{cartCount}</span>}
                         </div>
-                        <span className="text-xs font-medium mt-1 hidden lg:block">Cart</span>
+                        <span className="text-xs font-normal mt-1 hidden lg:block">Cart</span>
                     </Link>
                     <Link to="/login" className="hidden lg:flex flex-col items-center text-gray-600 hover:text-brand-green transition-colors">
                         <User size={22} />
-                        <span className="text-xs font-medium mt-1">Login</span>
+                        <span className="text-xs font-normal mt-1">Login</span>
                     </Link>
                 </div>
             </div>
 
             {/* Bottom Nav Links (Desktop) */}
             <div className="hidden lg:block border-t border-gray-100 bg-white">
-                <nav className="flex items-center justify-between py-1 w-full max-w-7xl mx-auto px-4 lg:px-6 text-sm font-semibold text-gray-700">
+                <nav className="flex items-center justify-between py-1 w-full max-w-7xl mx-auto px-4 lg:px-6 text-sm font-normal text-gray-700">
                     <div className="flex items-center">
-                        <button className="flex items-center gap-2 bg-brand-green text-white px-5 py-2.5 rounded-lg font-medium hover:bg-brand-dark transition-colors shadow-sm">
+                        <button className="flex items-center gap-2 bg-brand-green text-white px-5 py-2.5 rounded-lg font-normal hover:bg-brand-dark transition-colors shadow-sm">
                             <List size={18} />
                             All Categories
                             <ChevronDown size={16} />

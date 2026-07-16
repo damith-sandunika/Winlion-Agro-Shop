@@ -51,12 +51,12 @@ const Testimonials = () => {
         <section className="py-12 max-w-7xl mx-auto px-4 lg:px-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
                 <div className="flex items-center gap-3">
-                    <h3 className="text-3xl font-extrabold text-gray-900 tracking-tight">What Our Customers Say</h3>
+                    <h3 className="text-lg font-normal text-gray-900 tracking-tight">What Our Customers Say</h3>
                     <Sparkles className="text-brand-green w-8 h-8 animate-pulse" />
                 </div>
                 <button 
                     onClick={() => setIsFormOpen(true)}
-                    className="bg-white border-2 border-brand-green text-brand-green hover:bg-brand-green hover:text-white px-6 py-2.5 rounded-xl font-semibold transition-colors duration-300 shadow-sm"
+                    className="bg-white border-2 border-brand-green text-brand-green hover:bg-brand-green hover:text-white px-6 py-2.5 rounded-xl font-normal transition-colors duration-300 shadow-sm"
                 >
                     Write a Review
                 </button>
@@ -77,8 +77,8 @@ const Testimonials = () => {
                         <div className="flex items-center gap-4 mt-auto border-t border-gray-50 pt-4 relative z-10">
                             <img src={testimonial.avatar} alt={testimonial.author} className="w-12 h-12 rounded-full object-cover ring-2 ring-brand-light" />
                             <div>
-                                <h4 className="font-bold text-gray-900 text-sm tracking-wide">{testimonial.author}</h4>
-                                <p className="text-xs text-brand-green font-medium mt-0.5">{testimonial.location}</p>
+                                <h4 className="font-normal text-gray-900 text-sm tracking-wide">{testimonial.author}</h4>
+                                <p className="text-xs text-brand-green font-normal mt-0.5">{testimonial.location}</p>
                             </div>
                         </div>
                     </div>
@@ -90,27 +90,27 @@ const Testimonials = () => {
                 <div className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-[fadeIn_0.2s_ease-out]">
                         <div className="flex justify-between items-center p-5 border-b border-gray-100">
-                            <h3 className="text-xl font-bold text-gray-800">Write a Review</h3>
+                            <h3 className="text-xl font-normal text-gray-800">Write a Review</h3>
                             <button onClick={() => setIsFormOpen(false)} className="text-gray-400 hover:text-red-500 transition-colors">
                                 <X size={24} />
                             </button>
                         </div>
                         <form onSubmit={handleSubmit} className="p-6">
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                                <label className="block text-sm font-normal text-gray-700 mb-1">Your Name</label>
                                 <input type="text" name="name" required className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-green focus:border-brand-green outline-none transition-all" placeholder="Enter your name" />
                             </div>
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                                <label className="block text-sm font-normal text-gray-700 mb-1">Rating</label>
                                 <div className="flex gap-2 text-amber-400">
                                     {[1,2,3,4,5].map(i => <Star key={i} size={24} className="fill-current cursor-pointer hover:scale-110 transition-transform" />)}
                                 </div>
                             </div>
                             <div className="mb-6">
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Your Review</label>
+                                <label className="block text-sm font-normal text-gray-700 mb-1">Your Review</label>
                                 <textarea name="review" required rows="4" className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-green focus:border-brand-green outline-none transition-all resize-none" placeholder="Share your experience with us..."></textarea>
                             </div>
-                            <button type="submit" className="w-full bg-brand-green hover:bg-brand-dark text-white font-semibold py-3 rounded-xl transition-all shadow-md flex justify-center items-center gap-2">
+                            <button type="submit" className="w-full bg-brand-green hover:bg-brand-dark text-white font-normal py-3 rounded-xl transition-all shadow-md flex justify-center items-center gap-2">
                                 Submit Review <Send size={18} />
                             </button>
                         </form>

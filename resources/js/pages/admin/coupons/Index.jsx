@@ -57,17 +57,17 @@ export default function CouponIndex() {
                     <div className="w-32 h-32 bg-blue-300 rotate-45 -ml-16 rounded-lg"></div>
                 </div>
                 <div className="relative z-10">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">Coupons</h2>
-                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-medium uppercase tracking-widest mt-1">Manage discount codes for your customers.</p>
+                    <h2 className="text-xl sm:text-2xl font-normal text-slate-800 tracking-tight">Coupons</h2>
+                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-normal uppercase tracking-widest mt-1">Manage discount codes for your customers.</p>
                 </div>
-                <button onClick={() => setShowModal(true)} className="hidden sm:flex relative z-10 bg-[#1933C6] hover:bg-[#090087] text-white px-5 py-2.5 rounded-md text-[11px] font-black uppercase tracking-widest shadow-sm transition-all active:scale-95 items-center gap-2 shrink-0">
+                <button onClick={() => setShowModal(true)} className="hidden sm:flex relative z-10 bg-[#1933C6] hover:bg-[#090087] text-white px-5 py-2.5 rounded-md text-[11px] font-normal uppercase tracking-widest shadow-sm transition-all active:scale-95 items-center gap-2 shrink-0">
                     <Plus size={16} strokeWidth={2.5} /> Add Coupon
                 </button>
             </div>
             
             {/* Mobile Action */}
             <div className="flex justify-end mb-6 sm:hidden px-1">
-                <button onClick={() => setShowModal(true)} className="bg-[#1933C6] hover:bg-[#090087] text-white px-5 py-2.5 rounded-md text-[11px] font-black uppercase tracking-widest shadow-sm flex items-center gap-2">
+                <button onClick={() => setShowModal(true)} className="bg-[#1933C6] hover:bg-[#090087] text-white px-5 py-2.5 rounded-md text-[11px] font-normal uppercase tracking-widest shadow-sm flex items-center gap-2">
                     <Plus size={16} strokeWidth={2.5} /> Add Coupon
                 </button>
             </div>
@@ -89,12 +89,12 @@ export default function CouponIndex() {
                             coupons.length === 0 ? <tr><td colSpan="5" className="px-6 py-10 text-center text-gray-400">No coupons found.</td></tr> :
                             coupons.map(c => (
                                 <tr key={c.id} className="hover:bg-gray-50 transition-colors">
-                                    <td className="px-6 py-4 font-mono font-medium text-[#1933C6]">{c.code}</td>
-                                    <td className="px-6 py-4 text-emerald-600 font-medium">{c.discount_percent}%</td>
-                                    <td className="px-6 py-4 font-medium text-slate-700">{c.max_discount ? `Rs.${c.max_discount}` : 'No Limit'}</td>
+                                    <td className="px-6 py-4 font-mono font-normal text-[#1933C6]">{c.code}</td>
+                                    <td className="px-6 py-4 text-emerald-600 font-normal">{c.discount_percent}%</td>
+                                    <td className="px-6 py-4 font-normal text-slate-700">{c.max_discount ? `Rs.${c.max_discount}` : 'No Limit'}</td>
                                     <td className="px-6 py-4 text-slate-600">{c.valid_until || 'Forever'}</td>
                                     <td className="px-6 py-4 text-right">
-                                        <button onClick={() => destroy(c.id)} className="px-3 py-1.5 text-red-600 hover:text-red-800 bg-red-50 rounded-lg text-xs font-medium transition-colors">Delete</button>
+                                        <button onClick={() => destroy(c.id)} className="px-3 py-1.5 text-red-600 hover:text-red-800 bg-red-50 rounded-lg text-xs font-normal transition-colors">Delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -106,23 +106,23 @@ export default function CouponIndex() {
             {showModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-xl border border-gray-100">
-                        <h3 className="font-bold text-lg mb-4 text-gray-800 border-b pb-3">Create Coupon</h3>
+                        <h3 className="font-normal text-lg mb-4 text-gray-800 border-b pb-3">Create Coupon</h3>
                         <form onSubmit={handleSubmit}>
-                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Coupon Code</label>
+                            <label className="block text-xs font-normal text-gray-500 uppercase tracking-wider mb-1">Coupon Code</label>
                             <input required value={form.code} onChange={e=>setForm({...form, code: e.target.value.toUpperCase()})} className={inp} placeholder="e.g. SUMMER20" />
                             
-                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 mt-3">Discount Percentage (%)</label>
+                            <label className="block text-xs font-normal text-gray-500 uppercase tracking-wider mb-1 mt-3">Discount Percentage (%)</label>
                             <input required type="number" min="1" max="100" value={form.discount_percent} onChange={e=>setForm({...form, discount_percent: e.target.value})} className={inp} placeholder="e.g. 20" />
                             
-                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 mt-3">Max Discount Amount (Rs) - Optional</label>
+                            <label className="block text-xs font-normal text-gray-500 uppercase tracking-wider mb-1 mt-3">Max Discount Amount (Rs) - Optional</label>
                             <input type="number" value={form.max_discount} onChange={e=>setForm({...form, max_discount: e.target.value})} className={inp} placeholder="e.g. 1500" />
                             
-                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 mt-3">Valid Until - Optional</label>
+                            <label className="block text-xs font-normal text-gray-500 uppercase tracking-wider mb-1 mt-3">Valid Until - Optional</label>
                             <input type="date" value={form.valid_until} onChange={e=>setForm({...form, valid_until: e.target.value})} className={inp} />
                             
                             <div className="flex justify-end gap-3 mt-6 border-t pt-4">
-                                <button type="button" onClick={()=>setShowModal(false)} className="px-4 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
-                                <button type="submit" className="px-5 py-2 bg-[#1933C6] hover:bg-[#090087] text-white font-medium rounded-lg transition-colors shadow-sm">Save Coupon</button>
+                                <button type="button" onClick={()=>setShowModal(false)} className="px-4 py-2 text-gray-600 font-normal hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+                                <button type="submit" className="px-5 py-2 bg-[#1933C6] hover:bg-[#090087] text-white font-normal rounded-lg transition-colors shadow-sm">Save Coupon</button>
                             </div>
                         </form>
                     </div>

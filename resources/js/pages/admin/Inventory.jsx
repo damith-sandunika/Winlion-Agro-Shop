@@ -108,15 +108,15 @@ export default function Inventory() {
                     <div className="w-32 h-32 bg-blue-300 rotate-45 -ml-16 rounded-lg"></div>
                 </div>
                 <div className="relative z-10">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">Inventory Management</h2>
-                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-medium uppercase tracking-widest mt-1">Bulk Restock & Monitor</p>
+                    <h2 className="text-xl sm:text-2xl font-normal text-slate-800 tracking-tight">Inventory Management</h2>
+                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-normal uppercase tracking-widest mt-1">Bulk Restock & Monitor</p>
                 </div>
             </div>
 
             {/* Mobile & Desktop Action Bar */}
             <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Global Supplier:</label>
+                    <label className="text-xs font-normal text-slate-500 uppercase tracking-wider">Global Supplier:</label>
                     <select 
                         className="border border-slate-200 rounded-md px-3 py-2 text-sm bg-slate-50 focus:bg-white focus:ring-1 focus:ring-[#1933C6] focus:border-[#1933C6] outline-none"
                         value={globalSupplier}
@@ -127,11 +127,11 @@ export default function Inventory() {
                     </select>
                 </div>
                 <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-4 sm:pt-0">
-                    <span className="text-sm font-bold text-slate-700 sm:hidden">{selectedIds.length} Selected</span>
+                    <span className="text-sm font-normal text-slate-700 sm:hidden">{selectedIds.length} Selected</span>
                     <button 
                         onClick={submitBulkRestock}
                         disabled={selectedIds.length === 0}
-                        className="bg-[#1933C6] hover:bg-[#090087] text-white px-6 py-2.5 rounded-md text-[11px] font-black uppercase tracking-widest shadow-sm transition-all active:scale-95 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto justify-center"
+                        className="bg-[#1933C6] hover:bg-[#090087] text-white px-6 py-2.5 rounded-md text-[11px] font-normal uppercase tracking-widest shadow-sm transition-all active:scale-95 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto justify-center"
                     >
                         <PackagePlus size={16} />
                         Restock ({selectedIds.length})
@@ -141,17 +141,17 @@ export default function Inventory() {
 
             {expiring.length > 0 && (
                 <div className="mb-6 bg-red-50 border border-red-200 p-4 rounded-xl shadow-sm">
-                    <h3 className="text-red-800 font-bold flex items-center gap-2 mb-3 text-sm">
+                    <h3 className="text-red-800 font-normal flex items-center gap-2 mb-3 text-sm">
                         <AlertCircle size={18} /> Expiring Soon (Within 30 Days)
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         {expiring.map(p => (
                             <div key={p.id} className="bg-white p-3 rounded-lg border border-red-100 shadow-sm flex items-center justify-between">
                                 <div>
-                                    <p className="font-semibold text-slate-800 text-sm">{p.name}</p>
-                                    <p className="text-xs text-red-500 font-medium mt-0.5">Expires: {new Date(p.expiry_date).toLocaleDateString()}</p>
+                                    <p className="font-normal text-slate-800 text-sm">{p.name}</p>
+                                    <p className="text-xs text-red-500 font-normal mt-0.5">Expires: {new Date(p.expiry_date).toLocaleDateString()}</p>
                                 </div>
-                                <span className="bg-slate-100 text-slate-600 px-2 py-1 rounded text-xs font-bold">{p.current_stock}</span>
+                                <span className="bg-slate-100 text-slate-600 px-2 py-1 rounded text-xs font-normal">{p.current_stock}</span>
                             </div>
                         ))}
                     </div>
@@ -183,11 +183,11 @@ export default function Inventory() {
                                             {isSelected ? <CheckSquare size={18} className="text-[#1933C6]"/> : <Square size={18} className="text-gray-300"/>}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <p className="font-medium text-slate-900">{p.name}</p>
+                                            <p className="font-normal text-slate-900">{p.name}</p>
                                             <p className="text-[10px] text-slate-400 font-mono mt-0.5">{p.sku}</p>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className={`font-medium px-2.5 py-1 rounded-md text-xs ${p.current_stock <= 5 ? 'bg-red-50 text-red-600 border border-red-100' : 'bg-emerald-50 text-emerald-600 border border-emerald-100'}`}>
+                                            <span className={`font-normal px-2.5 py-1 rounded-md text-xs ${p.current_stock <= 5 ? 'bg-red-50 text-red-600 border border-red-100' : 'bg-emerald-50 text-emerald-600 border border-emerald-100'}`}>
                                                 {p.current_stock} {p.unit_type}
                                             </span>
                                         </td>

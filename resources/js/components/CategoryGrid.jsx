@@ -27,7 +27,7 @@ const CategoryGrid = () => {
     return (
         <section className="py-10 max-w-7xl mx-auto px-4 lg:px-6">
             <div className="flex justify-between items-end mb-8">
-                <h3 className="text-3xl font-extrabold text-gray-900 tracking-tight">Shop By Categories</h3>
+                <h3 className="text-lg font-normal text-gray-900 tracking-tight">Shop By Categories</h3>
             </div>
             
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-10">
@@ -40,13 +40,13 @@ const CategoryGrid = () => {
                                 className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-300" 
                             />
                         </div>
-                        <span className="text-sm font-semibold text-gray-700 text-center leading-tight group-hover:text-brand-green">{category.name}</span>
+                        <span className="text-sm font-normal text-gray-700 text-center leading-tight group-hover:text-brand-green">{category.name}</span>
                     </Link>
                 ))}
             </div>
 
             <div className="flex justify-center">
-                <Link to="/categories" className="px-8 py-3.5 rounded-xl font-semibold transition-all duration-300 border-2 border-gray-200 text-gray-700 bg-white hover:border-brand-green hover:text-brand-green hover:shadow-lg hover:-translate-y-0.5">
+                <Link to="/categories" className="px-8 py-3.5 rounded-xl font-normal transition-all duration-300 border-2 border-gray-200 text-gray-700 bg-white hover:border-brand-green hover:text-brand-green hover:shadow-lg hover:-translate-y-0.5">
                     Explore All Categories &rarr;
                 </Link>
             </div>

@@ -64,18 +64,18 @@ export default function AdminLayout({ children }) {
                 <div className="h-16 w-16 rounded-2xl bg-[#090087] border border-white/20 flex items-center justify-center mb-3 shadow-lg backdrop-blur-sm p-1.5">
                     <img src="/dashbord logo.png" alt="Dashboard Logo" className="w-full h-full object-contain" />
                 </div>
-                <h1 className="text-sm font-black text-white text-center leading-tight">WinLion Agro</h1>
-                <span className="mt-1 text-[10px] font-bold text-blue-200 uppercase tracking-widest">Admin Dashboard</span>
+                <h1 className="text-sm font-normal text-white text-center leading-tight">WinLion Agro</h1>
+                <span className="mt-1 text-[10px] font-normal text-blue-200 uppercase tracking-widest">Admin Dashboard</span>
             </div>
 
             <nav className="relative flex-1 overflow-y-auto py-4 px-3 space-y-1 custom-scrollbar z-10">
-                <div className="text-[10px] font-black uppercase tracking-widest text-blue-300/50 px-3 mb-2">Main Menu</div>
+                <div className="text-[10px] font-normal uppercase tracking-widest text-blue-300/50 px-3 mb-2">Main Menu</div>
                 {menuItems.map((item) => (
                     <Link
                         key={item.name}
                         to={item.route}
                         onClick={() => setSidebarOpen(false)}
-                        className={`group relative flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-all duration-200 font-semibold overflow-hidden ${
+                        className={`group relative flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-all duration-200 font-normal overflow-hidden ${
                             isActive(item.route)
                                 ? 'bg-white text-[#1933C6] shadow-[0_4px_20px_rgba(0,0,0,0.15)] ring-1 ring-black/5'
                                 : 'text-blue-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1'
@@ -107,8 +107,8 @@ export default function AdminLayout({ children }) {
                     <div className="absolute bottom-1 left-6 w-3 h-3 rounded-full border border-white/60"></div>
                 </div>
 
-                <p className="relative z-10 text-[8px] text-blue-100 uppercase tracking-widest font-bold mb-0.5">Powered by</p>
-                <p className="relative z-10 text-xs font-black text-white tracking-widest uppercase drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">WinLion</p>
+                <p className="relative z-10 text-[8px] text-blue-100 uppercase tracking-widest font-normal mb-0.5">Powered by</p>
+                <p className="relative z-10 text-xs font-normal text-white tracking-widest uppercase drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">WinLion</p>
             </div>
         </div>
     );
@@ -158,7 +158,7 @@ export default function AdminLayout({ children }) {
                             </svg>
                         </button>
                         <div className="hidden md:block">
-                            <p className="text-[11px] font-black text-white uppercase tracking-widest leading-none">WinLion Console</p>
+                            <p className="text-[11px] font-normal text-white uppercase tracking-widest leading-none">WinLion Console</p>
                         </div>
                     </div>
 
@@ -169,10 +169,10 @@ export default function AdminLayout({ children }) {
                                 className="flex items-center gap-3 focus:outline-none group"
                             >
                                 <div className="text-right hidden sm:block">
-                                    <p className="text-sm font-black text-white leading-none">{user.name}</p>
-                                    <p className="text-[10px] font-black text-blue-200 uppercase tracking-widest mt-0.5">Admin</p>
+                                    <p className="text-sm font-normal text-white leading-none">{user.name}</p>
+                                    <p className="text-[10px] font-normal text-blue-200 uppercase tracking-widest mt-0.5">Admin</p>
                                 </div>
-                                <div className="h-9 w-9 rounded-xl bg-white flex items-center justify-center text-[#090087] font-black text-sm flex-shrink-0 shadow-md transition-transform group-hover:scale-105">
+                                <div className="h-9 w-9 rounded-xl bg-white flex items-center justify-center text-[#090087] font-normal text-sm flex-shrink-0 shadow-md transition-transform group-hover:scale-105">
                                     {user.name.charAt(0).toUpperCase()}
                                 </div>
                             </button>
@@ -182,13 +182,13 @@ export default function AdminLayout({ children }) {
                                     <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)}></div>
                                     <div className="absolute right-0 mt-3 w-48 rounded-2xl shadow-xl border border-slate-100 z-50 overflow-hidden bg-white/95 backdrop-blur-xl">
                                         <div className="px-4 py-3 border-b border-slate-50">
-                                            <p className="text-sm font-black text-slate-800">{user.name}</p>
-                                            <p className="text-[10px] text-slate-400 font-bold mt-0.5 truncate">{user.email}</p>
+                                            <p className="text-sm font-normal text-slate-800">{user.name}</p>
+                                            <p className="text-[10px] text-slate-400 font-normal mt-0.5 truncate">{user.email}</p>
                                         </div>
                                         <div className="py-1">
                                             <button
                                                 onClick={handleLogout}
-                                                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm font-semibold text-rose-500 hover:bg-rose-50 transition-colors"
+                                                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm font-normal text-rose-500 hover:bg-rose-50 transition-colors"
                                             >
                                                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
                                                 Sign Out

@@ -68,10 +68,10 @@ const HeroSlider = () => {
                         <div className="absolute inset-0 z-10 flex items-center">
                             <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl w-full">
                                 <div className="max-w-xl">
-                                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold tracking-wider mb-6 uppercase ${slide.theme === 'dark' ? 'bg-white/10 text-green-300' : 'bg-brand-green/10 text-brand-green'} backdrop-blur-sm border border-white/20 animate-in fade-in slide-in-from-bottom-4 duration-500`}>
+                                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-normal tracking-wider mb-6 uppercase ${slide.theme === 'dark' ? 'bg-white/10 text-green-300' : 'bg-brand-green/10 text-brand-green'} backdrop-blur-sm border border-white/20 animate-in fade-in slide-in-from-bottom-4 duration-500`}>
                                         <Leaf size={14} /> {slide.badge}
                                     </div>
-                                    <h2 className={`text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 ${slide.theme === 'dark' ? 'text-white' : 'text-gray-900'} whitespace-pre-line animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100`}>
+                                    <h2 className={`text-xl md:text-2xl lg:text-xl font-normal tracking-tight leading-[1.1] mb-6 ${slide.theme === 'dark' ? 'text-white' : 'text-gray-900'} whitespace-pre-line animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100`}>
                                         {slide.title}
                                     </h2>
                                     <p className={`text-lg lg:text-xl mb-8 whitespace-pre-line font-light leading-relaxed ${slide.theme === 'dark' ? 'text-gray-200' : 'text-gray-600'} animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200`}>
@@ -79,7 +79,7 @@ const HeroSlider = () => {
                                     </p>
                                     
                                     <div className="flex flex-wrap gap-4">
-                                        <Link to="/shop" className="bg-brand-green hover:bg-brand-dark text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-[0_8px_20px_rgba(21,128,61,0.3)] hover:shadow-[0_8px_25px_rgba(21,128,61,0.4)] hover:-translate-y-1">
+                                        <Link to="/shop" className="bg-brand-green hover:bg-brand-dark text-white px-8 py-4 rounded-xl font-normal transition-all duration-300 flex items-center gap-2 shadow-[0_8px_20px_rgba(21,128,61,0.3)] hover:shadow-[0_8px_25px_rgba(21,128,61,0.4)] hover:-translate-y-1">
                                             Shop Now <ArrowRight size={20} />
                                         </Link>
                                     </div>
@@ -92,8 +92,8 @@ const HeroSlider = () => {
                                                     <Sprout size={20} />
                                                 </div>
                                                 <div>
-                                                    <h4 className="font-bold text-sm text-gray-900 leading-tight">Farm Fresh</h4>
-                                                    <p className="text-xs text-gray-500 font-medium mt-0.5">Direct from Farmers</p>
+                                                    <h4 className="font-normal text-sm text-gray-900 leading-tight">Farm Fresh</h4>
+                                                    <p className="text-xs text-gray-500 font-normal mt-0.5">Direct from Farmers</p>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-3 group">
@@ -101,8 +101,8 @@ const HeroSlider = () => {
                                                     <Package size={20} />
                                                 </div>
                                                 <div>
-                                                    <h4 className="font-bold text-sm text-gray-900 leading-tight">Safe Packaging</h4>
-                                                    <p className="text-xs text-gray-500 font-medium mt-0.5">Hygienic & Secure</p>
+                                                    <h4 className="font-normal text-sm text-gray-900 leading-tight">Safe Packaging</h4>
+                                                    <p className="text-xs text-gray-500 font-normal mt-0.5">Hygienic & Secure</p>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-3 hidden sm:flex group">
@@ -110,8 +110,8 @@ const HeroSlider = () => {
                                                     <Truck size={20} />
                                                 </div>
                                                 <div>
-                                                    <h4 className="font-bold text-sm text-gray-900 leading-tight">Fast Delivery</h4>
-                                                    <p className="text-xs text-gray-500 font-medium mt-0.5">On Time Delivery</p>
+                                                    <h4 className="font-normal text-sm text-gray-900 leading-tight">Fast Delivery</h4>
+                                                    <p className="text-xs text-gray-500 font-normal mt-0.5">On Time Delivery</p>
                                                 </div>
                                             </div>
                                         </div>

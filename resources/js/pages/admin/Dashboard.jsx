@@ -28,7 +28,7 @@ export default function AdminDashboard() {
         { name: 'Jul 2026', gross: 2390, net: 3800 },
     ];
 
-    if (loading) return <AdminLayout><div className="flex h-full items-center justify-center text-gray-500 font-bold">Loading dashboard...</div></AdminLayout>;
+    if (loading) return <AdminLayout><div className="flex h-full items-center justify-center text-gray-500 font-normal">Loading dashboard...</div></AdminLayout>;
 
     return (
         <AdminLayout>
@@ -42,13 +42,13 @@ export default function AdminDashboard() {
                         <div className="w-32 h-32 bg-blue-300 rotate-45 -ml-16 rounded-lg"></div>
                     </div>
                     <div className="relative z-10">
-                        <p className="text-[10px] font-bold text-slate-400 tracking-widest uppercase mb-1">Good Morning</p>
-                        <h2 className="text-2xl font-bold text-slate-800 tracking-tight">{user.name}</h2>
-                        <p className="text-[11px] font-medium text-slate-400 uppercase tracking-widest mt-1">Admin Dashboard Overview</p>
+                        <p className="text-[10px] font-normal text-slate-400 tracking-widest uppercase mb-1">Good Morning</p>
+                        <h2 className="text-2xl font-normal text-slate-800 tracking-tight">{user.name}</h2>
+                        <p className="text-[11px] font-normal text-slate-400 uppercase tracking-widest mt-1">Admin Dashboard Overview</p>
                     </div>
                     <div className="relative z-10 hidden sm:flex">
                         <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 rounded-lg flex items-center justify-center">
-                            <span className="text-[#1933C6] font-bold text-xl">{user.name.charAt(0)}</span>
+                            <span className="text-[#1933C6] font-normal text-xl">{user.name.charAt(0)}</span>
                         </div>
                     </div>
                 </div>
@@ -61,8 +61,8 @@ export default function AdminDashboard() {
                             <DollarSign size={20} />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-slate-800">Rs. {Number(stats?.totalRevenue || 0).toLocaleString()}</h3>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Total Revenue</p>
+                            <h3 className="text-2xl font-normal text-slate-800">Rs. {Number(stats?.totalRevenue || 0).toLocaleString()}</h3>
+                            <p className="text-[10px] font-normal text-slate-400 uppercase tracking-wider mt-1">Total Revenue</p>
                         </div>
                     </div>
 
@@ -72,8 +72,8 @@ export default function AdminDashboard() {
                             <ShoppingCart size={20} />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-slate-800">{stats?.totalOrders || 0}</h3>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Total Orders</p>
+                            <h3 className="text-2xl font-normal text-slate-800">{stats?.totalOrders || 0}</h3>
+                            <p className="text-[10px] font-normal text-slate-400 uppercase tracking-wider mt-1">Total Orders</p>
                         </div>
                     </div>
 
@@ -83,8 +83,8 @@ export default function AdminDashboard() {
                             <Users size={20} />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-slate-800">{stats?.totalCustomers || 0}</h3>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Total Customers</p>
+                            <h3 className="text-2xl font-normal text-slate-800">{stats?.totalCustomers || 0}</h3>
+                            <p className="text-[10px] font-normal text-slate-400 uppercase tracking-wider mt-1">Total Customers</p>
                         </div>
                     </div>
 
@@ -94,8 +94,8 @@ export default function AdminDashboard() {
                             <TrendingUp size={20} />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-slate-800">Rs. {Number((stats?.totalRevenue || 0) * 0.7).toLocaleString()}</h3>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Net Profit (Est)</p>
+                            <h3 className="text-2xl font-normal text-slate-800">Rs. {Number((stats?.totalRevenue || 0) * 0.7).toLocaleString()}</h3>
+                            <p className="text-[10px] font-normal text-slate-400 uppercase tracking-wider mt-1">Net Profit (Est)</p>
                         </div>
                     </div>
                 </div>
@@ -110,9 +110,9 @@ export default function AdminDashboard() {
                                 <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#1933C6] flex items-center justify-center">
                                     <TrendingUp size={16} />
                                 </div>
-                                <h3 className="font-bold text-slate-800 text-sm">Revenue & Profit Trend</h3>
+                                <h3 className="font-normal text-slate-800 text-sm">Revenue & Profit Trend</h3>
                             </div>
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Last 6 Months</span>
+                            <span className="text-[10px] font-normal text-slate-400 uppercase tracking-wider">Last 6 Months</span>
                         </div>
                         
                         <div className="h-72 w-full">
@@ -131,11 +131,11 @@ export default function AdminDashboard() {
                         <div className="flex justify-center gap-6 mt-4">
                             <div className="flex items-center gap-2">
                                 <span className="w-3 h-3 rounded-full bg-blue-500"></span>
-                                <span className="text-[10px] font-bold text-slate-500">Gross Revenue (Rs.)</span>
+                                <span className="text-[10px] font-normal text-slate-500">Gross Revenue (Rs.)</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
-                                <span className="text-[10px] font-bold text-slate-500">Net Profit (Rs.)</span>
+                                <span className="text-[10px] font-normal text-slate-500">Net Profit (Rs.)</span>
                             </div>
                         </div>
                     </div>
@@ -149,7 +149,7 @@ export default function AdminDashboard() {
                                 <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
                                     <Calendar size={16} />
                                 </div>
-                                <h3 className="font-bold text-slate-800 text-sm">Active Operations</h3>
+                                <h3 className="font-normal text-slate-800 text-sm">Active Operations</h3>
                             </div>
                             
                             <div className="space-y-4">
@@ -158,9 +158,9 @@ export default function AdminDashboard() {
                                         <div className="w-8 h-8 rounded-md bg-white border border-slate-200 text-slate-600 flex items-center justify-center shadow-sm">
                                             <ShoppingCart size={14} />
                                         </div>
-                                        <span className="text-xs font-bold text-slate-700 uppercase tracking-wider">Pending Orders</span>
+                                        <span className="text-xs font-normal text-slate-700 uppercase tracking-wider">Pending Orders</span>
                                     </div>
-                                    <span className="text-lg font-bold text-slate-900">{stats?.pendingOrders || 0}</span>
+                                    <span className="text-lg font-normal text-slate-900">{stats?.pendingOrders || 0}</span>
                                 </div>
 
                                 <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-100">
@@ -168,9 +168,9 @@ export default function AdminDashboard() {
                                         <div className="w-8 h-8 rounded-md bg-white border border-slate-200 text-slate-600 flex items-center justify-center shadow-sm">
                                             <AlertCircle size={14} />
                                         </div>
-                                        <span className="text-xs font-bold text-slate-700 uppercase tracking-wider">Low Stock</span>
+                                        <span className="text-xs font-normal text-slate-700 uppercase tracking-wider">Low Stock</span>
                                     </div>
-                                    <span className="text-lg font-bold text-orange-600">{stats?.lowStock || 0}</span>
+                                    <span className="text-lg font-normal text-orange-600">{stats?.lowStock || 0}</span>
                                 </div>
                             </div>
                         </div>
@@ -181,10 +181,10 @@ export default function AdminDashboard() {
                                 <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
                                     <DollarSign size={16} />
                                 </div>
-                                <h3 className="font-bold text-slate-800 text-sm">Recent Activity</h3>
+                                <h3 className="font-normal text-slate-800 text-sm">Recent Activity</h3>
                             </div>
                             <div className="py-6 text-center">
-                                <p className="text-xs font-medium text-slate-400">System is running smoothly.</p>
+                                <p className="text-xs font-normal text-slate-400">System is running smoothly.</p>
                             </div>
                         </div>
 

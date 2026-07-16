@@ -42,16 +42,16 @@ export default function CategoryIndex() {
                     <div className="w-32 h-32 bg-blue-300 rotate-45 -ml-16 rounded-lg"></div>
                 </div>
                 <div className="relative z-10">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">Categories</h2>
-                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-medium uppercase tracking-widest mt-1">Manage Categories</p>
+                    <h2 className="text-xl sm:text-2xl font-normal text-slate-800 tracking-tight">Categories</h2>
+                    <p className="text-slate-400 text-[9px] sm:text-[11px] font-normal uppercase tracking-widest mt-1">Manage Categories</p>
                 </div>
-                <Link to="/admin/categories/create" className="hidden sm:flex relative z-10 bg-[#1933C6] hover:bg-[#090087] text-white px-5 py-2.5 rounded-md text-[11px] font-black uppercase tracking-widest shadow-sm transition-all active:scale-95 items-center gap-2 shrink-0">
+                <Link to="/admin/categories/create" className="hidden sm:flex relative z-10 bg-[#1933C6] hover:bg-[#090087] text-white px-5 py-2.5 rounded-md text-[11px] font-normal uppercase tracking-widest shadow-sm transition-all active:scale-95 items-center gap-2 shrink-0">
                     <Plus size={16} strokeWidth={2.5} /> Add Category
                 </Link>
             </div>
             {/* Mobile Action */}
             <div className="flex justify-end mb-6 sm:hidden px-1">
-                <Link to="/admin/categories/create" className="bg-[#1933C6] hover:bg-[#090087] text-white px-5 py-2.5 rounded-md text-[11px] font-black uppercase tracking-widest shadow-sm flex items-center gap-2">
+                <Link to="/admin/categories/create" className="bg-[#1933C6] hover:bg-[#090087] text-white px-5 py-2.5 rounded-md text-[11px] font-normal uppercase tracking-widest shadow-sm flex items-center gap-2">
                     <Plus size={16} strokeWidth={2.5} /> Add Category
                 </Link>
             </div>
@@ -72,7 +72,7 @@ export default function CategoryIndex() {
                             className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[#1933C6] focus:border-[#1933C6] transition-all shadow-sm"
                         />
                     </div>
-                    <div className="text-xs font-bold text-gray-500 bg-white px-3 py-1.5 rounded-md border border-gray-200 shadow-sm">
+                    <div className="text-xs font-normal text-gray-500 bg-white px-3 py-1.5 rounded-md border border-gray-200 shadow-sm">
                         Total: <span className="text-[#1933C6]">{filtered.length}</span>
                     </div>
                 </div>
@@ -94,30 +94,30 @@ export default function CategoryIndex() {
                                     <tr key={i}><td colSpan="4" className="px-6 py-4"><div className="h-6 bg-gray-100 rounded animate-pulse" /></td></tr>
                                 ))
                             ) : filtered.length === 0 ? (
-                                <tr><td colSpan="4" className="text-center py-10 text-gray-400 font-medium">No categories found.</td></tr>
+                                <tr><td colSpan="4" className="text-center py-10 text-gray-400 font-normal">No categories found.</td></tr>
                             ) : filtered.map((c) => (
                                 <tr key={c.id} className="hover:bg-gray-50 transition-colors">
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-[#1933C6] font-bold">
+                                            <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-[#1933C6] font-normal">
                                                 {c.name.charAt(0).toUpperCase()}
                                             </div>
-                                            <span className="font-medium text-slate-900">{c.name}</span>
+                                            <span className="font-normal text-slate-900">{c.name}</span>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 text-gray-500 max-w-xs truncate">{c.description || '—'}</td>
                                     <td className="px-6 py-4">
-                                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${c.status ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-gray-100 text-gray-500 border border-gray-200'}`}>
+                                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-normal ${c.status ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-gray-100 text-gray-500 border border-gray-200'}`}>
                                             <span className={`w-1.5 h-1.5 rounded-full ${c.status ? 'bg-emerald-500' : 'bg-gray-400'}`}></span>
                                             {c.status ? 'Active' : 'Inactive'}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 text-right">
                                         <div className="flex items-center justify-end gap-2">
-                                            <Link to={`/admin/categories/${c.id}/edit`} className="px-3 py-1.5 text-blue-600 hover:text-blue-800 bg-blue-50 rounded-lg text-xs font-medium transition-colors">
+                                            <Link to={`/admin/categories/${c.id}/edit`} className="px-3 py-1.5 text-blue-600 hover:text-blue-800 bg-blue-50 rounded-lg text-xs font-normal transition-colors">
                                                 Edit
                                             </Link>
-                                            <button onClick={() => destroy(c.id)} className="px-3 py-1.5 text-red-600 hover:text-red-800 bg-red-50 rounded-lg text-xs font-medium transition-colors">
+                                            <button onClick={() => destroy(c.id)} className="px-3 py-1.5 text-red-600 hover:text-red-800 bg-red-50 rounded-lg text-xs font-normal transition-colors">
                                                 Delete
                                             </button>
                                         </div>

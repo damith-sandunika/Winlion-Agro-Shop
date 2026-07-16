@@ -62,13 +62,13 @@ const Home = () => {
                     >
                         <div className="absolute inset-0 bg-black/50"></div>
                         <div className="z-10 relative max-w-xl text-white">
-                            <span className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md text-white text-xs tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full border border-white/30 animate-in fade-in slide-in-from-bottom-4 duration-700 font-medium">
+                            <span className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md text-white text-xs tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full border border-white/30 animate-in fade-in slide-in-from-bottom-4 duration-700 font-normal">
                                 <Tag size={14} /> Fresh Arrival
                             </span>
-                            <h2 className="text-4xl md:text-5xl mb-2 tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 font-medium text-white drop-shadow-md">Farm Fresh Organic</h2>
+                            <h2 className="text-xl md:text-2xl mb-2 tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 font-normal text-white drop-shadow-md">Farm Fresh Organic</h2>
                             <h3 className="text-2xl mb-4 tracking-wide animate-in fade-in slide-in-from-bottom-8 duration-1000 font-normal text-green-100 drop-shadow-sm">HANDPICKED FOR YOU</h3>
                             <p className="mb-8 text-lg md:text-xl max-w-md animate-in fade-in slide-in-from-bottom-10 duration-1000 font-light text-white/90">Experience the true taste of nature. Premium quality fruits and vegetables delivered straight to your door.</p>
-                            <button className="bg-brand-green hover:bg-brand-dark text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:-translate-y-1 flex items-center gap-2 group animate-in zoom-in duration-1000 font-medium border border-green-400/30">
+                            <button className="bg-brand-green hover:bg-brand-dark text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:-translate-y-1 flex items-center gap-2 group animate-in zoom-in duration-1000 font-normal border border-green-400/30">
                                 Discover Freshness <ShoppingCart size={20} className="group-hover:translate-x-1 transition-transform" />
                             </button>
                         </div>

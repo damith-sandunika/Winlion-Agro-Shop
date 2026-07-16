@@ -58,8 +58,8 @@ export default function CategoryForm() {
         }
     };
 
-    const inp = "w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#1933C6]/20 focus:border-[#1933C6] transition-all shadow-sm";
-    const label = "block text-[11px] font-bold text-slate-700 mb-2 uppercase tracking-widest";
+    const inp = "w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md text-sm font-normal focus:outline-none focus:ring-2 focus:ring-[#1933C6]/20 focus:border-[#1933C6] transition-all shadow-sm";
+    const label = "block text-[11px] font-normal text-slate-700 mb-2 uppercase tracking-widest";
 
     return (
         <AdminLayout>
@@ -73,10 +73,10 @@ export default function CategoryForm() {
                         <div className="w-32 h-32 bg-blue-300 rotate-45 -ml-16 rounded-lg"></div>
                     </div>
                     <div className="relative z-10">
-                        <Link to="/admin/categories" className="inline-flex items-center gap-2 text-[10px] font-bold text-slate-400 hover:text-[#1933C6] uppercase tracking-widest transition-colors mb-2">
+                        <Link to="/admin/categories" className="inline-flex items-center gap-2 text-[10px] font-normal text-slate-400 hover:text-[#1933C6] uppercase tracking-widest transition-colors mb-2">
                             <ArrowLeft size={14} /> Back to Categories
                         </Link>
-                        <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
+                        <h2 className="text-2xl font-normal text-slate-800 tracking-tight">
                             {isEdit ? 'Edit Category' : 'Create Category'}
                         </h2>
                     </div>
@@ -85,10 +85,10 @@ export default function CategoryForm() {
                 {/* Form Card */}
                 <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                     <form onSubmit={save} className="p-6 sm:p-8 space-y-6">
-                        {error && <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-bold border border-red-100">{error}</div>}
+                        {error && <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-normal border border-red-100">{error}</div>}
                         
                         {loading ? (
-                            <div className="h-40 flex items-center justify-center text-gray-400 font-bold">Loading...</div>
+                            <div className="h-40 flex items-center justify-center text-gray-400 font-normal">Loading...</div>
                         ) : (
                             <>
                                 <div>
@@ -113,7 +113,7 @@ export default function CategoryForm() {
                                             type="file" 
                                             accept="image/*"
                                             onChange={e => setImageFile(e.target.files[0])} 
-                                            className="w-full px-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-md text-sm font-medium focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-[11px] file:font-bold file:uppercase file:tracking-widest file:bg-blue-50 file:text-[#1933C6] hover:file:bg-blue-100 transition-all" 
+                                            className="w-full px-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-md text-sm font-normal focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-[11px] file:font-normal file:uppercase file:tracking-widest file:bg-blue-50 file:text-[#1933C6] hover:file:bg-blue-100 transition-all" 
                                         />
                                     </div>
                                 </div>
@@ -142,13 +142,13 @@ export default function CategoryForm() {
                                 </div>
 
                                 <div className="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">
-                                    <Link to="/admin/categories" className="px-6 py-2.5 rounded-md text-slate-600 text-[11px] uppercase tracking-widest font-bold hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200">
+                                    <Link to="/admin/categories" className="px-6 py-2.5 rounded-md text-slate-600 text-[11px] uppercase tracking-widest font-normal hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200">
                                         Cancel
                                     </Link>
                                     <button 
                                         type="submit" 
                                         disabled={saving} 
-                                        className="px-6 py-2.5 rounded-md bg-[#1933C6] hover:bg-[#090087] text-white text-[11px] font-black uppercase tracking-widest shadow-sm active:scale-95 transition-all flex items-center gap-2 disabled:opacity-70 disabled:hover:scale-100" 
+                                        className="px-6 py-2.5 rounded-md bg-[#1933C6] hover:bg-[#090087] text-white text-[11px] font-normal uppercase tracking-widest shadow-sm active:scale-95 transition-all flex items-center gap-2 disabled:opacity-70 disabled:hover:scale-100" 
                                     >
                                         <Save size={16} strokeWidth={2.5} /> {saving ? 'Saving...' : 'Save Category'}
                                     </button>

@@ -52,25 +52,25 @@ export default function AdminLogin() {
                             <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white mb-4 shadow-xl p-3">
                                 <img src="/website logo.png" alt="WinLion Logo" className="w-full h-full object-contain" />
                             </div>
-                            <h1 className="text-xl font-black text-white">WinLion Agro</h1>
-                            <p className="text-green-200 text-xs font-bold uppercase tracking-widest mt-1">Admin Panel</p>
+                            <h1 className="text-xl font-normal text-white">WinLion Agro</h1>
+                            <p className="text-green-200 text-xs font-normal uppercase tracking-widest mt-1">Admin Panel</p>
                         </div>
                     </div>
 
                     {/* Form */}
                     <div className="px-8 py-8">
-                        <h2 className="text-xl font-bold text-gray-800 mb-1">Welcome back 👋</h2>
+                        <h2 className="text-xl font-normal text-gray-800 mb-1">Welcome back 👋</h2>
                         <p className="text-gray-500 text-sm mb-6">Sign in to your admin account</p>
 
                         {error && (
-                            <div className="mb-4 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-medium flex items-center gap-2">
+                            <div className="mb-4 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-normal flex items-center gap-2">
                                 <span>⚠️</span> {error}
                             </div>
                         )}
 
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1.5">Email Address</label>
+                                <label className="block text-sm font-normal text-gray-700 mb-1.5">Email Address</label>
                                 <input
                                     type="email"
                                     value={form.email}
@@ -81,7 +81,7 @@ export default function AdminLogin() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1.5">Password</label>
+                                <label className="block text-sm font-normal text-gray-700 mb-1.5">Password</label>
                                 <input
                                     type="password"
                                     value={form.password}
@@ -94,7 +94,7 @@ export default function AdminLogin() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full py-3 rounded-xl text-white font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-green-300/50 disabled:opacity-60"
+                                className="w-full py-3 rounded-xl text-white font-normal text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-green-300/50 disabled:opacity-60"
                                 style={{ background: loading ? '#6b7280' : 'linear-gradient(135deg, #298d24, #1b5e20)' }}
                             >
                                 {loading ? (
@@ -107,7 +107,7 @@ export default function AdminLogin() {
                         </form>
 
                         <p className="text-center text-xs text-gray-400 mt-6">
-                            Default: <span className="font-bold text-gray-600">admin@winlion.com</span> / <span className="font-bold text-gray-600">password</span>
+                            Default: <span className="font-normal text-gray-600">admin@winlion.com</span> / <span className="font-normal text-gray-600">password</span>
                         </p>
                     </div>
                 </div>
@@ -129,22 +129,22 @@ export default function AdminLogin() {
                                 <img src="/app logo.jpeg" alt="App Logo" className="w-full h-full object-cover rounded-2xl" />
                             </div>
                             
-                            <h2 className="text-2xl font-black text-gray-800 tracking-tight mb-2">Install App</h2>
-                            <p className="text-sm text-gray-500 font-medium mb-8 px-4">Add WinLion Agro to your home screen for faster access and a better experience.</p>
+                            <h2 className="text-2xl font-normal text-gray-800 tracking-tight mb-2">Install App</h2>
+                            <p className="text-sm text-gray-500 font-normal mb-8 px-4">Add WinLion Agro to your home screen for faster access and a better experience.</p>
                             
                             <button 
                                 onClick={() => {
                                     alert('Install flow initiated!'); 
                                     setShowInstallPrompt(false);
                                 }}
-                                className="w-full py-4 rounded-xl text-white font-black text-sm tracking-wide shadow-lg shadow-green-500/30 hover:scale-[1.02] active:scale-95 transition-all"
+                                className="w-full py-4 rounded-xl text-white font-normal text-sm tracking-wide shadow-lg shadow-green-500/30 hover:scale-[1.02] active:scale-95 transition-all"
                                 style={{ background: 'linear-gradient(135deg, #298d24, #1b5e20)' }}
                             >
                                 INSTALL NOW
                             </button>
                             <button 
                                 onClick={() => setShowInstallPrompt(false)}
-                                className="w-full mt-3 py-3 text-sm font-bold text-gray-400 hover:text-gray-700 transition-colors"
+                                className="w-full mt-3 py-3 text-sm font-normal text-gray-400 hover:text-gray-700 transition-colors"
                             >
                                 Not Right Now
                             </button>
