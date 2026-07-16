@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Sprout, Leaf, Tag, ShoppingCart } from 'lucide-react';
 import Header from '../components/Header';
 import HeroSlider from '../components/HeroSlider';
+import CategoryGrid from '../components/CategoryGrid';
+import ProductGrid from '../components/ProductGrid';
 import Features from '../components/Features';
 import ParallaxBanner from '../components/ParallaxBanner';
 import Testimonials from '../components/Testimonials';
