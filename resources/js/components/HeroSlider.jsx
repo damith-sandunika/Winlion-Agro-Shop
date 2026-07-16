@@ -11,12 +11,12 @@ const SlideContent = ({ slide, isActive }) => {
             </div>
             
             {/* Title */}
-            <h2 className={`text-[26px] leading-[1.2] md:text-5xl lg:text-6xl font-medium tracking-tight mb-3 md:mb-5 text-[#1a3a14] whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} [text-shadow:_-1px_-1px_0_#fff,_1px_-1px_0_#fff,_-1px_1px_0_#fff,_1px_1px_0_#fff] md:[text-shadow:_none]`}>
+            <h2 className={`text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 md:mb-5 text-[#1b5e20] whitespace-pre-line transition-all duration-700 delay-200 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                 {slide.title}
             </h2>
 
             {/* Subtitle */}
-            <p className={`text-[12px] md:text-lg mb-6 md:mb-8 whitespace-pre-line font-medium leading-relaxed text-[#1a3a14] md:text-[#2c4c26] max-w-lg transition-all duration-700 delay-400 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} [text-shadow:_-1px_-1px_0_rgba(255,255,255,0.8),_1px_-1px_0_rgba(255,255,255,0.8),_-1px_1px_0_rgba(255,255,255,0.8),_1px_1px_0_rgba(255,255,255,0.8)] md:[text-shadow:_none]`}>
+            <p className={`text-sm md:text-lg mb-6 md:mb-8 whitespace-pre-line font-medium leading-relaxed text-gray-800 md:text-[#2c4c26] max-w-lg transition-all duration-700 delay-400 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                 {slide.subtitle}
             </p>
             
@@ -32,15 +32,15 @@ const SlideContent = ({ slide, isActive }) => {
 
             {/* Features */}
             {slide.featuresLayout === 'inline' && (
-                <div className={`flex flex-row flex-wrap gap-4 md:gap-6 mt-4 md:mt-12 transition-all duration-700 delay-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+                <div className={`flex flex-col md:flex-row flex-wrap gap-4 md:gap-6 mt-6 md:mt-12 transition-all duration-700 delay-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                     {slide.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-2 md:gap-3 bg-white/60 md:bg-transparent px-3 py-1.5 md:p-0 rounded-lg">
+                        <div key={idx} className="flex items-center gap-3">
                             <div className="text-[#1b5e20]">
-                                <feature.icon size={18} className="md:w-6 md:h-6" strokeWidth={1.5} />
+                                <feature.icon size={24} className="md:w-6 md:h-6" strokeWidth={1.5} />
                             </div>
                             <div>
-                                <h4 className="font-medium text-[11px] md:text-[13px] text-gray-900 leading-none">{feature.title}</h4>
-                                <p className="text-[10px] md:text-[11px] text-gray-600 font-normal mt-1">{feature.subtitle}</p>
+                                <h4 className="font-bold text-sm md:text-[13px] text-gray-900 leading-none">{feature.title}</h4>
+                                <p className="text-[13px] md:text-[11px] text-gray-600 font-medium mt-1">{feature.subtitle}</p>
                             </div>
                         </div>
                     ))}
@@ -127,14 +127,13 @@ const HeroSlider = () => {
                         {/* Background Image */}
                         <div className="absolute inset-0 z-0 flex justify-end">
                             <div className="w-full h-full relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/70 to-transparent z-10 hidden md:block w-3/4"></div>
-                                <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/50 to-white/10 z-10 md:hidden"></div>
-                                <img src={slide.image} alt="Slider Background" className="w-full h-full object-cover transform scale-105" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-10 w-4/5 md:w-3/4"></div>
+                                <img src={slide.image} alt="Slider Background" className="w-full h-full object-cover object-[75%_center] md:object-center transform scale-105" />
                             </div>
                         </div>
 
-                        <div className="absolute inset-0 z-10 flex items-center justify-center md:justify-start">
-                            <div className="container mx-auto px-0 md:px-12 lg:px-20 max-w-7xl w-full">
+                        <div className="absolute inset-0 z-10 flex items-center justify-start">
+                            <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl w-full pt-10 md:pt-0">
                                 <SlideContent slide={slide} isActive={currentSlide === index} />
                             </div>
                         </div>
@@ -142,17 +141,17 @@ const HeroSlider = () => {
                 ))}
             </div>
 
-            {/* Slider Controls (Hidden on Mobile) */}
+            {/* Slider Controls */}
             <button 
                 onClick={prevSlide}
-                className="hidden md:flex absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 bg-white/90 backdrop-blur-sm rounded-full items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-[0_8px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(21,128,61,0.2)] hover:-translate-x-1 transition-all z-30"
+                className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-8 h-8 md:w-14 md:h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-[0_4px_15px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(21,128,61,0.2)] hover:-translate-x-1 transition-all z-30"
             >
                 <ChevronLeft className="w-5 h-5 md:w-7 md:h-7" />
             </button>
             
             <button 
                 onClick={nextSlide}
-                className="hidden md:flex absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 bg-white/90 backdrop-blur-sm rounded-full items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-[0_8px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(21,128,61,0.2)] hover:translate-x-1 transition-all z-30"
+                className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-8 h-8 md:w-14 md:h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 hover:text-[#1b5e20] shadow-[0_4px_15px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(21,128,61,0.2)] hover:translate-x-1 transition-all z-30"
             >
                 <ChevronRight className="w-5 h-5 md:w-7 md:h-7" />
             </button>
