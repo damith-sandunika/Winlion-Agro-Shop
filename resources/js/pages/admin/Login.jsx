@@ -136,8 +136,8 @@ export default function AdminLogin() {
                 {/* Mobile Logo */}
                 <div className="md:hidden relative z-10 flex flex-col items-center mb-10 text-center">
                     <img src="/website logo.png" alt="Logo" className="w-24 h-24 rounded-2xl bg-white p-3 object-contain shadow-xl ring-4 ring-white mb-5" />
-                    <h2 className="text-2xl font-medium text-slate-800 tracking-tight leading-none">WinLion Agro</h2>
-                    <p className="text-[10px] font-medium text-brand-green uppercase tracking-[0.15em] mt-2">Admin Login</p>
+                    <h2 className="text-2xl font-medium text-slate-800 tracking-tight leading-tight">Win Lion Agro Product</h2>
+                    <p className="text-[12px] font-medium text-brand-green uppercase tracking-widest mt-2">Management System</p>
                 </div>
 
                 <div className="mx-auto w-full max-w-sm relative z-10">
