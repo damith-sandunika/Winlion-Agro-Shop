@@ -1,19 +1,69 @@
 import React from 'react';
 import { Search, ShoppingCart, Menu, ChevronDown, List, X, Phone, Mail } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { useCart } from '../context/CartContext';
 
 const Header = () => {
-    const { cartCount } = useCart();
+    const { cartCount, addToCart } = useCart();
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+    
+    // Live Search States
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [allProducts, setAllProducts] = React.useState([]);
+    const [searchResults, setSearchResults] = React.useState([]);
+    const [isSearchFocused, setIsSearchFocused] = React.useState(false);
+    const [selectedProduct, setSelectedProduct] = React.useState(null);
 
-    const handleSearch = (e) => {
+    // Fetch products for search
+    React.useEffect(() => {
+        axios.get('/api/public/products')
+            .then(res => {
+                const formatted = res.data.map(p => ({
+                    id: p.id,
+                    name: p.name,
+                    price: p.discount_price || p.selling_price,
+                    oldPrice: p.discount_price ? p.selling_price : null,
+                    unit: p.unit_type || 'kg',
+                    image: p.images && p.images.length > 0 ? `/storage/${p.images[0]}` : 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=300&q=80',
+                    description: p.description || 'Premium quality farm fresh product.'
+                }));
+                setAllProducts(formatted);
+            })
+            .catch(err => console.error("Error loading products for search:", err));
+    }, []);
+
+    const handleSearchChange = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+        
+        if (query.trim().length > 0) {
+            const results = allProducts.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+            setSearchResults(results.slice(0, 6)); // show top 6
+        } else {
+            setSearchResults([]);
+        }
+    };
+
+    const handleSearchSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const query = formData.get('q');
-        if (query) {
-            navigate(`/search?q=${encodeURIComponent(query)}`);
+        if (searchQuery.trim()) {
+            setIsSearchFocused(false);
+            navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+        }
+    };
+
+    const handleProductClick = (product) => {
+        setSelectedProduct(product);
+        setIsSearchFocused(false);
+        setSearchQuery('');
+    };
+
+    const handleAddToCart = () => {
+        if (selectedProduct) {
+            addToCart(selectedProduct, 1);
+            setSelectedProduct(null); // Close modal after adding
         }
     };
     return (
@@ -35,16 +85,68 @@ const Header = () => {
 
 
                 {/* Search Bar */}
-                <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-2xl mx-8 lg:mx-12 relative">
+                <form onSubmit={handleSearchSubmit} className="hidden md:flex flex-1 max-w-2xl mx-8 lg:mx-12 relative z-50">
                     <input
                         type="text"
                         name="q"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        onFocus={() => setIsSearchFocused(true)}
+                        onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
                         placeholder="Search fresh fruits, vegetables, seeds, fertilizers..."
-                        className="w-full pl-4 pr-12 py-2.5 bg-gray-100 border-none rounded-lg focus:ring-2 focus:ring-brand-green focus:bg-white transition-all outline-none"
+                        className="w-full pl-4 pr-12 py-2.5 bg-gray-100 border-none rounded-lg focus:ring-2 focus:ring-brand-green focus:bg-white transition-all outline-none relative z-20"
+                        autoComplete="off"
                     />
-                    <button type="submit" className="absolute right-0 top-0 h-full px-4 bg-brand-green text-white rounded-r-lg hover:bg-brand-dark transition-colors">
+                    <button type="submit" className="absolute right-0 top-0 h-full px-4 bg-brand-green text-white rounded-r-lg hover:bg-brand-dark transition-colors z-20">
                         <Search size={20} />
                     </button>
+                    
+                    {/* Live Search Dropdown */}
+                    {isSearchFocused && searchQuery.length > 0 && (
+                        <div className="absolute top-full left-0 w-full mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 py-2 z-30 max-h-[400px] overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200">
+                            {searchResults.length > 0 ? (
+                                <div className="flex flex-col">
+                                    <div className="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50/50">Products</div>
+                                    {searchResults.map(product => (
+                                        <div 
+                                            key={product.id} 
+                                            className="flex items-center gap-4 px-4 py-3 hover:bg-green-50 transition-colors border-b border-gray-50 last:border-0 group"
+                                        >
+                                            <div className="flex-1 flex items-center gap-4 cursor-pointer" onClick={() => handleProductClick(product)}>
+                                                <img src={product.image} alt={product.name} className="w-12 h-12 rounded-lg object-cover bg-gray-50" />
+                                                <div>
+                                                    <h4 className="text-sm font-medium text-gray-900">{product.name}</h4>
+                                                    <div className="flex items-center gap-2 mt-0.5">
+                                                        <span className="text-sm font-bold text-brand-green">Rs {Number(product.price).toFixed(2)}</span>
+                                                        {product.oldPrice && <span className="text-xs text-gray-400 line-through">Rs {Number(product.oldPrice).toFixed(2)}</span>}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button 
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    addToCart(product, 1);
+                                                    setIsSearchFocused(false);
+                                                    setSearchQuery('');
+                                                }}
+                                                className="p-2.5 bg-green-100 hover:bg-brand-green text-brand-green hover:text-white rounded-full transition-colors shrink-0 opacity-100 md:opacity-0 md:group-hover:opacity-100"
+                                                title="Add to Cart"
+                                            >
+                                                <ShoppingCart size={16} />
+                                            </button>
+                                        </div>
+                                    ))}
+                                    <div className="p-3 border-t border-gray-100 text-center">
+                                        <button onClick={handleSearchSubmit} className="text-sm text-brand-green font-medium hover:underline">View all results for "{searchQuery}"</button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="p-8 text-center text-gray-500 text-sm">
+                                    No products found matching "{searchQuery}"
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </form>
 
                 {/* Actions */}
@@ -101,6 +203,56 @@ const Header = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Product Quick View Modal */}
+            {selectedProduct && (
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4" onClick={() => setSelectedProduct(null)}>
+                    <div 
+                        className="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 fade-in duration-300"
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <div className="relative">
+                            <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-64 object-cover" />
+                            <button 
+                                onClick={() => setSelectedProduct(null)} 
+                                className="absolute top-4 right-4 p-2 bg-white/80 hover:bg-white text-gray-800 rounded-full shadow-sm transition-colors"
+                            >
+                                <X size={20} />
+                            </button>
+                            {selectedProduct.oldPrice && (
+                                <div className="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+                                    Sale
+                                </div>
+                            )}
+                        </div>
+                        
+                        <div className="p-6 md:p-8">
+                            <h2 className="text-2xl font-semibold text-gray-900 mb-2">{selectedProduct.name}</h2>
+                            <p className="text-gray-500 text-sm mb-6 leading-relaxed">
+                                {selectedProduct.description}
+                            </p>
+                            
+                            <div className="flex items-center justify-between mb-8 pb-6 border-b border-gray-100">
+                                <div>
+                                    <p className="text-sm text-gray-500 mb-1">Price per {selectedProduct.unit}</p>
+                                    <div className="flex items-end gap-3">
+                                        <span className="text-3xl font-bold text-brand-green">Rs {Number(selectedProduct.price).toFixed(2)}</span>
+                                        {selectedProduct.oldPrice && <span className="text-lg text-gray-400 line-through mb-1">Rs {Number(selectedProduct.oldPrice).toFixed(2)}</span>}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button 
+                                onClick={handleAddToCart}
+                                className="w-full bg-brand-green hover:bg-brand-dark text-white py-4 rounded-xl font-medium transition-all duration-300 shadow-[0_4px_15px_rgba(21,128,61,0.2)] hover:shadow-[0_8px_25px_rgba(21,128,61,0.3)] hover:-translate-y-1 flex items-center justify-center gap-2 group"
+                            >
+                                <ShoppingCart size={20} className="group-hover:-rotate-12 transition-transform" />
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </header>
     );
 };
