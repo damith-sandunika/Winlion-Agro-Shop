@@ -23,8 +23,11 @@ const Category = () => {
         // Mocking API call for now
         axios.get('/api/public/products')
             .then(res => {
+                // Filter by category_id
+                const categoryProducts = res.data.filter(p => p.category_id == id);
+                
                 // Formatting data exactly like Home.jsx
-                const formatted = res.data.map(p => ({
+                const formatted = categoryProducts.map(p => ({
                     id: p.id,
                     name: p.name,
                     price: p.discount_price || p.selling_price,
@@ -48,13 +51,12 @@ const Category = () => {
                 
                 setCategory({
                     id: id,
-                    name: titles[id] || 'Explore Category',
+                    name: res.data.find(p => p.category_id == id)?.category?.name || titles[id] || 'Explore Category',
                     description: 'Discover the freshest, handpicked items sourced directly from local organic farms.',
                     banner: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1600&q=80'
                 });
                 
-                // Just randomize products for demo
-                setProducts(formatted.sort(() => 0.5 - Math.random()).slice(0, 12));
+                setProducts(formatted);
                 setLoading(false);
             })
             .catch(err => {

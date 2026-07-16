@@ -196,6 +196,19 @@ const Header = () => {
                                                     <span className="text-sm font-bold text-brand-green">Rs {Number(product.price).toFixed(2)}</span>
                                                 </div>
                                             </div>
+                                            <button 
+                                                onMouseDown={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    addToCart(product, 1);
+                                                    setIsSearchFocused(false);
+                                                    setSearchQuery('');
+                                                }}
+                                                className="p-2 bg-green-100 hover:bg-brand-green text-brand-green hover:text-white rounded-full transition-colors shrink-0 shadow-sm"
+                                                title="Add to Cart"
+                                            >
+                                                <ShoppingCart size={14} />
+                                            </button>
                                         </div>
                                     ))}
                                 </div>

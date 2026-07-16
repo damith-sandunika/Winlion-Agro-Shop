@@ -31,8 +31,8 @@ const Home = () => {
                     reviewsCount: Math.floor(Math.random() * 100) + 10 // Mock reviews for now
                 }));
                 
-                // Just split the data for demonstration
-                setTodaysPicks(formatted.slice(0, 4));
+                // Send all for todays picks to allow show more
+                setTodaysPicks(formatted.slice(0, 16));
                 setFeaturedProducts(formatted.slice(4, 12));
             })
             .catch(err => console.error("Error loading products:", err));
@@ -57,6 +57,7 @@ const Home = () => {
                         title="Today's Fresh Picks" 
                         products={todaysPicks} 
                         icon={<Sprout className="text-brand-green w-6 h-6 animate-bounce" />}
+                        enableShowMore={true}
                     />
                 </ScrollReveal>
 
