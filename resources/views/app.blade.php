@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Win Lion Agro</title>
-        <link rel="icon" type="image/png" href="/website logo.png">
-        <link rel="apple-touch-icon" href="/app logo.png">
+        <link rel="icon" type="image/png" href="/website%20logo.png">
+        <link rel="apple-touch-icon" href="/app%20logo.png">
 
         <!-- PWA Meta Tags -->
         <link rel="manifest" href="/manifest.json">
