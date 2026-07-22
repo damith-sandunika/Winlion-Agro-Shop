@@ -20,6 +20,7 @@
         <!-- Vite Scripts -->
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
+        <meta name="google-site-verification" content="SGMhydo1mWAsqqgt675gg8Rh8SXeGA9qVS3coZhUnQU" />
     </head>
     <body class="antialiased">
         <div id="app"></div>
