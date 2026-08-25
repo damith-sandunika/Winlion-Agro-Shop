@@ -22,6 +22,7 @@ import AdminReports from './pages/admin/Reports';
 import ProtectedRoute from './components/ProtectedRoute';
 import { CartProvider } from './context/CartContext';
 import { QuickViewProvider } from './context/QuickViewContext';
+import { SettingsProvider } from './context/SettingsContext';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Category from './pages/Category';
@@ -31,6 +32,7 @@ if (container) {
     const root = createRoot(container);
     root.render(
         <React.StrictMode>
+            <SettingsProvider>
             <CartProvider>
                 <QuickViewProvider>
                     <BrowserRouter>
@@ -69,6 +71,7 @@ if (container) {
                     </BrowserRouter>
                 </QuickViewProvider>
             </CartProvider>
+            </SettingsProvider>
         </React.StrictMode>
     );
 }

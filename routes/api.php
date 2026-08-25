@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 // Public API Routes (for customer frontend)
+Route::get('/public/settings', [\App\Http\Controllers\Api\SettingController::class, 'publicIndex']);
 Route::post('/public/orders', [OrderController::class, 'store']);
 Route::get('/public/categories', [CategoryController::class, 'index']);
 Route::get('/public/products', [ProductController::class, 'index']);

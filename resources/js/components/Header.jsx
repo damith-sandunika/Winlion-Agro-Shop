@@ -4,10 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import { useQuickView } from '../context/QuickViewContext';
+import { useSettings } from '../context/SettingsContext';
 
 const Header = () => {
     const { cartCount, addToCart } = useCart();
     const { openQuickView } = useQuickView();
+    const { settings } = useSettings();
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
     
@@ -295,13 +297,13 @@ const Header = () => {
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col gap-4 px-2">
-                        <a href="tel:+94713599229" className="flex items-center gap-3 text-gray-600 hover:text-brand-green">
+                        <a href={`tel:${settings?.shop_phone?.replace(/[^+\d]/g, '')}`} className="flex items-center gap-3 text-gray-600 hover:text-brand-green">
                             <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-brand-green"><Phone size={16} /></div>
-                            <span className="font-medium">+94 71 359 9229</span>
+                            <span className="font-medium">{settings?.shop_phone}</span>
                         </a>
-                        <a href="mailto:Winlionagro@gmail.com" className="flex items-center gap-3 text-gray-600 hover:text-brand-green">
+                        <a href={`mailto:${settings?.shop_email}`} className="flex items-center gap-3 text-gray-600 hover:text-brand-green">
                             <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600"><Mail size={16} /></div>
-                            <span className="font-medium">Winlionagro@gmail.com</span>
+                            <span className="font-medium">{settings?.shop_email}</span>
                         </a>
                     </div>
                 </div>

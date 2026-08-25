@@ -20,6 +20,17 @@ class SettingController extends Controller
         return response()->json($result);
     }
 
+    public function publicIndex()
+    {
+        // For public, we return all settings for now since they are non-sensitive
+        $settings = Setting::all();
+        $result = [];
+        foreach ($settings as $item) {
+            $result[$item->key] = $item->value;
+        }
+        return response()->json($result);
+    }
+
     public function update(Request $request)
     {
         foreach ($request->all() as $key => $value) {

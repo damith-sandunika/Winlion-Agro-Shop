@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, Globe, MapPin } from 'lucide-react';
+import { useSettings } from '../context/SettingsContext';
 
 const Footer = () => {
+    const { settings } = useSettings();
     return (
         <footer className="bg-brand-dark text-white pt-10 pb-6 md:pt-16 md:pb-8">
             <div className="max-w-7xl mx-auto px-4 lg:px-6">
@@ -16,17 +18,17 @@ const Footer = () => {
                             We provide high quality agro products, fresh fruits, vegetables and more directly from farmers to your doorstep.
                         </p>
                         <div className="flex flex-col gap-3">
-                            <a href="tel:+94713599229" className="flex items-center gap-3 text-green-100/90 hover:text-white transition-colors">
+                            <a href={`tel:${settings?.shop_phone?.replace(/[^+\d]/g, '')}`} className="flex items-center gap-3 text-green-100/90 hover:text-white transition-colors">
                                 <Phone size={16} className="text-green-400" />
-                                <span className="text-[11px] md:text-sm">+94 71 359 9229</span>
+                                <span className="text-[11px] md:text-sm">{settings?.shop_phone}</span>
                             </a>
-                            <a href="mailto:Winlionagro@gmail.com" className="flex items-center gap-3 text-green-100/90 hover:text-white transition-colors">
+                            <a href={`mailto:${settings?.shop_email}`} className="flex items-center gap-3 text-green-100/90 hover:text-white transition-colors">
                                 <Mail size={16} className="text-green-400" />
-                                <span className="text-[11px] md:text-sm">Winlionagro@gmail.com</span>
+                                <span className="text-[11px] md:text-sm">{settings?.shop_email}</span>
                             </a>
                             <div className="flex items-start gap-3 text-green-100/90">
                                 <MapPin size={16} className="text-green-400 shrink-0 mt-0.5" />
-                                <span className="text-[11px] md:text-sm leading-relaxed max-w-[250px]">No 53/8, YSS Road, Thimbirigolla, Damana, Ampara.</span>
+                                <span className="text-[11px] md:text-sm leading-relaxed max-w-[250px] whitespace-pre-wrap">{settings?.shop_address}</span>
                             </div>
                         </div>
                     </div>

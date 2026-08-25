@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useCart } from '../context/CartContext';
+import { useSettings } from '../context/SettingsContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Checkout() {
     const { cartItems, cartTotal } = useCart();
+    const { settings } = useSettings();
     const navigate = useNavigate();
     const [form, setForm] = useState({ name: '', phone: '', address: '', city: '', payment_method: 'COD' });
     const [loading, setLoading] = useState(false);
@@ -20,7 +22,9 @@ export default function Checkout() {
     const [couponError, setCouponError] = useState('');
     const [appliedCoupon, setAppliedCoupon] = useState(null);
 
-    const delivery = cartTotal > 2000 ? 0 : 350;
+    const deliveryCharge = parseFloat(settings?.delivery_charge || 350);
+    const freeDeliveryAbove = parseFloat(settings?.free_delivery_above || 2000);
+    const delivery = cartTotal > freeDeliveryAbove ? 0 : deliveryCharge;
     const grandTotal = cartTotal + delivery - couponDiscount;
 
     const handleApplyCoupon = async () => {
@@ -170,7 +174,7 @@ export default function Checkout() {
                             {form.payment_method === 'Bank Transfer' && (
                                 <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 mt-4">
                                     <h4 className="font-normal text-blue-800 text-sm mb-2">Our Bank Details</h4>
-                                    <p className="text-sm text-blue-700 mb-4">Bank: Commercial Bank<br/>Branch: Colombo<br/>Acc Name: Win Lion Agro<br/>Acc No: 1234567890</p>
+                                    <p className="text-sm text-blue-700 mb-4 whitespace-pre-wrap">{settings?.bank_account_number || 'Bank: Commercial Bank\nBranch: Colombo\nAcc Name: Win Lion Agro\nAcc No: 1234567890'}</p>
                                     
                                     <label className="block text-sm font-medium text-blue-800 mb-2">Upload Payment Slip / Receipt *</label>
                                     <input 
