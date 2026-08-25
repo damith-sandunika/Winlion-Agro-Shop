@@ -100,8 +100,16 @@ class OrderController extends Controller
                 $this->sendWhatsAppMessage($order, 'wa_confirm_template');
             } elseif ($validated['delivery_status'] === 'Delivered') {
                 $this->sendWhatsAppMessage($order, 'wa_delivery_template');
+                if ($order->payment_slip) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($order->payment_slip);
+                    $order->update(['payment_slip' => null]);
+                }
             } elseif ($validated['delivery_status'] === 'Completed') {
                 $this->sendWhatsAppMessage($order, 'wa_completed_template');
+                if ($order->payment_slip) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($order->payment_slip);
+                    $order->update(['payment_slip' => null]);
+                }
             } elseif ($validated['delivery_status'] === 'Cancelled') {
                 $this->sendWhatsAppMessage($order, 'wa_cancelled_template');
             }
