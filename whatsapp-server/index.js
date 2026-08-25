@@ -114,7 +114,7 @@ app.post('/send', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3006;
 app.listen(PORT, () => {
     console.log(`WhatsApp Service running on port ${PORT}`);
 });
