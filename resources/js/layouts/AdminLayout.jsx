@@ -148,7 +148,7 @@ export default function AdminLayout({ children }) {
                         <div className="w-16 h-16 rounded-full border-4 border-white/30 translate-y-6"></div>
                     </div>
 
-                    <div className="flex items-center gap-3 z-10">
+                    <div className="flex items-center z-10">
                         <button
                             onClick={() => setSidebarOpen(!sidebarOpen)}
                             className="md:hidden p-2 -ml-1 rounded-xl text-blue-100 hover:bg-white/10 transition-colors"
@@ -157,9 +157,13 @@ export default function AdminLayout({ children }) {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </button>
-                        <div className="hidden md:block">
+                        <div className="hidden md:block ml-3">
                             <p className="text-[11px] font-normal text-white uppercase tracking-widest leading-none">WinLion Console</p>
                         </div>
+                    </div>
+
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:hidden z-10">
+                        <p className="text-[11px] font-normal text-white uppercase tracking-widest leading-none text-center">WinLion Console</p>
                     </div>
 
                     <div className="flex items-center gap-3 z-10">
