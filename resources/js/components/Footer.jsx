@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, Globe } from 'lucide-react';
+import { Phone, Mail, Globe, MapPin } from 'lucide-react';
 
 const Footer = () => {
     return (
@@ -15,16 +15,19 @@ const Footer = () => {
                         <p className="text-green-100/90 text-[11px] md:text-sm mb-6 max-w-sm leading-relaxed">
                             We provide high quality agro products, fresh fruits, vegetables and more directly from farmers to your doorstep.
                         </p>
-                        <div className="flex gap-4">
-                            <a href="#" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-green transition-colors">
-                                <Globe size={16} />
+                        <div className="flex flex-col gap-3">
+                            <a href="tel:+94713599229" className="flex items-center gap-3 text-green-100/90 hover:text-white transition-colors">
+                                <Phone size={16} className="text-green-400" />
+                                <span className="text-[11px] md:text-sm">+94 71 359 9229</span>
                             </a>
-                            <a href="#" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-green transition-colors">
-                                <Mail size={16} />
+                            <a href="mailto:Winlionagro@gmail.com" className="flex items-center gap-3 text-green-100/90 hover:text-white transition-colors">
+                                <Mail size={16} className="text-green-400" />
+                                <span className="text-[11px] md:text-sm">Winlionagro@gmail.com</span>
                             </a>
-                            <a href="#" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-green transition-colors">
-                                <Phone size={16} />
-                            </a>
+                            <div className="flex items-start gap-3 text-green-100/90">
+                                <MapPin size={16} className="text-green-400 shrink-0 mt-0.5" />
+                                <span className="text-[11px] md:text-sm leading-relaxed max-w-[250px]">No 53/8, YSS Road, Thimbirigolla, Damana, Ampara.</span>
+                            </div>
                         </div>
                     </div>
 

@@ -295,13 +295,13 @@ const Header = () => {
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col gap-4 px-2">
-                        <a href="tel:+94771234567" className="flex items-center gap-3 text-gray-600 hover:text-brand-green">
+                        <a href="tel:+94713599229" className="flex items-center gap-3 text-gray-600 hover:text-brand-green">
                             <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-brand-green"><Phone size={16} /></div>
-                            <span className="font-medium">+94 77 123 4567</span>
+                            <span className="font-medium">+94 71 359 9229</span>
                         </a>
-                        <a href="mailto:info@winlion.com" className="flex items-center gap-3 text-gray-600 hover:text-brand-green">
+                        <a href="mailto:Winlionagro@gmail.com" className="flex items-center gap-3 text-gray-600 hover:text-brand-green">
                             <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600"><Mail size={16} /></div>
-                            <span className="font-medium">info@winlion.com</span>
+                            <span className="font-medium">Winlionagro@gmail.com</span>
                         </a>
                     </div>
                 </div>
