@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // WhatsApp Proxy Routes
     Route::get('/whatsapp/status', function () {
         try {
-            return \Illuminate\Support\Facades\Http::get('http://127.0.0.1:3005/status')->json();
+            return \Illuminate\Support\Facades\Http::get('http://127.0.0.1:3006/status')->json();
         } catch (\Exception $e) {
             return response()->json(['status' => 'DISCONNECTED'], 500);
         }
@@ -41,7 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/whatsapp/logout', function () {
         try {
-            return \Illuminate\Support\Facades\Http::post('http://127.0.0.1:3005/logout')->json();
+            return \Illuminate\Support\Facades\Http::post('http://127.0.0.1:3006/logout')->json();
         } catch (\Exception $e) {
             return response()->json(['status' => 'ERROR'], 500);
         }
